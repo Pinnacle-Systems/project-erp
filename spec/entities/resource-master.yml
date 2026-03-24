@@ -1,0 +1,112 @@
+entity: Resource_Master
+description: "The authoritative DNA for physical and logical identity"
+
+components:
+
+  - name: Resource_Definition
+    description: "Standard, Identity, and Target Specifications"
+    fields:
+      id: uuid
+      tenant_id: uuid
+      sku: string
+      name: string
+      base_uom: string # Canonical unit for all math
+      resource_type: enum # [MATERIAL, TOOL, MACHINE, SERVICE]
+      attributes: jsonb # TARGET Specs (Schema: Definition_Attribute_Family)
+      created_at: datetime
+      updated_at: datetime
+
+    invariants:
+      - must_have_tenant_id
+      - unique_sku_per_tenant
+      - must_define_base_uom
+      - attributes_represent_standard_or_target_characteristics
+      - attributes_must_be_schema_valid # Per Prism Definition Schema
+
+  - name: Resource_Instance
+    description: "Operational State for trackable physical/logical resources"
+
+    scope:
+      applies_to_definition_types: [MATERIAL, TOOL, MACHINE]
+      note: "SERVICE definitions do not produce Resource_Instance records"
+
+    fields:
+      id: uuid
+      tenant_id: uuid
+      definition_id: uuid
+      location_id: uuid
+
+      tracking_mode: enum # [NONE, BATCH, SERIAL]
+
+      quantity_base: decimal # Always stored in Definition.base_uom
+      state: enum # [AVAILABLE, RESERVED, QUARANTINED, CONSUMED]
+
+      # Identity Identifiers
+      batch_id: string # Lot / Dye Lot / Heat Number
+      serial_id: string # Unique Unit Identifier
+
+      # Metadata, Safety & Aging
+      attributes: jsonb # ACTUAL Measured Specs (Schema: Instance_Attribute_Family)
+      version: integer # Optimistic Locking
+      last_trace_id: uuid # Denormalized pointer (non-authoritative)
+      created_at: datetime # Required for FIFO / Aging
+      updated_at: datetime
+
+    invariants:
+
+      # Multi-Tenant & Referential Integrity
+      - must_have_tenant_id
+      - must_reference_definition_id
+      - must_have_location_id
+      - instance_tenant_id_must_match_definition_tenant_id
+
+      # Resource Type Compatibility (Service Filter)
+      - referenced_definition_resource_type_must_be_in [MATERIAL, TOOL, MACHINE]
+
+      # Quantity & UOM Integrity
+      - quantity_base_always_in_definition_base_uom
+      - quantity_base_must_be_non_negative
+
+      # Concurrency & Safety
+      - requires_optimistic_locking_version
+      - attributes_must_be_schema_valid # Per Prism Instance Schema
+
+      # Tracking Mode Exclusivity
+      - if_tracking_mode_is_NONE_then_batch_id_and_serial_id_must_be_null
+
+      - if_tracking_mode_is_BATCH_then_batch_id_must_not_be_null
+      - if_tracking_mode_is_BATCH_then_serial_id_must_be_null
+
+      - if_tracking_mode_is_SERIAL_then_serial_id_must_not_be_null
+      - if_tracking_mode_is_SERIAL_then_batch_id_must_be_null
+      - if_tracking_mode_is_SERIAL_then_quantity_base_must_equal_1
+
+      # Serial Identity Law (Business Rule)
+      - if_serial_id_is_not_null_then_must_be_unique_per_tenant
+
+    indexing:
+
+      # Core Access Patterns
+      - tenant_id + definition_id
+      - tenant_id + location_id
+      - tenant_id + state
+
+      # Batch/Lot Lookup (SKU-aware)
+      - tenant_id + definition_id + batch_id
+
+      # Serial Lookup (Partial Unique)
+      - tenant_id + serial_id # UNIQUE WHERE serial_id IS NOT NULL
+
+      # Operational Queries
+      - tenant_id + created_at # FIFO / Aging
+      - tenant_id + last_trace_id # Fast trace lookup
+
+governance_and_audit:
+
+  - last_trace_id_is_denormalized_convenience_only
+  - audit_truth_resides_exclusively_in_ledger_and_event_history
+
+  - inventory_movement_must_trigger_synchronous_ledger_entry
+  - no_inventory_state_change_without_financial_impact
+
+  - state_transitions_must_be_validated_by_external_workflow_engine
