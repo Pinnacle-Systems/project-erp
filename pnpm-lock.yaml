@@ -54,7 +54,11 @@ importers:
 
   packages/layout-shells: {}
 
-  packages/lookup: {}
+  packages/lookup:
+    dependencies:
+      '@erp-ui-platform/validation-ui':
+        specifier: workspace:*
+        version: link:../validation-ui
 
   packages/mobile-patterns: {}
 
