@@ -62,7 +62,9 @@ client-b-app/
     feature-flags/
 ```
 
-The shared platform is consumed as versioned packages. Client apps pin versions and upgrade intentionally.
+The shared platform is consumed from a separate Git repository. Initially, client apps should vendor the shared platform with Git subtree under `packages/erp-ui-platform` and import it through local path aliases.
+
+Git submodules may be used as an alternative where a team has strong submodule discipline, but Git subtree is the preferred initial model because it keeps client repositories self-contained after checkout.
 
 ## 4. Shared Platform Responsibilities
 
@@ -169,17 +171,30 @@ The platform owns layout and behavior. The consuming module owns fields, rules, 
 
 ## 7. Dependency and Versioning Strategy
 
-Shared platform packages should be published as private packages and consumed by client apps using pinned versions.
+We will not require private npm package publishing initially.
 
-Example:
+Preferred initial strategy:
 
-```json
-{
-  "@your-org/tokens": "1.2.0",
-  "@your-org/ui-primitives": "1.5.1",
-  "@your-org/transaction-shell": "1.4.2",
-  "@your-org/editable-grid": "2.1.0"
-}
+- The shared UI/UX platform lives in a separate Git repository.
+- Each client app consumes it using Git subtree under `packages/erp-ui-platform`.
+- Client apps import shared platform code through local TypeScript path aliases.
+- Shared platform versions are tracked using Git tags.
+- Each client repo records the consumed platform version in `docs/platform-version.md`.
+- No npm publishing is required initially.
+
+Example client app layout:
+
+```txt
+client-a-app/
+  packages/
+    erp-ui-platform/
+      packages/
+        tokens/
+        transaction-shell/
+        editable-grid/
+        approval-ui/
+  docs/
+    platform-version.md
 ```
 
 Use semantic versioning:
@@ -190,13 +205,16 @@ Use semantic versioning:
 
 UI behavior changes must be treated carefully. A change to editable-grid keyboard navigation, validation placement, approval confirmation behavior, or shell boundary rules may require a major version even when the code still compiles.
 
-Client apps should upgrade platform packages intentionally, test affected workflows, and avoid unpinned dependency ranges for shared platform packages.
+Client apps should upgrade the subtree intentionally, test affected workflows, and update `docs/platform-version.md` with the Git tag or commit consumed.
+
+Private npm packages may be introduced later when the team can afford and operate a package registry. They are a future option, not the initial dependency strategy.
 
 ## 8. Non-Goals
 
 This ADR does not decide:
 
 - The final package manager or monorepo tooling.
+- The final package registry strategy.
 - The complete package list.
 - The final component API.
 - The final module manifest format.

@@ -2,11 +2,11 @@
 
 ## Purpose
 
-This document defines how shared ERP UI/UX platform packages should be versioned, published, and upgraded across multiple consuming client apps.
+This document defines how the shared ERP UI/UX platform should be versioned and upgraded across multiple consuming client apps.
 
 Client apps must be able to adopt platform improvements without being forced into unexpected behavior changes.
 
-Shared platform packages should be published as private npm packages and consumed by client apps through explicit pinned versions.
+The initial consumption model is Git-based, not registry-based. Client apps consume the shared platform repository with Git subtree under `packages/erp-ui-platform`, import through local path aliases, and track the platform version with Git tags plus `docs/platform-version.md`.
 
 ## Versioning Standard
 
@@ -93,35 +93,60 @@ Examples:
 
 Treat interaction behavior, keyboard flow, focus behavior, validation placement, shell layout, and accessibility behavior as part of the public contract.
 
-## Private Package Publishing
+## Git-Based Consumption
 
-Shared UI/UX platform packages should be published as private npm packages.
+Shared UI/UX platform code is consumed from Git initially.
 
-Examples:
+Client app example:
 
-```json
-{
-  "@your-org/tokens": "1.2.0",
-  "@your-org/primitives": "1.5.1",
-  "@your-org/transaction-shell": "1.4.2",
-  "@your-org/editable-grid": "2.1.0"
-}
+```txt
+client-app/
+  packages/
+    erp-ui-platform/
+  docs/
+    platform-version.md
 ```
+
+`docs/platform-version.md` should record:
+
+- Shared platform Git remote.
+- Git tag or commit consumed.
+- Date pulled.
+- Person/team responsible.
+- Client-side migration notes.
 
 ## Client App Consumption
 
-Client apps must pin shared platform package versions and upgrade intentionally.
+Client apps must track shared platform versions and upgrade intentionally.
 
-Avoid broad dependency ranges for platform packages in client apps.
+Use TypeScript path aliases to import from the subtree.
 
 ```json
 {
-  "@your-org/tokens": "1.2.0",
-  "@your-org/primitives": "1.5.1",
-  "@your-org/transaction-shell": "1.4.2",
-  "@your-org/editable-grid": "2.1.0"
+  "compilerOptions": {
+    "paths": {
+      "@erp-ui-platform/*": [
+        "packages/erp-ui-platform/packages/*/src"
+      ]
+    }
+  }
 }
 ```
+
+Avoid ad hoc imports into internal files that bypass package entrypoints.
+
+## Future Package Registry Option
+
+Private npm packages may be introduced later when the team can afford and operate a private package registry.
+
+Moving to a registry may be appropriate when:
+
+- Many client apps consume the platform.
+- Release automation is mature.
+- Package-level versioning is needed.
+- Registry cost and access management are acceptable.
+
+Until then, Git subtree is the preferred strategy.
 
 ## Release Notes Requirement
 

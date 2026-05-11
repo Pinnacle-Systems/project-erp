@@ -152,16 +152,25 @@ Tablet starts from mobile grammar and selectively borrows desktop density only w
 
 ## Client App Consumption
 
-Client apps consume platform packages as private npm packages with pinned versions.
+Client apps initially consume this platform from a separate Git repository using Git subtree.
 
 Example:
 
+```sh
+git subtree add --prefix packages/erp-ui-platform <platform-git-url> main --squash
+```
+
+Client apps then import platform code through local path aliases, for example:
+
 ```json
 {
-  "@erp-ui-platform/tokens": "0.1.0",
-  "@erp-ui-platform/transaction-shell": "0.1.0",
-  "@erp-ui-platform/editable-grid": "0.1.0",
-  "@erp-ui-platform/approval-ui": "0.1.0"
+  "compilerOptions": {
+    "paths": {
+      "@erp-ui-platform/*": [
+        "packages/erp-ui-platform/packages/*/src"
+      ]
+    }
+  }
 }
 ```
 
@@ -176,7 +185,11 @@ Client apps provide:
 - Feature flags.
 - Deployment.
 
-See [Client Integration Guide](./docs/design-system/client-integration-guide.md).
+Each client repo should track the consumed platform Git tag or commit in `docs/platform-version.md`.
+
+Git submodule may be used as an alternative, but Git subtree is preferred initially because client repos remain self-contained after checkout. Private npm packages may be introduced later as a future option when a private registry is affordable and operationally useful.
+
+See [Git-Based Consumption](./docs/design-system/git-based-consumption.md) and [Client Integration Guide](./docs/design-system/client-integration-guide.md).
 
 ## Running Locally
 
@@ -260,4 +273,3 @@ See [Package Boundary Enforcement](./docs/design-system/package-boundary-enforce
 - [BFF and API Boundary Rules](./docs/ui-governance/bff-and-api-boundary-rules.md)
 - [Shared UI Platform Roadmap](./docs/implementation-plans/shared-ui-platform-roadmap.md)
 - [Sales Invoice Approval Vertical Slice](./docs/implementation-plans/sales-invoice-approval-vertical-slice.md)
-
