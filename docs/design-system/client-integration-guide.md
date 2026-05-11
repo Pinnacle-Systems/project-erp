@@ -6,29 +6,45 @@ This guide explains how a consuming client app uses the shared ERP UI/UX platfor
 
 The shared platform owns UI behavior and contracts. The client app owns business meaning, rules, integrations, branding, deployment, and client-specific workflow configuration.
 
-## 1. Installing Private Packages
+## 1. Adding the Shared Platform with Git Subtree
 
-Client apps should consume private platform packages with pinned versions.
+Client apps should initially consume the shared platform from its separate Git repository using Git subtree.
+
+Example:
+
+```sh
+git subtree add --prefix packages/erp-ui-platform <platform-git-url> main --squash
+```
+
+Then record the consumed platform version:
+
+```txt
+docs/platform-version.md
+```
+
+That file should include the platform Git remote, tag or commit, pull date, and migration notes.
+
+Private npm packages are not required initially. They may be introduced later as a future option.
+
+## 2. Configuring Local Path Aliases
+
+Client apps import platform code through local path aliases.
 
 ```json
 {
-  "dependencies": {
-    "@erp-ui-platform/tokens": "0.1.0",
-    "@erp-ui-platform/primitives": "0.1.0",
-    "@erp-ui-platform/transaction-shell": "0.1.0",
-    "@erp-ui-platform/editable-grid": "0.1.0",
-    "@erp-ui-platform/lookup": "0.1.0",
-    "@erp-ui-platform/validation-ui": "0.1.0",
-    "@erp-ui-platform/workflow-actions": "0.1.0",
-    "@erp-ui-platform/approval-ui": "0.1.0",
-    "@erp-ui-platform/capability-contracts": "0.1.0"
+  "compilerOptions": {
+    "paths": {
+      "@erp-ui-platform/*": [
+        "packages/erp-ui-platform/packages/*/src"
+      ]
+    }
   }
 }
 ```
 
-Avoid broad dependency ranges for platform packages. Upgrade intentionally.
+Keep imports pointed at package entrypoints where possible.
 
-## 2. Setting Up Theme Provider
+## 3. Setting Up Theme Provider
 
 The platform should expose a theme provider through primitives or a future theme package. Client apps pass approved brand values into that provider.
 
@@ -46,7 +62,7 @@ export function AppProviders({ children }) {
 }
 ```
 
-## 3. Applying Client Branding
+## 4. Applying Client Branding
 
 Client branding belongs in the client app.
 
@@ -67,7 +83,7 @@ export const clientTheme = {
 
 Do not fork platform components to apply branding. Use theme mapping.
 
-## 4. Creating Capability Adapter
+## 5. Creating Capability Adapter
 
 Client apps map user roles, permissions, shell, workflow state, document status, risk, and feature flags into platform capability contracts.
 
@@ -112,7 +128,7 @@ export function resolveClientCapabilities(
 
 The backend or BFF must still enforce permissions and workflow transitions.
 
-## 5. Creating Lookup Providers
+## 6. Creating Lookup Providers
 
 The platform owns lookup contracts. The client app owns concrete providers and API integration.
 
@@ -135,7 +151,7 @@ export const customerLookupProvider: LookupProvider = {
 };
 ```
 
-## 6. Injecting Business Rule Adapters
+## 7. Injecting Business Rule Adapters
 
 Business rules belong in the client app or backend. The platform receives validation messages, totals, capability results, and rendered slots.
 
@@ -153,7 +169,7 @@ export const salesInvoiceRuleAdapter = {
 };
 ```
 
-## 7. Assembling a Transaction Screen
+## 8. Assembling a Transaction Screen
 
 The platform owns transaction layout. The client module owns invoice meaning.
 
@@ -203,7 +219,7 @@ export function SalesInvoiceScreen({ invoice, user, shell }) {
 }
 ```
 
-## 8. Assembling a Mobile Approval Screen
+## 9. Assembling a Mobile Approval Screen
 
 Mobile approval should be task-focused and capability-driven.
 
@@ -233,7 +249,7 @@ export function MobileInvoiceApproval({ approvalTask }) {
 
 Mobile approval must not create separate approval semantics. It should use the same workflow, permission, validation, and capability contracts as desktop.
 
-## 9. Handling BFF/Read-Model Endpoints
+## 10. Handling BFF/Read-Model Endpoints
 
 Shell-specific BFF/read-model endpoints are allowed for payload shaping and performance.
 
@@ -257,11 +273,12 @@ export async function loadMobileApprovalQueue(userId: string) {
 }
 ```
 
-## 10. Upgrade and Versioning Process
+## 11. Upgrade and Versioning Process
 
 Client apps should:
 
-- Pin platform package versions.
+- Pull platform updates intentionally with Git subtree.
+- Update `docs/platform-version.md`.
 - Read release notes before upgrading.
 - Review changelogs for behavior changes.
 - Run platform and client tests.
@@ -270,6 +287,12 @@ Client apps should:
 - Follow migration guides for major versions.
 
 Behavior changes can be breaking even when TypeScript APIs still compile.
+
+Example update:
+
+```sh
+git subtree pull --prefix packages/erp-ui-platform <platform-git-url> v0.2.0 --squash
+```
 
 ## Validation Message Generation
 
@@ -298,4 +321,3 @@ export function validateSalesInvoice(invoice): ValidationMessage[] {
 ## Integration Rule
 
 Use platform packages for consistent UI behavior and contracts. Keep business meaning and integrations in the client app.
-

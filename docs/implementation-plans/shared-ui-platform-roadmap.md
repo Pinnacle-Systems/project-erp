@@ -208,7 +208,7 @@ Support stable adoption of platform packages by multiple client application repo
 
 ### Deliverables
 
-- Private npm publishing.
+- Git subtree consumption guide.
 - Client integration guide.
 - Reference client app.
 - Upgrade policy.
@@ -216,8 +216,10 @@ Support stable adoption of platform packages by multiple client application repo
 
 ### Done Criteria
 
-- Packages are published privately with semantic versions.
-- Client apps pin platform package versions.
+- Shared platform is consumable from a separate Git repository.
+- Client apps can add the platform under `packages/erp-ui-platform` with Git subtree.
+- Client apps import platform code through local path aliases.
+- Client apps track the consumed platform tag or commit in `docs/platform-version.md`.
 - Integration guide explains setup, theming, capabilities, adapters, and shell usage.
 - Reference client app demonstrates realistic but fake modules.
 - Major-version migration process is documented.
@@ -226,9 +228,10 @@ Support stable adoption of platform packages by multiple client application repo
 ### Risks
 
 - Clients may upgrade without testing workflow behavior.
-- Package versions may drift across clients without visibility.
+- Platform tags or subtree commits may drift across clients without visibility.
 - Reference app may accidentally become client-specific.
 - Migration guides may lag behind breaking behavior changes.
+- Subtree updates may be unfamiliar to some teams.
 
 ## Extraction Rule
 
