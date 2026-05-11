@@ -1,5 +1,25 @@
-export const packageName = "@erp-ui-platform/app-components";
+export { PageHeader } from "./components/page-header";
+export type {
+  PageHeaderProps,
+  PageHeaderDensity,
+  BreadcrumbItem,
+  MetaItem,
+} from "./components/page-header";
 
-export type AppComponentsPackageMarker = {
-  packageName: typeof packageName;
-};
+export { StatusBadge } from "./components/status-badge";
+export type { StatusBadgeProps, StatusBadgeTone } from "./components/status-badge";
+
+export { FilterBar } from "./components/filter-bar";
+export type { FilterBarProps, FilterOption } from "./components/filter-bar";
+
+export { EmptyState } from "./components/empty-state";
+export type { EmptyStateProps } from "./components/empty-state";
+
+export { ErrorState } from "./components/error-state";
+export type { ErrorStateProps } from "./components/error-state";
+
+export { LoadingState } from "./components/loading-state";
+export type { LoadingStateProps, LoadingVariant } from "./components/loading-state";
+
+export { ConfirmDialog } from "./components/confirm-dialog";
+export type { ConfirmDialogProps } from "./components/confirm-dialog";

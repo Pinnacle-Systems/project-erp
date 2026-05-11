@@ -5,5 +5,17 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@erp-ui-platform/app-components": "workspace:*",
+    "@erp-ui-platform/primitives": "workspace:*",
+    "@erp-ui-platform/approval-ui": "workspace:*",
+    "@erp-ui-platform/capability-contracts": "workspace:*",
+    "@erp-ui-platform/editable-grid": "workspace:*",
+    "@erp-ui-platform/lookup": "workspace:*",
+    "@erp-ui-platform/tokens": "workspace:*",
+    "@erp-ui-platform/transaction-shell": "workspace:*",
+    "@erp-ui-platform/validation-ui": "workspace:*",
+    "@erp-ui-platform/workflow-actions": "workspace:*"
   }
 }

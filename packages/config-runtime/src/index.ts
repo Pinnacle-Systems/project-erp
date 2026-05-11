@@ -274,11 +274,10 @@ export const mergeConfig = <TConfig extends ConfigObject>(
 export const collectConfigWarnings = (
   resultOrIssues: ConfigMergeResult | readonly ConfigValidationIssue[],
 ): readonly ConfigValidationIssue[] => {
-  const issues = Array.isArray(resultOrIssues)
-    ? resultOrIssues
-    : resultOrIssues.issues;
+  const issues: readonly ConfigValidationIssue[] =
+    "config" in resultOrIssues ? resultOrIssues.issues : resultOrIssues;
 
-  return issues.filter((entry) => entry.severity === "warning");
+  return issues.filter((entry: ConfigValidationIssue) => entry.severity === "warning");
 };
 
 export const applySafeDefaults = <TConfig extends ConfigObject>(
