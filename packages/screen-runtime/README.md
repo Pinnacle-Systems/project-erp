@@ -2,11 +2,15 @@
 
 ## Purpose
 
-Provides business-neutral runtime behavior for rendering resolved screen definitions.
+Provides contract-driven screen definition types used by consuming apps to assemble screens consistently.
 
 ## What Belongs Here
 
 - Resolved screen rendering contracts, slot orchestration, business-neutral composition helpers, runtime validation, and extension point wiring.
+- Base screen definition contracts.
+- Client config merge helpers.
+- Shell and mode filtering helpers.
+- Validation for screen definition structure.
 
 ## What Does Not Belong Here
 
@@ -14,20 +18,46 @@ Provides business-neutral runtime behavior for rendering resolved screen definit
 - Client workflow rules.
 - Client API calls.
 - Business calculations.
+- Client-specific business invariants.
 
 ## Allowed Dependencies
 
-- `@erp-ui-platform/app-components`
-- `@erp-ui-platform/primitives`
-- `@erp-ui-platform/tokens`
-- `@erp-ui-platform/capability-contracts`
-- `@erp-ui-platform/validation-ui`
-- `@erp-ui-platform/workflow-actions`
-- Approved pattern packages.
+- None currently.
 
-## Examples of Future Exports
+## Current Exports
 
+- `ScreenDefinition`
+- `ScreenType`
+- `ScreenShell`
+- `ScreenFieldDefinition`
+- `ScreenSectionDefinition`
+- `ScreenActionDefinition`
+- `ScreenCapabilityBinding`
+- `ScreenValidationBinding`
+- `ScreenSlotDefinition`
 - `ResolvedScreenDefinition`
-- `ScreenRuntime`
-- `ScreenSlotRegistry`
-- `ScreenRuntimeAdapter`
+- `resolveScreenDefinition`
+- `validateScreenDefinition`
+- `getActionsForShell`
+- `getFieldsForMode`
+
+## Example
+
+```ts
+import { resolveScreenDefinition } from "@erp-ui-platform/screen-runtime";
+
+const resolved = resolveScreenDefinition(baseSalesInvoiceDefinition, {
+  title: "Client Invoice",
+  sections: {
+    header: {
+      fields: {
+        customer: {
+          label: "Bill To",
+        },
+      },
+    },
+  },
+});
+```
+
+Base definitions describe structure. Client configs may customize allowed aspects. Client configs must not override forbidden business invariants unless the base definition explicitly allows that override.
