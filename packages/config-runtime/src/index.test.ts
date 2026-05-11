@@ -127,7 +127,7 @@ describe("@erp-ui-platform/config-runtime", () => {
     ]);
 
     expect(result.config).not.toBe(baseConfig);
-    expect(result.config.pageSize).toBe(25);
+    expect((result.config as Record<string, unknown>).pageSize).toBe(25);
     expect(baseConfig).not.toHaveProperty("pageSize");
   });
 });

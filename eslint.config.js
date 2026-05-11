@@ -49,6 +49,7 @@ export default [
       "coverage/**",
       ".turbo/**",
       ".vite/**",
+      "storybook-static/**",
     ],
   },
   {

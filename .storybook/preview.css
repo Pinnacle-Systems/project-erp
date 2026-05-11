@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import "../apps/storybook/styles/erp-demo.css";
+
+@theme {
+  --font-family-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* ERP token radius scale */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  /* ERP token shadows */
+  --shadow-xs: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(15 23 42 / 0.12), 0 1px 2px rgb(15 23 42 / 0.08);
+  --shadow-focus: 0 0 0 3px rgb(37 99 235 / 0.28);
+  --shadow-focus-error: 0 0 0 3px rgb(185 28 28 / 0.20);
+}
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+.erp-storybook-shell {
+  min-height: 100vh;
+  background: var(--erp-bg, #f8fafc);
+  color: var(--erp-fg, #0f172a);
+  padding: var(--erp-page-padding, 24px);
+}
+
+.erp-storybook-shell[data-density="compact"] {
+  --erp-page-padding: 16px;
+  --erp-control-height: 32px;
+  --erp-gap: 8px;
+}
+
+.erp-storybook-shell[data-density="comfortable"] {
+  --erp-page-padding: 24px;
+  --erp-control-height: 36px;
+  --erp-gap: 12px;
+}
+
+.erp-storybook-shell[data-density="touch"] {
+  --erp-page-padding: 20px;
+  --erp-control-height: 44px;
+  --erp-gap: 16px;
+}
+
+.erp-storybook-shell[data-client-theme="clientA"] {
+  --erp-accent: #1455d9;
+  --erp-bg: #f7f9ff;
+}
+
+.erp-storybook-shell[data-client-theme="clientB"] {
+  --erp-accent: #0f766e;
+  --erp-bg: #f6fbf9;
+}
+
+.erp-demo-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 0.08);
+}
+
+.erp-demo-stack {
+  display: grid;
+  gap: var(--erp-gap, 12px);
+}
+
+.erp-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--erp-gap, 12px);
+  align-items: center;
+}
+
+.erp-demo-button {
+  min-height: var(--erp-control-height, 36px);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 12px;
+  background: #ffffff;
+  color: #0f172a;
+  font: inherit;
+}
+
+.erp-demo-button[data-variant="primary"] {
+  border-color: var(--erp-accent, #2563eb);
+  background: var(--erp-accent, #2563eb);
+  color: #ffffff;
+}
+
+.erp-demo-button[data-variant="danger"] {
+  border-color: #dc2626;
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.erp-demo-button:disabled,
+.erp-demo-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.erp-demo-input {
+  min-height: var(--erp-control-height, 36px);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 10px;
+  font: inherit;
+}
+
+.erp-demo-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.erp-demo-table th,
+.erp-demo-table td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.erp-demo-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+}

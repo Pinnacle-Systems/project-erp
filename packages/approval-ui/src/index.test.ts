@@ -44,10 +44,11 @@ describe("@erp-ui-platform/approval-ui", () => {
   it("renders a basic approval panel element with shell and status metadata", () => {
     const element = ApprovalPanel(baseProps);
 
+    const props = element.props as Record<string, unknown>;
     expect(element.type).toBe("section");
-    expect(element.props["data-component"]).toBe("ApprovalPanel");
-    expect(element.props["data-status"]).toBe("pending");
-    expect(element.props["data-shell"]).toBe("mobile");
+    expect(props["data-component"]).toBe("ApprovalPanel");
+    expect(props["data-status"]).toBe("pending");
+    expect(props["data-shell"]).toBe("mobile");
   });
 
   it("omits action rendering in readonly mode", () => {
@@ -56,7 +57,7 @@ describe("@erp-ui-platform/approval-ui", () => {
       readonly: true,
     });
 
-    expect(element.props["data-readonly"]).toBe("true");
+    expect((element.props as Record<string, unknown>)["data-readonly"]).toBe("true");
   });
 
   it("supports injected action rendering", () => {

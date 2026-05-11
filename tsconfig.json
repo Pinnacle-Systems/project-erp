@@ -3,10 +3,24 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "@erp-ui-platform/*": ["packages/*/src"]
+    }
   },
-  "include": ["packages/**/*.ts", "apps/**/*.ts", "tools/**/*.ts", "vitest.config.ts"]
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "apps/**/*.ts",
+    "apps/**/*.tsx",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "tools/**/*.ts",
+    "vitest.config.ts"
+  ]
 }

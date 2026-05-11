@@ -15,10 +15,11 @@ describe("@erp-ui-platform/transaction-shell", () => {
   it("renders a neutral transaction shell element with metadata", () => {
     const element = TransactionShell(baseProps);
 
+    const props = element.props as Record<string, unknown>;
     expect(element.type).toBe("section");
-    expect(element.props["data-component"]).toBe("TransactionShell");
-    expect(element.props["data-status"]).toBe("draft");
-    expect(element.props["data-mode"]).toBe("edit");
+    expect(props["data-component"]).toBe("TransactionShell");
+    expect(props["data-status"]).toBe("draft");
+    expect(props["data-mode"]).toBe("edit");
   });
 
   it("supports validation messages without client-specific rules", () => {
@@ -34,7 +35,7 @@ describe("@erp-ui-platform/transaction-shell", () => {
       ],
     });
 
-    expect(element.props.children).toBeDefined();
+    expect((element.props as Record<string, unknown>).children).toBeDefined();
   });
 
   it("supports workflow action arrays and action handlers", () => {
