@@ -9,14 +9,17 @@
     "apps/*"
   ],
   "scripts": {
-    "check": "pnpm test",
+    "check": "pnpm lint && pnpm test",
+    "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "eslint": "^10.3.0",
     "typescript": "^5.7.0",
+    "typescript-eslint": "^8.59.2",
     "vitest": "^2.1.0"
   },
   "dependencies": {

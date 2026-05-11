@@ -8,5 +8,5 @@
     "skipLibCheck": true,
     "types": ["vitest/globals"]
   },
-  "include": ["packages/**/*.ts", "apps/**/*.ts", "vitest.config.ts"]
+  "include": ["packages/**/*.ts", "apps/**/*.ts", "tools/**/*.ts", "vitest.config.ts"]
 }
