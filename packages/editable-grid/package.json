@@ -5,5 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@erp-ui-platform/validation-ui": "workspace:*"
   }
 }
