@@ -36,7 +36,11 @@ importers:
 
   packages/app-components: {}
 
-  packages/approval-ui: {}
+  packages/approval-ui:
+    dependencies:
+      react:
+        specifier: '>=18'
+        version: 19.2.6
 
   packages/capability-contracts: {}
 
