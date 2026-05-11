@@ -22,6 +22,69 @@ Defines shared type shapes for action availability, shell, role, workflow state,
 ## Examples of Future Exports
 
 - `CapabilityContext`
-- `CapabilityResult`
-- `DocumentCapabilities`
+- `BaseCapabilities`
+- `WorkflowActionCapability`
+- `CapabilityResolver`
+- `CapabilityDecision`
+- `CapabilityReason`
 - `RiskLevel`
+
+## Current Exports
+
+- `ShellType`
+- `RiskLevel`
+- `CapabilityContext`
+- `BaseCapabilities`
+- `WorkflowActionCapability`
+- `CapabilityResolver`
+- `CapabilityDecision`
+- `CapabilityReason`
+- `CapabilityResult`
+- `Shell`
+
+## Example Resolvers
+
+This package includes generic example resolvers to demonstrate intended shell behavior:
+
+- `resolveSalesInvoiceCapabilities`
+- `resolveJournalEntryCapabilities`
+- `resolveLeaveApprovalCapabilities`
+
+These are examples only. They do not implement client-specific business rules, approval hierarchy, permission mapping, or backend authorization.
+
+## Usage Example
+
+```ts
+import {
+  resolveSalesInvoiceCapabilities,
+  type CapabilityContext,
+} from "@erp-ui-platform/capability-contracts";
+
+const context: CapabilityContext = {
+  userId: "user-1",
+  role: "finance-user",
+  tenantId: "tenant-1",
+  shell: "mobile",
+  module: "sales",
+  documentType: "salesInvoice",
+  workflowState: "pendingApproval",
+  documentStatus: "submitted",
+  riskLevel: "medium",
+  featureFlags: {},
+  permissions: ["view", "approve", "reject", "comment", "attach"],
+};
+
+const capabilities = resolveSalesInvoiceCapabilities(context);
+
+if (capabilities.canPost.decision === "blocked") {
+  console.log(capabilities.canPost.reason?.message);
+}
+```
+
+## Governance Notes
+
+- Desktop may allow dense authoring where the user is permitted.
+- Mobile blocks high-risk posting and line editing by default in the generic examples.
+- Mobile allows approval, rejection, comments, and attachments where permitted.
+- API and backend layers must still enforce permissions and workflow transitions.
+- UI capability checks are not a security boundary by themselves.
