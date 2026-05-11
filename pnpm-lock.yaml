@@ -46,7 +46,11 @@ importers:
 
   packages/document-ui: {}
 
-  packages/editable-grid: {}
+  packages/editable-grid:
+    dependencies:
+      '@erp-ui-platform/validation-ui':
+        specifier: workspace:*
+        version: link:../validation-ui
 
   packages/layout-shells: {}
 
