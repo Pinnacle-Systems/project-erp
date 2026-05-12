@@ -70,7 +70,7 @@ Routes are client-app responsibility because each shell owns its own route struc
 
 ### app/providers
 
-Owns top-level providers for theme, auth, query clients, telemetry, feature flags, and platform configuration.
+Owns top-level providers for theme, auth, query clients, telemetry, feature flags, and platform configuration. Theme should be wired through `ThemeProvider` from `@erp-ui-platform/theme`; do not use theme to encode permissions, workflow states, field visibility, or validation rules.
 
 ### app/auth
 
@@ -355,14 +355,14 @@ The UI can render available, disabled, or blocked actions consistently. The back
 ## Example: Branding Tokens Through Theme Provider
 
 ```tsx
-import { PlatformThemeProvider } from "@your-org/primitives";
-import { clientTheme } from "../client/branding/clientTheme";
+import { ThemeProvider } from "@erp-ui-platform/theme";
+import "@erp-ui-platform/theme/theme.css";
 
 export function AppProviders({ children }) {
   return (
-    <PlatformThemeProvider theme={clientTheme}>
+    <ThemeProvider theme="clientA" density="comfortable" colorMode="light">
       {children}
-    </PlatformThemeProvider>
+    </ThemeProvider>
   );
 }
 ```
@@ -380,4 +380,3 @@ Branding is applied through documented theme inputs. Client apps should not fork
 - Shared UI platform packages must not import client app code.
 - Client apps should not copy shared platform source into local modules.
 - Client apps should use platform extension points instead of modifying platform internals.
-

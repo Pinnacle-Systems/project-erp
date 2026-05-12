@@ -8,6 +8,7 @@ const appPackageImports = [
 
 const uiPackageImports = [
   "@erp-ui-platform/primitives",
+  "@erp-ui-platform/theme",
   "@erp-ui-platform/app-components",
   "@erp-ui-platform/layout-shells",
   "@erp-ui-platform/desktop-patterns",

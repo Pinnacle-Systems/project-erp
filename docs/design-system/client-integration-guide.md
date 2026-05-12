@@ -46,18 +46,17 @@ Keep imports pointed at package entrypoints where possible.
 
 ## 3. Setting Up Theme Provider
 
-The platform should expose a theme provider through primitives or a future theme package. Client apps pass approved brand values into that provider.
+The platform exposes a first-class theme provider through `@erp-ui-platform/theme`. Client apps select an approved named theme and density at the app shell.
 
 ```tsx
-import { PlatformThemeProvider } from "@erp-ui-platform/primitives";
-
-import { clientTheme } from "../client/branding/clientTheme";
+import { ThemeProvider } from "@erp-ui-platform/theme";
+import "@erp-ui-platform/theme/theme.css";
 
 export function AppProviders({ children }) {
   return (
-    <PlatformThemeProvider theme={clientTheme}>
+    <ThemeProvider theme="clientA" density="comfortable" colorMode="light">
       {children}
-    </PlatformThemeProvider>
+    </ThemeProvider>
   );
 }
 ```
@@ -67,17 +66,10 @@ export function AppProviders({ children }) {
 Client branding belongs in the client app.
 
 ```ts
-import { semanticColorTokens } from "@erp-ui-platform/tokens";
-
 export const clientTheme = {
   logo: "/assets/client-logo.svg",
-  colors: {
-    brandPrimary: "#1455d9",
-    background: semanticColorTokens.background.app,
-    foreground: semanticColorTokens.foreground.default,
-  },
+  platformTheme: "clientA",
   density: "comfortable",
-  radius: "md",
 };
 ```
 

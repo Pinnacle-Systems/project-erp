@@ -1,71 +1,26 @@
 @import "tailwindcss";
+@import "../packages/theme/src/theme.css";
 @import "../apps/storybook/styles/erp-demo.css";
 
-@theme {
-  --font-family-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-
-  /* ERP token radius scale */
-  --radius-xs: 0.125rem;
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-
-  /* ERP token shadows */
-  --shadow-xs: 0 1px 2px rgb(15 23 42 / 0.06);
-  --shadow-sm: 0 1px 3px rgb(15 23 42 / 0.12), 0 1px 2px rgb(15 23 42 / 0.08);
-  --shadow-focus: 0 0 0 3px rgb(37 99 235 / 0.28);
-  --shadow-focus-error: 0 0 0 3px rgb(185 28 28 / 0.20);
-}
-
 :root {
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #0f172a;
-  background: #f8fafc;
+  font-family: var(--erp-font-family-sans);
+  color: var(--erp-fg);
+  background: var(--erp-bg);
 }
 
 .erp-storybook-shell {
   min-height: 100vh;
-  background: var(--erp-bg, #f8fafc);
-  color: var(--erp-fg, #0f172a);
+  background: var(--erp-bg);
+  color: var(--erp-fg);
   padding: var(--erp-page-padding, 24px);
 }
 
-.erp-storybook-shell[data-density="compact"] {
-  --erp-page-padding: 16px;
-  --erp-control-height: 32px;
-  --erp-gap: 8px;
-}
-
-.erp-storybook-shell[data-density="comfortable"] {
-  --erp-page-padding: 24px;
-  --erp-control-height: 36px;
-  --erp-gap: 12px;
-}
-
-.erp-storybook-shell[data-density="touch"] {
-  --erp-page-padding: 20px;
-  --erp-control-height: 44px;
-  --erp-gap: 16px;
-}
-
-.erp-storybook-shell[data-client-theme="clientA"] {
-  --erp-accent: #1455d9;
-  --erp-bg: #f7f9ff;
-}
-
-.erp-storybook-shell[data-client-theme="clientB"] {
-  --erp-accent: #0f766e;
-  --erp-bg: #f6fbf9;
-}
-
 .erp-demo-panel {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  background: var(--erp-surface);
+  border: 1px solid var(--erp-border);
+  border-radius: var(--erp-radius-panel);
   padding: 16px;
-  box-shadow: 0 1px 3px rgb(15 23 42 / 0.08);
+  box-shadow: var(--erp-shadow-sm);
 }
 
 .erp-demo-stack {
@@ -82,23 +37,23 @@
 
 .erp-demo-button {
   min-height: var(--erp-control-height, 36px);
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  border: 1px solid var(--erp-border-strong);
+  border-radius: var(--erp-radius-control);
   padding: 0 12px;
-  background: #ffffff;
-  color: #0f172a;
+  background: var(--erp-surface);
+  color: var(--erp-fg);
   font: inherit;
 }
 
 .erp-demo-button[data-variant="primary"] {
-  border-color: var(--erp-accent, #2563eb);
-  background: var(--erp-accent, #2563eb);
+  border-color: var(--erp-accent);
+  background: var(--erp-accent);
   color: #ffffff;
 }
 
 .erp-demo-button[data-variant="danger"] {
-  border-color: #dc2626;
-  background: #dc2626;
+  border-color: var(--erp-danger);
+  background: var(--erp-danger);
   color: #ffffff;
 }
 
@@ -110,8 +65,8 @@
 
 .erp-demo-input {
   min-height: var(--erp-control-height, 36px);
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  border: 1px solid var(--erp-border-strong);
+  border-radius: var(--erp-radius-control);
   padding: 0 10px;
   font: inherit;
 }
@@ -119,12 +74,12 @@
 .erp-demo-table {
   width: 100%;
   border-collapse: collapse;
-  background: #ffffff;
+  background: var(--erp-surface);
 }
 
 .erp-demo-table th,
 .erp-demo-table td {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--erp-border);
   padding: 8px 10px;
   text-align: left;
 }

@@ -5,28 +5,29 @@ import { cn } from "../lib/utils";
 
 const buttonVariants = cva(
   [
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--erp-radius-control)] font-medium",
     "leading-none select-none transition-colors duration-100",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1",
-    "disabled:pointer-events-none disabled:opacity-50",
+    "focus-visible:outline-none focus-visible:ring-[length:var(--erp-focus-ring-width)] focus-visible:ring-[var(--erp-focus-ring)] focus-visible:ring-offset-[var(--erp-focus-ring-offset)]",
+    "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)]",
     "aria-busy:pointer-events-none",
   ].join(" "),
   {
     variants: {
       variant: {
         default:
-          "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800",
+          "bg-[var(--erp-color-primary)] text-[var(--erp-color-primary-foreground)] hover:bg-[var(--erp-accent-hover)] active:bg-[var(--erp-accent-active)]",
         secondary:
-          "bg-white text-neutral-800 border border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400 active:bg-neutral-100",
+          "bg-[var(--erp-surface)] text-[var(--erp-fg)] border border-[var(--erp-border-strong)] hover:bg-[var(--erp-surface-muted)] active:bg-[var(--erp-border)]",
         ghost:
-          "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-200",
+          "text-[var(--erp-muted)] hover:bg-[var(--erp-surface-muted)] hover:text-[var(--erp-fg)] active:bg-[var(--erp-border)]",
         destructive:
-          "bg-red-600 text-white hover:bg-red-700 active:bg-red-800",
-        link: "text-blue-600 underline-offset-4 hover:underline h-auto px-0 py-0",
+          "bg-[var(--erp-color-danger)] text-[var(--erp-color-danger-foreground)] hover:bg-[var(--erp-danger-hover)] active:bg-[var(--erp-danger-hover)]",
+        link: "text-[var(--erp-color-primary)] underline-offset-4 hover:underline h-auto px-0 py-0",
       },
       density: {
         compact: "h-8 px-3 text-xs",
-        comfortable: "h-9 px-4 text-sm",
+        comfortable:
+          "h-[var(--erp-control-height)] px-[var(--erp-control-padding-x)] text-[length:var(--erp-control-font-size)]",
         touch: "h-11 px-5 text-base",
       },
     },

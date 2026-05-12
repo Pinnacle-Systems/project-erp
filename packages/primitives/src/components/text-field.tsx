@@ -4,23 +4,25 @@ import { cn } from "../lib/utils";
 
 const inputVariants = cva(
   [
-    "w-full rounded-md border bg-white font-sans",
-    "text-neutral-900 placeholder:text-neutral-400",
+    "w-full rounded-[var(--erp-radius-control)] border bg-[var(--erp-surface)] font-sans",
+    "text-[var(--erp-fg)] placeholder:text-[var(--erp-subtle)]",
     "transition-colors duration-100",
-    "focus:outline-none focus:ring-2 focus:ring-offset-0",
-    "disabled:pointer-events-none disabled:bg-neutral-50 disabled:text-neutral-400 disabled:border-neutral-200",
-    "read-only:bg-neutral-50 read-only:text-neutral-600",
+    "focus:outline-none focus:ring-[length:var(--erp-focus-ring-width)] focus:ring-[var(--erp-focus-ring)] focus:ring-offset-[var(--erp-focus-ring-offset)]",
+    "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-surface-muted)] disabled:text-[var(--erp-subtle)] disabled:border-[var(--erp-border)]",
+    "read-only:bg-[var(--erp-surface-muted)] read-only:text-[var(--erp-muted)]",
   ].join(" "),
   {
     variants: {
       state: {
-        default: "border-neutral-300 focus:ring-blue-600 focus:border-blue-600",
+        default:
+          "border-[var(--erp-border-strong)] focus:border-[var(--erp-color-primary)]",
         error:
-          "border-red-500 focus:ring-red-500 focus:border-red-500",
+          "border-[var(--erp-danger)] focus:ring-[var(--erp-danger)] focus:border-[var(--erp-danger)]",
       },
       density: {
         compact: "h-8 px-3 text-xs",
-        comfortable: "h-9 px-3 text-sm",
+        comfortable:
+          "h-[var(--erp-control-height)] px-[var(--erp-control-padding-x)] text-[length:var(--erp-control-font-size)]",
         touch: "h-11 px-4 text-base",
       },
     },
@@ -69,7 +71,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-neutral-700 select-none leading-none"
+            className="text-sm font-medium text-[var(--erp-fg)] select-none leading-none"
           >
             {label}
           </label>
@@ -88,12 +90,12 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           {...props}
         />
         {errorMessage && (
-          <p id={errorId} className="text-xs text-red-600 leading-none" role="alert">
+          <p id={errorId} className="text-xs text-[var(--erp-danger)] leading-none" role="alert">
             {errorMessage}
           </p>
         )}
         {!errorMessage && helpText && (
-          <p id={helpId} className="text-xs text-neutral-500 leading-none">
+          <p id={helpId} className="text-xs text-[var(--erp-muted)] leading-none">
             {helpText}
           </p>
         )}

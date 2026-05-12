@@ -1,7 +1,10 @@
 /*
-  Shared demo styles for TransactionShell and ApprovalPanel data-slot selectors.
+  Shared Storybook-only demo styles for TransactionShell and ApprovalPanel
+  data-slot selectors.
   These target the unstyled semantic HTML emitted by platform shell components
   and are Storybook-only — never imported by production packages.
+  Theme CSS variables and reusable ValidationSummaryPanel styles live in
+  packages/theme/src/theme.css.
 */
 
 /* ── TransactionShell slots ─────────────────────────────────────────────────── */
@@ -46,65 +49,6 @@
 [data-slot="transaction-audit"] {
   border-top: 1px solid #f1f5f9;
   padding: 0.75rem 1.5rem;
-}
-
-/* ValidationSummaryPanel — blocking (red) by default, warning (yellow) when no blockers */
-
-[data-component="ValidationSummaryPanel"] {
-  margin: 0 1.5rem 0;
-  border-radius: 0.375rem;
-  border: 1px solid #fecaca;
-  background: #fef2f2;
-  padding: 0.75rem;
-}
-
-[data-component="ValidationSummaryPanel"][data-has-blocking="false"] {
-  border-color: #fde68a;
-  background: #fffbeb;
-}
-
-[data-component="ValidationSummaryPanel"] h2 {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #991b1b;
-  margin-bottom: 0.375rem;
-}
-
-[data-component="ValidationSummaryPanel"][data-has-blocking="false"] h2 {
-  color: #92400e;
-}
-
-[data-component="ValidationSummaryPanel"] ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-[data-component="ValidationSummaryPanel"] li {
-  font-size: 0.75rem;
-  color: #374151;
-  padding-left: 0.875rem;
-  position: relative;
-}
-
-[data-component="ValidationSummaryPanel"] li::before {
-  content: "·";
-  position: absolute;
-  left: 0.25rem;
-  color: #dc2626;
-}
-
-[data-component="ValidationSummaryPanel"] li[data-severity="warning"]::before {
-  color: #d97706;
-}
-
-[data-component="ValidationSummaryPanel"] li[data-severity="info"]::before {
-  color: #2563eb;
 }
 
 /* ── ApprovalPanel slots ─────────────────────────────────────────────────────── */
@@ -189,7 +133,7 @@
 
 [data-slot="approval-steps"] li small {
   margin-left: auto;
-  color: #9ca3af;
+  color: var(--erp-muted);
   font-size: 0.7rem;
 }
 

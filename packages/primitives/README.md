@@ -26,4 +26,5 @@ Provides low-level accessible primitive wrappers used by platform components and
 - `AppButton`
 - `AppTextField`
 - `AppDialog`
-- `PlatformThemeProvider`
+
+Theme is owned by `@erp-ui-platform/theme`; primitives consume its CSS variables but do not export a theme provider.

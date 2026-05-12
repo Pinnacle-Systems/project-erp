@@ -44,22 +44,25 @@ const CheckMark = () => (
 
 const triggerVariants = cva(
   [
-    "flex w-full items-center justify-between gap-2 rounded-md border bg-white",
-    "text-neutral-900 font-sans",
+    "flex w-full items-center justify-between gap-2 rounded-[var(--erp-radius-control)] border bg-[var(--erp-surface)]",
+    "text-[var(--erp-fg)] font-sans",
     "transition-colors duration-100",
-    "focus:outline-none focus:ring-2 focus:ring-offset-0",
-    "disabled:pointer-events-none disabled:bg-neutral-50 disabled:text-neutral-400 disabled:border-neutral-200",
-    "data-placeholder:text-neutral-400",
+    "focus:outline-none focus:ring-[length:var(--erp-focus-ring-width)] focus:ring-[var(--erp-focus-ring)] focus:ring-offset-[var(--erp-focus-ring-offset)]",
+    "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-surface-muted)] disabled:text-[var(--erp-subtle)] disabled:border-[var(--erp-border)]",
+    "data-placeholder:text-[var(--erp-subtle)]",
   ].join(" "),
   {
     variants: {
       state: {
-        default: "border-neutral-300 focus:ring-blue-600 focus:border-blue-600",
-        error: "border-red-500 focus:ring-red-500 focus:border-red-500",
+        default:
+          "border-[var(--erp-border-strong)] focus:border-[var(--erp-color-primary)]",
+        error:
+          "border-[var(--erp-danger)] focus:ring-[var(--erp-danger)] focus:border-[var(--erp-danger)]",
       },
       density: {
         compact: "h-8 px-3 text-xs",
-        comfortable: "h-9 px-3 text-sm",
+        comfortable:
+          "h-[var(--erp-control-height)] px-[var(--erp-control-padding-x)] text-[length:var(--erp-control-font-size)]",
         touch: "h-11 px-4 text-base",
       },
     },
@@ -91,7 +94,7 @@ export const SelectTrigger = forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <span className="text-neutral-500 shrink-0">
+      <span className="text-[var(--erp-muted)] shrink-0">
         <ChevronDown />
       </span>
     </SelectPrimitive.Icon>
@@ -107,7 +110,7 @@ export const SelectContent = forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 overflow-hidden rounded-md border border-neutral-200 bg-white shadow-md",
+        "relative z-50 overflow-hidden rounded-[var(--erp-radius-control)] border border-[var(--erp-border)] bg-[var(--erp-surface)] shadow-md",
         position === "popper" &&
           "w-[--radix-select-trigger-width] max-h-[--radix-select-content-available-height]",
         className,
@@ -131,9 +134,9 @@ export const SelectItem = forwardRef<
     ref={ref}
     className={cn(
       "relative flex w-full cursor-default select-none items-center rounded-sm",
-      "py-1.5 pl-8 pr-2 text-sm text-neutral-700 outline-none",
-      "focus:bg-neutral-100 focus:text-neutral-900",
-      "data-disabled:pointer-events-none data-disabled:opacity-50",
+      "py-1.5 pl-8 pr-2 text-sm text-[var(--erp-fg)] outline-none",
+      "focus:bg-[var(--erp-surface-muted)] focus:text-[var(--erp-fg)]",
+      "data-disabled:pointer-events-none data-disabled:opacity-[var(--erp-disabled-opacity)]",
       className,
     )}
     {...props}
@@ -154,7 +157,7 @@ export const SelectLabel = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn("px-2 py-1 text-xs font-semibold text-neutral-500", className)}
+    className={cn("px-2 py-1 text-xs font-semibold text-[var(--erp-muted)]", className)}
     {...props}
   />
 ));
@@ -166,7 +169,7 @@ export const SelectSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 my-1 h-px bg-neutral-200", className)}
+    className={cn("-mx-1 my-1 h-px bg-[var(--erp-border)]", className)}
     {...props}
   />
 ));
@@ -207,7 +210,7 @@ export const SelectField = ({
       {label && (
         <label
           htmlFor={fieldId}
-          className="text-sm font-medium text-neutral-700 select-none leading-none"
+          className="text-sm font-medium text-[var(--erp-fg)] select-none leading-none"
         >
           {label}
         </label>
@@ -224,12 +227,12 @@ export const SelectField = ({
         <SelectContent>{children}</SelectContent>
       </SelectRoot>
       {errorMessage && (
-        <p className="text-xs text-red-600 leading-none" role="alert">
+        <p className="text-xs text-[var(--erp-danger)] leading-none" role="alert">
           {errorMessage}
         </p>
       )}
       {!errorMessage && helpText && (
-        <p className="text-xs text-neutral-500 leading-none">{helpText}</p>
+        <p className="text-xs text-[var(--erp-muted)] leading-none">{helpText}</p>
       )}
     </div>
   );

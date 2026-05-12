@@ -25,6 +25,13 @@ import {
   LoadingState,
   ConfirmDialog,
 } from "@erp-ui-platform/app-components";
+import {
+  MobileApprovalFlow as MobileApprovalFlowPattern,
+  MobileBottomActionBar as MobileBottomActionBarPattern,
+  MobileDocumentSummary as MobileDocumentSummaryPattern,
+  MobileTaskShell,
+  ScannerCapturePlaceholder as ScannerCapturePlaceholderPattern,
+} from "@erp-ui-platform/mobile-patterns";
 import { cap } from "../utils/demoCapabilities";
 import { variantMap } from "../utils/demoActions";
 import { APPROVAL_STEPS, APPROVAL_COMMENTS } from "../utils/demoData";
@@ -967,6 +974,113 @@ export const MobileValidationSheet: Story = {
           />
         </MobileFrame>
       </TooltipProvider>
+    );
+  },
+};
+
+export const MobileCompanionShellPattern: Story = {
+  render: () => {
+    const [scanState, setScanState] = useState<"ready" | "scanning" | "captured" | "error">("ready");
+
+    return (
+      <div className="grid gap-6 bg-neutral-100 p-6 lg:grid-cols-3">
+        <MobileTaskShell
+          title="Sales Delivery"
+          subtitle="SD-8821 · companion summary"
+          backLabel="‹ Back"
+          status={<StatusBadge label="Submitted" tone="info" />}
+          bottomBar={
+            <MobileBottomActionBarPattern
+              helperText="Dense line editing is available from desktop."
+              actions={[
+                { id: "comment", label: "Comment", variant: "secondary" },
+                { id: "approve", label: "Approve", variant: "default" },
+              ]}
+            />
+          }
+        >
+          <MobileDocumentSummaryPattern
+            fields={[
+              { label: "Customer", value: "Northwind Retail" },
+              { label: "Dispatch", value: "11 May 2025" },
+              { label: "Warehouse", value: "Main Warehouse" },
+              { label: "Route", value: "Truck-17" },
+            ]}
+            totals={
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-semibold text-blue-700">38 units</span>
+                <Badge variant="warning">1 variance</Badge>
+              </div>
+            }
+            lines={[
+              {
+                id: "fab",
+                title: "FAB-001",
+                description: "Fabric roll",
+                meta: "12 / 12 picked",
+                status: <Badge variant="success">Ready</Badge>,
+              },
+              {
+                id: "acc",
+                title: "ACC-220",
+                description: "Accessory pack",
+                meta: "6 / 8 picked",
+                status: <Badge variant="warning">Variance</Badge>,
+                tone: "warning",
+              },
+            ]}
+            desktopEditMessage="Mobile is a companion shell: review, comment, approve, or capture documents here; edit dense lines on desktop."
+          />
+        </MobileTaskShell>
+
+        <MobileTaskShell
+          title="Approval"
+          subtitle="PO-2024-0841 · ₹1,24,500"
+          backLabel="‹ Back"
+        >
+          <MobileApprovalFlowPattern
+            status="pending"
+            statusLabel="Pending"
+            statusTone="warning"
+            steps={APPROVAL_STEPS}
+            comments={APPROVAL_COMMENTS}
+            actions={[
+              { id: "approve", decision: "approve", label: "Approve" },
+              { id: "changes", decision: "request_changes", label: "Changes", requiresComment: true },
+              { id: "reject", decision: "reject", label: "Reject", requiresComment: true },
+            ]}
+            summary={
+              <div className="grid gap-1 text-sm text-neutral-700">
+                <div className="flex justify-between">
+                  <span className="text-neutral-400">Requester</span>
+                  <span>A. Sharma</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-neutral-400">Department</span>
+                  <span>Procurement</span>
+                </div>
+              </div>
+            }
+          />
+        </MobileTaskShell>
+
+        <MobileTaskShell
+          title="Scan Document"
+          subtitle="Delivery receipt capture"
+          backLabel="‹ Back"
+        >
+          <ScannerCapturePlaceholderPattern
+            reference="SD-8821"
+            state={scanState}
+            onScan={() => {
+              setScanState("scanning");
+              setTimeout(() => setScanState("captured"), 900);
+            }}
+            onReset={() => setScanState("ready")}
+            onError={() => setScanState("error")}
+          />
+        </MobileTaskShell>
+      </div>
     );
   },
 };
