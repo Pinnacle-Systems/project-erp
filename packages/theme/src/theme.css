@@ -47,6 +47,137 @@
   --erp-color-success-foreground: #ffffff;
   --erp-color-info: #2563eb;
   --erp-color-info-foreground: #ffffff;
+  --erp-surface-page: #f8fafc;
+  --erp-surface-panel: #ffffff;
+  --erp-surface-card: #ffffff;
+  --erp-surface-raised: #ffffff;
+  --erp-surface-sunken: #f8fafc;
+  --erp-surface-overlay: rgb(15 23 42 / 0.55);
+  --erp-surface-hover: #f8fafc;
+  --erp-surface-selected: #eff6ff;
+  --erp-surface-active: #bfdbfe;
+  --erp-surface-disabled: #f8fafc;
+  --erp-surface-inverse: #0f172a;
+  --erp-text-primary: #0f172a;
+  --erp-text-secondary: #334155;
+  --erp-text-muted: #64748b;
+  --erp-text-subtle: #94a3b8;
+  --erp-text-disabled: #94a3b8;
+  --erp-text-inverse: #ffffff;
+  --erp-text-link: #1d4ed8;
+  --erp-text-danger: #b91c1c;
+  --erp-text-warning: #92400e;
+  --erp-text-success: #166534;
+  --erp-text-info: #2563eb;
+  --erp-border-default: #e2e8f0;
+  --erp-border-muted: #f8fafc;
+  --erp-border-strong: #cbd5e1;
+  --erp-border-focus: #2563eb;
+  --erp-border-danger: #fecaca;
+  --erp-border-warning: #fde68a;
+  --erp-border-success: #bbf7d0;
+  --erp-border-selected: #bfdbfe;
+  --erp-border-disabled: #e2e8f0;
+  --erp-state-hover: #f8fafc;
+  --erp-state-active: #bfdbfe;
+  --erp-state-selected: #eff6ff;
+  --erp-state-focus: rgb(37 99 235 / 0.28);
+  --erp-state-disabled: #f8fafc;
+  --erp-state-readonly: #f8fafc;
+  --erp-state-loading: #eff6ff;
+  --erp-state-dragging: #eff6ff;
+  --erp-state-blocked: #fef2f2;
+  --erp-state-locked: #f8fafc;
+  --erp-state-new: #f0fdf4;
+  --erp-state-dirty: #fffbeb;
+  --erp-state-deleted: #fef2f2;
+  --erp-state-stale: #eff6ff;
+  --erp-state-error: #fef2f2;
+  --erp-state-warning: #fffbeb;
+  --erp-state-saving: #eff6ff;
+  --erp-state-dirty-border: #fde68a;
+  --erp-state-deleted-border: #fecaca;
+  --erp-state-error-border: #fecaca;
+  --erp-state-warning-border: #fde68a;
+  --erp-state-stale-border: #bfdbfe;
+  --erp-validation-info-bg: #eff6ff;
+  --erp-validation-info-text: #2563eb;
+  --erp-validation-info-border: #bfdbfe;
+  --erp-validation-info-icon: #2563eb;
+  --erp-validation-warning-bg: #fffbeb;
+  --erp-validation-warning-text: #92400e;
+  --erp-validation-warning-border: #fde68a;
+  --erp-validation-warning-icon: #92400e;
+  --erp-validation-error-bg: #fef2f2;
+  --erp-validation-error-text: #b91c1c;
+  --erp-validation-error-border: #fecaca;
+  --erp-validation-error-icon: #b91c1c;
+  --erp-validation-blocking-bg: #fef2f2;
+  --erp-validation-blocking-text: #b91c1c;
+  --erp-validation-blocking-border: #fecaca;
+  --erp-validation-blocking-icon: #b91c1c;
+  --erp-grid-header-bg: #f8fafc;
+  --erp-grid-header-text: #64748b;
+  --erp-grid-header-border: #e2e8f0;
+  --erp-grid-row-bg: #ffffff;
+  --erp-grid-row-alt-bg: #f8fafc;
+  --erp-grid-row-hover-bg: #f8fafc;
+  --erp-grid-row-selected-bg: #eff6ff;
+  --erp-grid-row-new-bg: #f0fdf4;
+  --erp-grid-row-dirty-bg: #fffbeb;
+  --erp-grid-row-deleted-bg: #fef2f2;
+  --erp-grid-row-error-bg: #fef2f2;
+  --erp-grid-row-warning-bg: #fffbeb;
+  --erp-grid-row-stale-bg: #eff6ff;
+  --erp-grid-row-readonly-bg: #f8fafc;
+  --erp-grid-row-border: #e2e8f0;
+  --erp-grid-cell-bg: #ffffff;
+  --erp-grid-cell-editing-bg: #eff6ff;
+  --erp-grid-cell-focus-ring: rgb(37 99 235 / 0.28);
+  --erp-grid-cell-readonly-bg: #f8fafc;
+  --erp-grid-cell-error-bg: #fef2f2;
+  --erp-grid-cell-warning-bg: #fffbeb;
+  --erp-grid-cell-stale-bg: #eff6ff;
+  --erp-grid-cell-pinned-bg: #f8fafc;
+  --erp-grid-footer-bg: #f8fafc;
+  --erp-grid-footer-text: #0f172a;
+  --erp-grid-total-row-bg: #f8fafc;
+  --erp-grid-group-row-bg: #f8fafc;
+  --erp-grid-resize-handle: #cbd5e1;
+  --erp-grid-selection-handle: #2563eb;
+  --erp-shell-topbar-height: 48px;
+  --erp-shell-sidebar-width: 16rem;
+  --erp-shell-sidebar-collapsed-width: 4rem;
+  --erp-shell-footer-height: 48px;
+  --erp-shell-mobile-header-height: 48px;
+  --erp-shell-mobile-bottom-nav-height: 64px;
+  --erp-shell-mobile-bottom-bar-height: 64px;
+  --erp-shell-workspace-tabs-height: 48px;
+  --erp-shell-content-max-width: 80rem;
+  --erp-shell-content-padding: 24px;
+  --erp-shell-content-gap: 12px;
+  --erp-shell-panel-padding: 24px;
+  --erp-shell-panel-gap: 16px;
+  --erp-shell-split-pane-min-width: 18rem;
+  --erp-shell-split-pane-divider-width: 1px;
+  --erp-form-label-width: 10rem;
+  --erp-form-label-gap: 8px;
+  --erp-form-label-color: #0f172a;
+  --erp-form-label-required-color: #b91c1c;
+  --erp-form-field-gap: 8px;
+  --erp-form-field-inline-gap: 12px;
+  --erp-form-field-help-text-color: #64748b;
+  --erp-form-field-error-text-color: #b91c1c;
+  --erp-form-field-disabled-bg: #f8fafc;
+  --erp-form-field-readonly-bg: #f8fafc;
+  --erp-form-field-border: #cbd5e1;
+  --erp-form-field-error-border: #fecaca;
+  --erp-form-field-focus-border: #2563eb;
+  --erp-form-section-gap: 16px;
+  --erp-form-section-padding: 24px;
+  --erp-form-section-border: #e2e8f0;
+  --erp-form-error-gap: 0.25rem;
+  --erp-form-required-marker-color: #b91c1c;
   --erp-status-draft: #64748b;
   --erp-status-draft-foreground: #ffffff;
   --erp-status-draft-soft: #f8fafc;
@@ -119,6 +250,32 @@
   --erp-color-background: #f7f9ff;
   --erp-color-primary: #1455d9;
   --erp-color-info: #1455d9;
+  --erp-surface-page: #f7f9ff;
+  --erp-surface-selected: #edf4ff;
+  --erp-surface-active: #c7dcff;
+  --erp-text-link: #0f47bd;
+  --erp-text-info: #1455d9;
+  --erp-border-focus: #1455d9;
+  --erp-border-selected: #c7dcff;
+  --erp-state-active: #c7dcff;
+  --erp-state-selected: #edf4ff;
+  --erp-state-focus: rgb(20 85 217 / 0.30);
+  --erp-state-loading: #edf4ff;
+  --erp-state-dragging: #edf4ff;
+  --erp-state-stale: #edf4ff;
+  --erp-state-saving: #edf4ff;
+  --erp-state-stale-border: #c7dcff;
+  --erp-validation-info-bg: #edf4ff;
+  --erp-validation-info-text: #1455d9;
+  --erp-validation-info-border: #c7dcff;
+  --erp-validation-info-icon: #1455d9;
+  --erp-grid-row-selected-bg: #edf4ff;
+  --erp-grid-row-stale-bg: #edf4ff;
+  --erp-grid-cell-editing-bg: #edf4ff;
+  --erp-grid-cell-focus-ring: rgb(20 85 217 / 0.30);
+  --erp-grid-cell-stale-bg: #edf4ff;
+  --erp-grid-selection-handle: #1455d9;
+  --erp-form-field-focus-border: #1455d9;
   --erp-status-submitted: #1455d9;
   --erp-status-submitted-soft: #edf4ff;
   --erp-status-submitted-border: #c7dcff;
@@ -138,6 +295,32 @@
   --erp-color-background: #f6fbf9;
   --erp-color-primary: #0f766e;
   --erp-color-info: #0f766e;
+  --erp-surface-page: #f6fbf9;
+  --erp-surface-selected: #ecfdf5;
+  --erp-surface-active: #a7f3d0;
+  --erp-text-link: #0d625c;
+  --erp-text-info: #0f766e;
+  --erp-border-focus: #0f766e;
+  --erp-border-selected: #a7f3d0;
+  --erp-state-active: #a7f3d0;
+  --erp-state-selected: #ecfdf5;
+  --erp-state-focus: rgb(15 118 110 / 0.30);
+  --erp-state-loading: #ecfdf5;
+  --erp-state-dragging: #ecfdf5;
+  --erp-state-stale: #ecfdf5;
+  --erp-state-saving: #ecfdf5;
+  --erp-state-stale-border: #a7f3d0;
+  --erp-validation-info-bg: #ecfdf5;
+  --erp-validation-info-text: #0f766e;
+  --erp-validation-info-border: #a7f3d0;
+  --erp-validation-info-icon: #0f766e;
+  --erp-grid-row-selected-bg: #ecfdf5;
+  --erp-grid-row-stale-bg: #ecfdf5;
+  --erp-grid-cell-editing-bg: #ecfdf5;
+  --erp-grid-cell-focus-ring: rgb(15 118 110 / 0.30);
+  --erp-grid-cell-stale-bg: #ecfdf5;
+  --erp-grid-selection-handle: #0f766e;
+  --erp-form-field-focus-border: #0f766e;
   --erp-status-submitted: #0f766e;
   --erp-status-submitted-soft: #ecfdf5;
   --erp-status-submitted-border: #a7f3d0;
@@ -170,6 +353,21 @@
   --erp-mobile-bottom-bar-height: 64px;
   --erp-icon-size: 18px;
   --erp-touch-target: 36px;
+  --erp-shell-topbar-height: 48px;
+  --erp-shell-footer-height: 48px;
+  --erp-shell-mobile-header-height: 48px;
+  --erp-shell-mobile-bottom-nav-height: 64px;
+  --erp-shell-mobile-bottom-bar-height: 64px;
+  --erp-shell-workspace-tabs-height: 48px;
+  --erp-shell-content-padding: 24px;
+  --erp-shell-content-gap: 12px;
+  --erp-shell-panel-padding: 24px;
+  --erp-shell-panel-gap: 16px;
+  --erp-form-label-gap: 8px;
+  --erp-form-field-gap: 8px;
+  --erp-form-field-inline-gap: 12px;
+  --erp-form-section-gap: 16px;
+  --erp-form-section-padding: 24px;
 }
 
 [data-density="compact"] {
@@ -186,6 +384,21 @@
   --erp-mobile-bottom-bar-height: 56px;
   --erp-icon-size: 16px;
   --erp-touch-target: 32px;
+  --erp-shell-topbar-height: 40px;
+  --erp-shell-footer-height: 40px;
+  --erp-shell-mobile-header-height: 40px;
+  --erp-shell-mobile-bottom-nav-height: 56px;
+  --erp-shell-mobile-bottom-bar-height: 56px;
+  --erp-shell-workspace-tabs-height: 40px;
+  --erp-shell-content-padding: 16px;
+  --erp-shell-content-gap: 8px;
+  --erp-shell-panel-padding: 16px;
+  --erp-shell-panel-gap: 12px;
+  --erp-form-label-gap: 6px;
+  --erp-form-field-gap: 6px;
+  --erp-form-field-inline-gap: 8px;
+  --erp-form-section-gap: 12px;
+  --erp-form-section-padding: 16px;
 }
 
 [data-density="touch"] {
@@ -202,19 +415,34 @@
   --erp-mobile-bottom-bar-height: 72px;
   --erp-icon-size: 20px;
   --erp-touch-target: 44px;
+  --erp-shell-topbar-height: 56px;
+  --erp-shell-footer-height: 56px;
+  --erp-shell-mobile-header-height: 56px;
+  --erp-shell-mobile-bottom-nav-height: 72px;
+  --erp-shell-mobile-bottom-bar-height: 72px;
+  --erp-shell-workspace-tabs-height: 56px;
+  --erp-shell-content-padding: 20px;
+  --erp-shell-content-gap: 16px;
+  --erp-shell-panel-padding: 20px;
+  --erp-shell-panel-gap: 20px;
+  --erp-form-label-gap: 10px;
+  --erp-form-field-gap: 10px;
+  --erp-form-field-inline-gap: 16px;
+  --erp-form-section-gap: 20px;
+  --erp-form-section-padding: 20px;
 }
 
 [data-component="ValidationSummaryPanel"] {
   margin: 0 1.5rem 0;
   border-radius: var(--erp-radius-control);
-  border: 1px solid var(--erp-danger-border);
-  background: var(--erp-danger-soft);
+  border: 1px solid var(--erp-validation-blocking-border);
+  background: var(--erp-validation-blocking-bg);
   padding: 0.75rem;
 }
 
 [data-component="ValidationSummaryPanel"][data-has-blocking="false"] {
-  border-color: var(--erp-warning-border);
-  background: var(--erp-warning-soft);
+  border-color: var(--erp-validation-warning-border);
+  background: var(--erp-validation-warning-bg);
 }
 
 [data-component="ValidationSummaryPanel"] h2 {
@@ -222,12 +450,12 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--erp-danger);
+  color: var(--erp-validation-blocking-text);
   margin-bottom: 0.375rem;
 }
 
 [data-component="ValidationSummaryPanel"][data-has-blocking="false"] h2 {
-  color: var(--erp-warning);
+  color: var(--erp-validation-warning-text);
 }
 
 [data-component="ValidationSummaryPanel"] ul {
@@ -250,13 +478,13 @@
   content: "·";
   position: absolute;
   left: 0.25rem;
-  color: var(--erp-danger);
+  color: var(--erp-validation-error-icon);
 }
 
 [data-component="ValidationSummaryPanel"] li[data-severity="warning"]::before {
-  color: var(--erp-warning);
+  color: var(--erp-validation-warning-icon);
 }
 
 [data-component="ValidationSummaryPanel"] li[data-severity="info"]::before {
-  color: var(--erp-info);
+  color: var(--erp-validation-info-icon);
 }

@@ -73,22 +73,22 @@ const CellMarkers = ({ row }: { row: GridRow<Line> }) => {
 };
 
 const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
-  <div className="border border-neutral-200 rounded-md overflow-hidden text-xs">
+  <div className="overflow-hidden rounded-md border border-[var(--erp-grid-row-border)] text-xs">
     <table className="w-full">
       <thead>
-        <tr className="bg-neutral-50 border-b border-neutral-200">
-          <th className="text-left px-3 py-2 font-medium text-neutral-500 w-28">
+        <tr className="border-b border-[var(--erp-grid-header-border)] bg-[var(--erp-grid-header-bg)]">
+          <th className="w-28 px-3 py-2 text-left font-medium text-[var(--erp-grid-header-text)]">
             State
           </th>
           {columns.map((c) => (
             <th
               key={c.id}
-              className="text-left px-3 py-2 font-medium text-neutral-500"
+              className="px-3 py-2 text-left font-medium text-[var(--erp-grid-header-text)]"
             >
               {c.header}
             </th>
           ))}
-          <th className="text-left px-3 py-2 font-medium text-neutral-500 w-28">
+          <th className="w-28 px-3 py-2 text-left font-medium text-[var(--erp-grid-header-text)]">
             Markers
           </th>
         </tr>
@@ -98,13 +98,13 @@ const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
           <tr
             key={row.id}
             className={[
-              "border-b border-neutral-100 last:border-b-0",
+              "border-b border-[var(--erp-grid-row-border)] bg-[var(--erp-grid-row-bg)] last:border-b-0",
               row.state === "deleted"
-                ? "bg-red-50 opacity-60"
+                ? "bg-[var(--erp-grid-row-deleted-bg)] opacity-60"
                 : row.state === "dirty"
-                  ? "bg-amber-50"
+                  ? "bg-[var(--erp-grid-row-dirty-bg)]"
                   : row.isPhantom
-                    ? "bg-neutral-50/60"
+                    ? "bg-[var(--erp-grid-row-readonly-bg)]"
                     : "",
             ].join(" ")}
           >
@@ -121,6 +121,7 @@ const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
                   {col.editable !== false && !row.isPhantom ? (
                     <TextField
                       value={String(val ?? "")}
+                      aria-label={`${col.header} for row ${row.id}`}
                       error={hasError}
                       density="compact"
                       className={[
@@ -129,7 +130,7 @@ const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
                           ? "line-through text-neutral-400"
                           : "",
                         cell?.isManualOverride
-                          ? "border-blue-400 bg-blue-50"
+                          ? "border-[var(--erp-grid-selection-handle)] bg-[var(--erp-grid-cell-editing-bg)]"
                           : "",
                       ].join(" ")}
                       readOnly

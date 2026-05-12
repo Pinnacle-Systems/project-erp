@@ -114,9 +114,9 @@ export const DenseTransactionPage: Story = {
                   </div>
                 }
                 breadcrumbs={[
-                  { label: "Sales", href: "#" },
-                  { label: "Deliveries", href: "#" },
-                  { label: "SD-8821" },
+                  { id: "sales", label: "Sales", href: "#" },
+                  { id: "deliveries", label: "Deliveries", href: "#" },
+                  { id: "sd-8821", label: "SD-8821", current: true },
                 ]}
                 meta={[
                   { label: "Customer", value: "Northwind Retail" },

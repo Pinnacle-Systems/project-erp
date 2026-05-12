@@ -1,9 +1,17 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  borderTokens,
   densityTokens,
+  formTokens,
+  gridTokens,
   semanticColorTokens,
+  shellTokens,
+  stateTokens,
   statusTokens,
+  surfaceTokens,
+  textTokens,
+  validationTokens,
   zIndexTokens,
 } from "./index";
 
@@ -32,6 +40,42 @@ describe("@erp-ui-platform/tokens", () => {
     expect(statusTokens.approved.semantic).toBe("success");
     expect(statusTokens.rejected.semantic).toBe("danger");
     expect(statusTokens).not.toHaveProperty("gstPosted");
+  });
+
+  it("exposes batch 1 semantic and ERP state token families", () => {
+    expect(surfaceTokens.page).toBeDefined();
+    expect(surfaceTokens.selected).toBeDefined();
+    expect(textTokens.primary).toBeDefined();
+    expect(textTokens.link).toBeDefined();
+    expect(borderTokens.focus).toBeDefined();
+    expect(borderTokens.danger).toBeDefined();
+    expect(stateTokens.dirty).toBeDefined();
+    expect(stateTokens.dirtyBorder).toBeDefined();
+    expect(stateTokens.saving).toBeDefined();
+  });
+
+  it("keeps validation severity tokens separate from document statuses", () => {
+    expect(validationTokens.error.bg).toBeDefined();
+    expect(validationTokens.blocking.icon).toBeDefined();
+    expect(validationTokens).not.toHaveProperty("approved");
+    expect(statusTokens.approved).toBeDefined();
+  });
+
+  it("exposes ERP grid and table token families", () => {
+    expect(gridTokens.header.bg).toBeDefined();
+    expect(gridTokens.row.dirtyBg).toBeDefined();
+    expect(gridTokens.row.deletedBg).toBeDefined();
+    expect(gridTokens.cell.focusRing).toBeDefined();
+    expect(gridTokens.selectionHandle).toBeDefined();
+  });
+
+  it("exposes shell and form layout token families", () => {
+    expect(shellTokens.topbar.height).toBeDefined();
+    expect(shellTokens.workspaceTabs.height).toBeDefined();
+    expect(shellTokens.splitPane.dividerWidth).toBeDefined();
+    expect(formTokens.label.width).toBeDefined();
+    expect(formTokens.field.focusBorder).toBeDefined();
+    expect(formTokens.requiredMarker.color).toBeDefined();
   });
 
   it("defines layered z-index tokens", () => {

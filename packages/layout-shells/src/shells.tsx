@@ -1,16 +1,6 @@
 import { type ReactNode } from "react";
 import { Badge, cn } from "@erp-ui-platform/primitives";
-
-export type NavigationItem = {
-  id: string;
-  label: string;
-  description?: string;
-  badge?: ReactNode;
-  icon?: ReactNode;
-  active?: boolean;
-  disabled?: boolean;
-  onSelect?: () => void;
-};
+import { type NavigationItem } from "./navigation";
 
 export interface AppFrameProps {
   navigation?: ReactNode;
@@ -83,7 +73,7 @@ export const NavigationShell = ({
       {subtitle && <p className="mt-1 text-xs text-[var(--erp-color-muted-foreground)]">{subtitle}</p>}
     </div>
     <div className="flex-1 overflow-y-auto px-2 py-3">
-      {items.map((item) => {
+      {items.filter((item) => !item.hidden).map((item) => {
         const active = item.active ?? item.id === activeItemId;
         return (
           <button
@@ -91,6 +81,7 @@ export const NavigationShell = ({
             type="button"
             disabled={item.disabled}
             onClick={item.onSelect}
+            title={item.reason}
             className={cn(
               "mb-1 flex w-full items-center gap-3 rounded-md px-3 py-2 text-left",
               "text-sm text-[var(--erp-color-muted-foreground)] transition-colors",

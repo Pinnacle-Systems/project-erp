@@ -172,6 +172,70 @@ const DELIVERY_LINES = [
   { item: "BOX-010", desc: "Shipping box", ord: 20, pick: 20, ok: true },
 ];
 
+// ── MobileDocumentViewWithoutWorkspaceTabs ───────────────────────────────────
+
+export const MobileDocumentViewWithoutWorkspaceTabs: Story = {
+  render: () => (
+    <MobileTaskShell
+      title="Approval Detail"
+      subtitle="Sales Return"
+      backLabel="Back"
+      status={<StatusBadge label="Pending" tone="warning" />}
+      bottomBar={
+        <MobileBottomActionBarPattern
+          helperText="Mobile uses back navigation, title, and status instead of desktop workspace tabs."
+          actions={[
+            { id: "comment", label: "Comment", variant: "secondary" },
+            { id: "reject", label: "Reject", variant: "destructive" },
+            { id: "approve", label: "Approve", variant: "default" },
+          ]}
+        />
+      }
+    >
+      <div className="space-y-3 p-4">
+        <div className="flex items-center justify-between rounded-xl border border-neutral-200 bg-white px-3 py-3">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-neutral-500">
+              Sales Return
+            </p>
+            <p className="text-sm font-semibold text-neutral-950">SR-108</p>
+          </div>
+          <Button variant="ghost" density="compact">
+            Add note
+          </Button>
+        </div>
+
+        <MobileDocumentSummaryPattern
+          fields={[
+            { label: "Customer", value: "ABC Traders" },
+            { label: "Amount", value: "₹18,240" },
+            { label: "Requested by", value: "A. Sharma" },
+            { label: "Age", value: "4 hours" },
+          ]}
+          lines={[
+            {
+              id: "line-1",
+              title: "Returned goods",
+              description: "2 items require approval",
+              meta: "2 lines",
+              status: <StatusBadge label="Review" tone="warning" />,
+            },
+            {
+              id: "line-2",
+              title: "Customer credit",
+              description: "Credit note pending approval",
+              meta: "₹18,240",
+              status: <StatusBadge label="Pending" tone="warning" />,
+            },
+          ]}
+          readOnlyLabel="Mobile review"
+          desktopEditMessage="Desktop may keep several work items open with workspace tabs and scoped breadcrumbs. This mobile view stays focused on one active task."
+        />
+      </div>
+    </MobileTaskShell>
+  ),
+};
+
 // ── 1. MobileTaskHome ─────────────────────────────────────────────────────────
 
 export const MobileTaskHome: Story = {

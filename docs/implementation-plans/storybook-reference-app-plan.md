@@ -70,7 +70,9 @@ Storybook should show:
 ### Shell Examples
 
 - Desktop workspace example.
+- Desktop app shell with workspace tabs and active-tab breadcrumbs.
 - Mobile task flow example.
+- Mobile document detail without desktop workspace tabs by default.
 - Mobile approval example.
 - Scanner capture example.
 - Tablet exception example where justified.
@@ -103,6 +105,9 @@ The reference app must not contain real client business rules, integrations, cre
 
 Demonstrates:
 
+- Desktop `MultiDocumentWorkspace` for open work items.
+- Workspace tabs for open Sales Invoice, Sales Return, and Customer detail records.
+- Active-tab breadcrumbs in `PageHeader`.
 - Transaction shell.
 - Header form.
 - Editable line grid.
@@ -113,6 +118,22 @@ Demonstrates:
 - Audit timeline.
 
 The sales transaction should use fake pricing and validation adapters only for demonstration.
+
+Desktop reference app target screens:
+
+- Desktop Sales Invoice Create/Edit can open as a workspace tab.
+- Sales Return can open as another workspace tab.
+- Customer detail can open as another workspace tab.
+- Switching tabs updates `PageHeader` breadcrumbs.
+- Dirty and error markers should be visible on tabs using mock state.
+
+Navigation rules:
+
+- Desktop reference app may use `MultiDocumentWorkspace` for open invoice, return, and customer work items.
+- Breadcrumbs are scoped to the active workspace tab.
+- Breadcrumbs describe hierarchy or location, not open tabs or navigation history.
+- Workspace tabs are desktop workspace switching, not route hierarchy.
+- Mobile reference app should not use workspace tabs by default.
 
 ### Approval Flow
 
@@ -228,4 +249,3 @@ Before releasing a shared UI/UX platform package:
 - Visual regression review is complete where available.
 - Release notes mention visual, behavioral, accessibility, and migration impacts.
 - Major versions include a migration guide.
-
