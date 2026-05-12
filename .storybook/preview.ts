@@ -1,5 +1,11 @@
 import { createElement } from "react";
 import type { Preview } from "@storybook/react-vite";
+import {
+  ThemeProvider,
+  type ColorMode,
+  type Density,
+  type ThemeName,
+} from "@erp-ui-platform/theme";
 
 import "./preview.css";
 
@@ -35,16 +41,26 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    colorMode: {
+      description: "Color mode (light is production-supported; dark/system are deferred)",
+      defaultValue: "light",
+      toolbar: {
+        title: "Mode",
+        icon: "contrast",
+        items: ["light"],
+        dynamicTitle: true,
+      },
+    },
   },
   decorators: [
     (Story, context) =>
       createElement(
-        "div",
+        ThemeProvider,
         {
+          theme: context.globals.clientTheme as ThemeName,
+          density: context.globals.density as Density,
+          colorMode: context.globals.colorMode as ColorMode,
           className: "erp-storybook-shell",
-          "data-density": context.globals.density,
-          "data-shell": context.globals.shell,
-          "data-client-theme": context.globals.clientTheme,
         },
         createElement(Story),
       ),

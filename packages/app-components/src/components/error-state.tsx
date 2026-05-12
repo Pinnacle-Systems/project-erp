@@ -43,21 +43,21 @@ export const ErrorState = ({
     )}
     role="alert"
   >
-    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-500">
+    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--erp-danger-soft)] text-[var(--erp-danger)]">
       <AlertCircleIcon />
     </div>
     <div className="flex flex-col gap-1">
-      <p className="text-sm font-semibold text-neutral-700">{title}</p>
+      <p className="text-sm font-semibold text-[var(--erp-fg)]">{title}</p>
       {description && (
-        <p className="text-sm text-neutral-500 max-w-sm">{description}</p>
+        <p className="text-sm text-[var(--erp-muted)] max-w-sm">{description}</p>
       )}
     </div>
     {errorDetails && (
       <details className="text-left max-w-sm w-full">
-        <summary className="text-xs text-neutral-400 cursor-pointer select-none hover:text-neutral-600 transition-colors">
+        <summary className="text-xs text-[var(--erp-subtle)] cursor-pointer select-none hover:text-[var(--erp-muted)] transition-colors">
           Error details
         </summary>
-        <pre className="mt-1.5 rounded-md bg-neutral-100 p-2.5 text-xs text-neutral-600 overflow-auto whitespace-pre-wrap break-all leading-relaxed">
+        <pre className="mt-1.5 rounded-[var(--erp-radius-control)] bg-[var(--erp-surface-muted)] p-2.5 text-xs text-[var(--erp-muted)] overflow-auto whitespace-pre-wrap break-all leading-relaxed">
           {errorDetails}
         </pre>
       </details>

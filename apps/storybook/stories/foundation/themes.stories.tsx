@@ -1,0 +1,337 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
+import {
+  Button,
+  TextField,
+  SelectField,
+  SelectItem,
+  Badge,
+} from "@erp-ui-platform/primitives";
+import {
+  ConfirmDialog,
+  LoadingState,
+  PageHeader,
+  StatusBadge,
+} from "@erp-ui-platform/app-components";
+import {
+  ThemeProvider,
+  type Density,
+  type ThemeName,
+} from "@erp-ui-platform/theme";
+import { TransactionShell } from "@erp-ui-platform/transaction-shell";
+import {
+  createValidationSummary,
+  ValidationSummaryPanel,
+} from "@erp-ui-platform/validation-ui";
+import { MobileApprovalFlow, MobileTaskShell } from "@erp-ui-platform/mobile-patterns";
+import { APPROVAL_COMMENTS, APPROVAL_STEPS } from "../../utils/demoData";
+import {
+  validationBlocking,
+  validationInfo,
+  validationWarning,
+} from "../../utils/demoValidation";
+
+const meta = {
+  title: "Foundation/Themes",
+} satisfies Meta;
+
+export default meta;
+type Story = StoryObj;
+
+const fields = [
+  { label: "Customer", value: "Northwind Retail" },
+  { label: "Invoice Date", value: "11 May 2026" },
+  { label: "Amount", value: "₹1,793.60" },
+];
+
+const validationSummary = createValidationSummary([
+  validationBlocking,
+  validationWarning,
+  validationInfo,
+]);
+
+const ConfirmDialogExample = ({ density }: { density: Density }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button variant="secondary" density={density} onClick={() => setOpen(true)}>
+        Open confirm dialog
+      </Button>
+      <ConfirmDialog
+        open={open}
+        onOpenChange={setOpen}
+        title="Confirm post"
+        description="ConfirmDialog consumes the same surface, radius, focus, and action tokens as the rest of the platform."
+        confirmLabel="Post invoice"
+        onConfirm={() => setOpen(false)}
+      />
+    </>
+  );
+};
+
+const ThemeSample = ({
+  theme = "default",
+  density = "comfortable",
+}: {
+  theme?: ThemeName;
+  density?: Density;
+}) => (
+  <ThemeProvider theme={theme} density={density} className="rounded-lg border border-[var(--erp-border)] bg-[var(--erp-bg)] p-[var(--erp-page-padding)]">
+    <div className="overflow-hidden rounded-[var(--erp-radius-panel)] border border-[var(--erp-border)] bg-[var(--erp-surface)] shadow-[var(--erp-shadow-sm)]">
+      <PageHeader
+        title="Sales Invoice"
+        subtitle="SI-1002 · Theme token sample"
+        density={density}
+        status={<StatusBadge label="Pending" tone="warning" />}
+        primaryAction={<Button variant="default" density={density}>Submit</Button>}
+        secondaryActions={<Button variant="secondary" density={density}>Save</Button>}
+        meta={fields}
+      />
+      <div className="grid gap-[var(--erp-gap)] p-4 md:grid-cols-2">
+        <TextField label="Customer" defaultValue="Northwind Retail" density={density} />
+        <SelectField label="Payment Terms" defaultValue="net30" density={density}>
+          <SelectItem value="net30">Net 30</SelectItem>
+          <SelectItem value="net60">Net 60</SelectItem>
+        </SelectField>
+        <TextField
+          label="Tax Code"
+          defaultValue="Not set"
+          errorMessage="Tax code is required before posting."
+          density={density}
+        />
+        <div className="flex items-end gap-2">
+          <Badge>Draft</Badge>
+          <Badge variant="info">Submitted</Badge>
+          <Badge variant="success">Approved</Badge>
+          <Badge variant="danger">Blocked</Badge>
+        </div>
+      </div>
+      <ValidationSummaryPanel summary={validationSummary} title="Cannot post" />
+      <div className="p-4">
+        <ConfirmDialogExample density={density} />
+      </div>
+    </div>
+  </ThemeProvider>
+);
+
+export const DefaultTheme: Story = {
+  render: () => <ThemeSample theme="default" />,
+};
+
+export const ClientATheme: Story = {
+  render: () => <ThemeSample theme="clientA" />,
+};
+
+export const ClientBTheme: Story = {
+  render: () => <ThemeSample theme="clientB" />,
+};
+
+export const CompactDensity: Story = {
+  render: () => <ThemeSample theme="default" density="compact" />,
+};
+
+export const ComfortableDensity: Story = {
+  render: () => <ThemeSample theme="default" density="comfortable" />,
+};
+
+export const TouchDensity: Story = {
+  render: () => <ThemeSample theme="default" density="touch" />,
+};
+
+export const ThemeComparison: Story = {
+  render: () => (
+    <div className="grid gap-4 xl:grid-cols-3">
+      {(["default", "clientA", "clientB"] as const).map((theme) => (
+        <ThemeSample key={theme} theme={theme} density="compact" />
+      ))}
+    </div>
+  ),
+};
+
+export const StatusTonesByTheme: Story = {
+  render: () => (
+    <div className="grid gap-4 xl:grid-cols-3">
+      {(["default", "clientA", "clientB"] as const).map((theme) => (
+        <ThemeProvider
+          key={theme}
+          theme={theme}
+          density="comfortable"
+          className="rounded-lg border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4"
+        >
+          <p className="mb-3 text-sm font-semibold text-[var(--erp-fg)]">{theme}</p>
+          <div className="flex flex-wrap gap-2">
+            <StatusBadge label="Draft" tone="default" />
+            <StatusBadge label="Submitted" tone="info" />
+            <StatusBadge label="Approved" tone="success" />
+            <StatusBadge label="Warning" tone="warning" />
+            <StatusBadge label="Blocked" tone="danger" />
+            <StatusBadge label="Muted" tone="muted" />
+          </div>
+        </ThemeProvider>
+      ))}
+    </div>
+  ),
+};
+
+export const FocusAndDisabledStates: Story = {
+  render: () => (
+    <ThemeProvider
+      theme="clientA"
+      density="comfortable"
+      className="grid gap-4 rounded-lg border border-[var(--erp-border)] bg-[var(--erp-bg)] p-[var(--erp-page-padding)] md:grid-cols-2"
+    >
+      <div className="grid gap-3 rounded-[var(--erp-radius-panel)] border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
+        <p className="text-sm font-semibold text-[var(--erp-fg)]">Focus tokens</p>
+        <Button autoFocus>Focused button</Button>
+        <TextField label="Focused field" defaultValue="Focus uses --erp-focus-ring" />
+        <SelectField label="Focused select" defaultValue="posting">
+          <SelectItem value="posting">Ready to post</SelectItem>
+          <SelectItem value="hold">Hold</SelectItem>
+        </SelectField>
+      </div>
+      <div className="grid gap-3 rounded-[var(--erp-radius-panel)] border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
+        <p className="text-sm font-semibold text-[var(--erp-fg)]">Disabled tokens</p>
+        <Button disabled>Disabled button</Button>
+        <TextField label="Disabled field" defaultValue="Read only" disabled />
+        <SelectField label="Disabled select" defaultValue="posting" disabled>
+          <SelectItem value="posting">Ready to post</SelectItem>
+        </SelectField>
+      </div>
+    </ThemeProvider>
+  ),
+};
+
+export const NestedDensityOverride: Story = {
+  render: () => (
+    <ThemeProvider
+      theme="clientB"
+      density="comfortable"
+      className="grid gap-4 rounded-lg border border-[var(--erp-border)] bg-[var(--erp-bg)] p-[var(--erp-page-padding)]"
+    >
+      <ThemeSample theme="clientB" density="comfortable" />
+      <ThemeProvider
+        density="compact"
+        className="rounded-lg border border-[var(--erp-border-strong)] bg-[var(--erp-surface)] p-4"
+      >
+        <p className="mb-3 text-sm font-semibold text-[var(--erp-fg)]">
+          Nested provider inherits clientB and only overrides density
+        </p>
+        <div className="grid gap-[var(--erp-field-gap)] md:grid-cols-3">
+          <TextField label="Compact field" defaultValue="Inherited brand" />
+          <SelectField label="Compact select" defaultValue="approved">
+            <SelectItem value="approved">Approved</SelectItem>
+            <SelectItem value="posted">Posted</SelectItem>
+          </SelectField>
+          <div className="flex items-end gap-2">
+            <Button>Compact action</Button>
+          </div>
+        </div>
+      </ThemeProvider>
+    </ThemeProvider>
+  ),
+};
+
+export const TransactionShellByTheme: Story = {
+  render: () => (
+    <div className="grid gap-4 xl:grid-cols-3">
+      {(["default", "clientA", "clientB"] as const).map((theme) => (
+        <ThemeProvider
+          key={theme}
+          theme={theme}
+          density="compact"
+          className="overflow-hidden rounded-lg border border-[var(--erp-border)] bg-[var(--erp-surface)] shadow-[var(--erp-shadow-sm)]"
+        >
+          <PageHeader
+            title="Sales Invoice"
+            subtitle={`${theme} · SI-1002`}
+            density="compact"
+            status={<StatusBadge label="Draft" tone="default" />}
+          />
+          <TransactionShell
+            title="Sales Invoice"
+            status="draft"
+            mode="edit"
+            density="compact"
+            header={
+              <div className="grid gap-2">
+                <TextField label="Customer" defaultValue="Northwind Retail" density="compact" />
+                <TextField label="Invoice Date" defaultValue="11 May 2026" density="compact" />
+              </div>
+            }
+            lines={
+              <table className="erp-demo-table text-xs">
+                <tbody>
+                  <tr>
+                    <td>FAB-001</td>
+                    <td>Fabric roll</td>
+                    <td>12</td>
+                  </tr>
+                  <tr>
+                    <td>ACC-220</td>
+                    <td>Accessory pack</td>
+                    <td>8</td>
+                  </tr>
+                </tbody>
+              </table>
+            }
+            validationMessages={[validationWarning]}
+            actions={<Button density="compact">Save</Button>}
+          />
+        </ThemeProvider>
+      ))}
+    </div>
+  ),
+};
+
+export const MobileApprovalByTheme: Story = {
+  render: () => (
+    <div className="grid gap-4 xl:grid-cols-3">
+      {(["default", "clientA", "clientB"] as const).map((theme) => (
+        <ThemeProvider key={theme} theme={theme} density="touch">
+          <MobileTaskShell
+            title="Approval"
+            subtitle={`${theme} · PO-2024-0841`}
+            backLabel="Back"
+          >
+            <MobileApprovalFlow
+              status="pending"
+              statusLabel="Pending"
+              statusTone="warning"
+              steps={APPROVAL_STEPS}
+              comments={APPROVAL_COMMENTS}
+              actions={[
+                { id: "approve", decision: "approve", label: "Approve" },
+                { id: "changes", decision: "request_changes", label: "Changes" },
+                { id: "reject", decision: "reject", label: "Reject" },
+              ]}
+              summary={
+                <div className="grid gap-1 text-sm text-[var(--erp-fg)]">
+                  <div className="flex justify-between">
+                    <span className="text-[var(--erp-muted)]">Requester</span>
+                    <span>A. Sharma</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[var(--erp-muted)]">Amount</span>
+                    <span>₹1,24,500.00</span>
+                  </div>
+                </div>
+              }
+            />
+          </MobileTaskShell>
+        </ThemeProvider>
+      ))}
+    </div>
+  ),
+};
+
+export const LoadingAndValidationByTheme: Story = {
+  render: () => (
+    <ThemeProvider theme="clientA" density="comfortable" className="rounded-lg bg-[var(--erp-surface)] p-4">
+      <div className="grid gap-4 md:grid-cols-2">
+        <LoadingState variant="skeleton" />
+        <ValidationSummaryPanel summary={validationSummary} title="Validation" />
+      </div>
+    </ThemeProvider>
+  ),
+};

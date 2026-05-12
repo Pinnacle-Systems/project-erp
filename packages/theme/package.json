@@ -1,0 +1,13 @@
+{
+  "name": "@erp-ui-platform/theme",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.tsx",
+    "./theme.css": "./src/theme.css"
+  },
+  "dependencies": {
+    "react": "^19.2.6"
+  }
+}

@@ -7,12 +7,18 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-neutral-100 text-neutral-700 border-neutral-200",
-        success: "bg-green-50 text-green-700 border-green-200",
-        warning: "bg-amber-50 text-amber-700 border-amber-200",
-        danger: "bg-red-50 text-red-700 border-red-200",
-        info: "bg-blue-50 text-blue-700 border-blue-200",
-        muted: "bg-neutral-100 text-neutral-500 border-neutral-200",
+        default:
+          "bg-[var(--erp-surface-muted)] text-[var(--erp-fg)] border-[var(--erp-border)]",
+        success:
+          "bg-[var(--erp-status-approved-soft)] text-[var(--erp-status-approved)] border-[var(--erp-status-approved-border)]",
+        warning:
+          "bg-[var(--erp-warning-soft)] text-[var(--erp-color-warning)] border-[var(--erp-warning-border)]",
+        danger:
+          "bg-[var(--erp-status-rejected-soft)] text-[var(--erp-status-rejected)] border-[var(--erp-status-rejected-border)]",
+        info:
+          "bg-[var(--erp-status-submitted-soft)] text-[var(--erp-status-submitted)] border-[var(--erp-status-submitted-border)]",
+        muted:
+          "bg-[var(--erp-surface-muted)] text-[var(--erp-muted)] border-[var(--erp-border)]",
       },
     },
     defaultVariants: {

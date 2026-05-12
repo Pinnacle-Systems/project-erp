@@ -51,7 +51,7 @@ export const FilterBar = ({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-end gap-2 px-4 py-2.5 bg-white border-b border-neutral-200",
+        "flex flex-wrap items-end gap-2 px-4 py-2.5 bg-[var(--erp-surface)] border-b border-[var(--erp-border)]",
         className,
       )}
     >

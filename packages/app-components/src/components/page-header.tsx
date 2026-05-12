@@ -39,7 +39,7 @@ export const PageHeader = ({
 }: PageHeaderProps) => (
   <div
     className={cn(
-      "bg-white border-b border-neutral-200",
+      "bg-[var(--erp-surface)] border-b border-[var(--erp-border)]",
       density === "compact" && "px-4 py-2",
       density === "comfortable" && "px-6 py-4",
       density === "touch" && "px-5 py-5",
@@ -51,18 +51,18 @@ export const PageHeader = ({
         {breadcrumbs.map((item, i) => (
           <span key={i} className="flex items-center gap-1">
             {i > 0 && (
-              <span className="text-neutral-300 text-xs select-none">/</span>
+              <span className="text-[var(--erp-subtle)] text-xs select-none">/</span>
             )}
             {item.href || item.onClick ? (
               <a
                 href={item.href}
                 onClick={item.onClick}
-                className="text-xs text-neutral-500 hover:text-neutral-800 transition-colors"
+                className="text-xs text-[var(--erp-muted)] hover:text-[var(--erp-fg)] transition-colors"
               >
                 {item.label}
               </a>
             ) : (
-              <span className="text-xs text-neutral-400">{item.label}</span>
+              <span className="text-xs text-[var(--erp-subtle)]">{item.label}</span>
             )}
           </span>
         ))}
@@ -74,7 +74,7 @@ export const PageHeader = ({
         <div className="flex items-center gap-2 flex-wrap">
           <h1
             className={cn(
-              "font-semibold text-neutral-900 leading-tight",
+              "font-semibold text-[var(--erp-fg)] leading-tight",
               density === "compact" && "text-sm",
               density === "comfortable" && "text-base",
               density === "touch" && "text-lg",
@@ -87,7 +87,7 @@ export const PageHeader = ({
         {subtitle && (
           <p
             className={cn(
-              "text-neutral-500 mt-0.5 truncate",
+              "text-[var(--erp-muted)] mt-0.5 truncate",
               density === "compact" ? "text-xs" : "text-sm",
             )}
           >
@@ -107,8 +107,8 @@ export const PageHeader = ({
     {meta && meta.length > 0 && (
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-0.5">
         {meta.map((item, i) => (
-          <span key={i} className="text-xs text-neutral-500">
-            <span className="font-medium text-neutral-600">{item.label}:</span>{" "}
+          <span key={i} className="text-xs text-[var(--erp-muted)]">
+            <span className="font-medium text-[var(--erp-fg)]">{item.label}:</span>{" "}
             {item.value}
           </span>
         ))}
