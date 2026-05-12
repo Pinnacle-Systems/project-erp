@@ -1,14 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
+  borderTokens,
   colorTokens,
   densityTokens,
+  formTokens,
+  gridTokens,
   radiusTokens,
   semanticColorTokens,
   shadowTokens,
+  shellTokens,
   spacingTokens,
+  stateTokens,
   statusTokens,
+  surfaceTokens,
+  textTokens,
   typographyTokens,
+  validationTokens,
   zIndexTokens,
 } from "@erp-ui-platform/tokens";
 
@@ -107,10 +115,146 @@ const StatusCard = ({
       }}
     >
       <strong className="block text-xs">{label}</strong>
-      <code className="text-[10px] opacity-80">{status}</code>
+      <code className="text-[10px] font-medium">{status}</code>
     </div>
   );
 };
+
+const ColorTokenCard = ({
+  label,
+  value,
+  cssVariable,
+}: {
+  label: string;
+  value: string;
+  cssVariable: string;
+}) => {
+  const canPreviewAsColor =
+    value === "transparent" ||
+    value === "currentColor" ||
+    value.startsWith("#") ||
+    value.startsWith("rgb");
+
+  return (
+    <div
+      className="rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface)] p-3"
+    >
+      <div
+        className="mb-2 h-8 overflow-hidden rounded border border-[var(--erp-border)] bg-[var(--erp-surface-muted)]"
+      >
+        <div
+          className="h-full rounded-sm"
+          style={
+            canPreviewAsColor
+              ? { background: value }
+              : {
+                  width: value,
+                  maxWidth: "100%",
+                  minWidth: "0.25rem",
+                  background: "var(--erp-accent)",
+                }
+          }
+        />
+      </div>
+      <p className="text-xs font-semibold text-[var(--erp-fg)]">{label}</p>
+      <code className="block text-[10px] font-medium text-[var(--erp-muted)]">{cssVariable}</code>
+      <code className="block text-[10px] text-[var(--erp-subtle)]">{value}</code>
+    </div>
+  );
+};
+
+const TokenFamily = ({
+  title,
+  tokens,
+  cssPrefix,
+}: {
+  title: string;
+  tokens: Record<string, string>;
+  cssPrefix: string;
+}) => (
+  <section className="erp-demo-panel">
+    <SectionTitle>{title}</SectionTitle>
+    <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      {Object.entries(tokens).map(([key, value]) => (
+        <ColorTokenCard
+          key={key}
+          label={key}
+          value={value}
+          cssVariable={`${cssPrefix}-${kebabCase(key)}`}
+        />
+      ))}
+    </div>
+  </section>
+);
+
+const flattenTokens = (
+  tokens: Record<string, unknown>,
+  prefix = "",
+): Record<string, string> =>
+  Object.entries(tokens).reduce<Record<string, string>>((acc, [key, value]) => {
+    const path = prefix ? `${prefix}.${key}` : key;
+
+    if (typeof value === "string" || typeof value === "number") {
+      acc[path] = String(value);
+      return acc;
+    }
+
+    if (value && typeof value === "object") {
+      Object.assign(acc, flattenTokens(value as Record<string, unknown>, path));
+    }
+
+    return acc;
+  }, {});
+
+const NestedTokenFamily = ({
+  title,
+  tokens,
+  cssPrefix,
+}: {
+  title: string;
+  tokens: Record<string, unknown>;
+  cssPrefix: string;
+}) => (
+  <TokenFamily title={title} tokens={flattenTokens(tokens)} cssPrefix={cssPrefix} />
+);
+
+const ValidationTokenFamily = () => (
+  <section className="erp-demo-panel">
+    <SectionTitle>Validation Severity Tokens</SectionTitle>
+    <div className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      {Object.entries(validationTokens).map(([severity, token]) => (
+        <div
+          key={severity}
+          className="rounded-md border p-3"
+          style={{
+            background: token.bg,
+            borderColor: token.border,
+            color: token.text,
+          }}
+        >
+          <div className="mb-2 flex items-center gap-2">
+            <span
+              className="h-2.5 w-2.5 rounded-full"
+              style={{ background: token.icon }}
+            />
+            <strong className="text-xs capitalize">{severity}</strong>
+          </div>
+          <div className="grid gap-1 text-[10px] font-medium">
+            <code>{`--erp-validation-${severity}-bg`}</code>
+            <code>{`--erp-validation-${severity}-text`}</code>
+            <code>{`--erp-validation-${severity}-border`}</code>
+            <code>{`--erp-validation-${severity}-icon`}</code>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+const kebabCase = (value: string) =>
+  value
+    .replace(/\./g, "-")
+    .replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
 
 export const Overview: Story = {
   render: () => (
@@ -152,6 +296,14 @@ export const Overview: Story = {
           ))}
         </div>
       </section>
+      <TokenFamily title="Surface Tokens" tokens={surfaceTokens} cssPrefix="--erp-surface" />
+      <TokenFamily title="Text Tokens" tokens={textTokens} cssPrefix="--erp-text" />
+      <TokenFamily title="Border Tokens" tokens={borderTokens} cssPrefix="--erp-border" />
+      <TokenFamily title="Interactive And ERP State Tokens" tokens={stateTokens} cssPrefix="--erp-state" />
+      <ValidationTokenFamily />
+      <NestedTokenFamily title="Grid And Table Tokens" tokens={gridTokens} cssPrefix="--erp-grid" />
+      <NestedTokenFamily title="Shell Layout Tokens" tokens={shellTokens} cssPrefix="--erp-shell" />
+      <NestedTokenFamily title="Form Layout Tokens" tokens={formTokens} cssPrefix="--erp-form" />
       <section className="erp-demo-panel">
         <SectionTitle>Scales</SectionTitle>
         <div className="mt-3 grid gap-4 lg:grid-cols-2">

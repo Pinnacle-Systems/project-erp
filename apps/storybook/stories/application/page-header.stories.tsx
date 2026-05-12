@@ -16,6 +16,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const invoiceBreadcrumbs = [
+  { id: "sales", label: "Sales", href: "#" },
+  { id: "invoices", label: "Invoices", href: "#" },
+  { id: "si-1024", label: "SI-1024", current: true },
+];
+
+const returnBreadcrumbs = [
+  { id: "sales", label: "Sales", href: "#" },
+  { id: "returns", label: "Returns", href: "#" },
+  { id: "sr-108", label: "SR-108", current: true },
+];
+
 export const Default: Story = {
   args: {
     title: "Vendor Bills",
@@ -23,16 +35,20 @@ export const Default: Story = {
   },
 };
 
-export const WithStatusAndActions: Story = {
+export const WithBreadcrumbs: Story = {
   args: {
-    title: "Purchase Order #PO-2024-0841",
-    subtitle: "Raised 12 Apr 2024 · Acme Supplies Ltd",
+    title: "Sales Invoice SI-1024",
+    subtitle: "ABC Traders",
+    breadcrumbs: invoiceBreadcrumbs,
+  },
+};
+
+export const WithBreadcrumbsStatusAndActions: Story = {
+  args: {
+    title: "Sales Return SR-108",
+    subtitle: "ABC Traders",
     status: <Badge variant="warning">Pending Approval</Badge>,
-    breadcrumbs: [
-      { label: "Procurement", href: "#" },
-      { label: "Purchase Orders", href: "#" },
-      { label: "PO-2024-0841" },
-    ],
+    breadcrumbs: returnBreadcrumbs,
     primaryAction: (
       <Button variant="default" density="compact">
         Approve
@@ -49,13 +65,14 @@ export const WithStatusAndActions: Story = {
       </>
     ),
     meta: [
-      { label: "Total", value: "₹1,24,500.00" },
-      { label: "Items", value: "6" },
-      { label: "Due", value: "30 Apr 2024" },
-      { label: "Warehouse", value: "Mumbai Central" },
+      { label: "Status", value: "Awaiting review" },
+      { label: "Lines", value: "6" },
+      { label: "Updated", value: "30 Apr 2024" },
     ],
   },
 };
+
+export const WithStatusAndActions = WithBreadcrumbsStatusAndActions;
 
 export const DenseERPHeader: Story = {
   args: {
@@ -76,6 +93,34 @@ export const DenseERPHeader: Story = {
     meta: [
       { label: "Unposted", value: "14 entries" },
       { label: "Last posted", value: "09 May 2025, 14:32" },
+    ],
+  },
+};
+
+export const DenseERPHeaderWithBreadcrumbs: Story = {
+  args: {
+    title: "Inventory Transfer TR-771",
+    subtitle: "Main Warehouse to North Dock",
+    density: "compact",
+    breadcrumbs: [
+      { id: "inventory", label: "Inventory", href: "#" },
+      { id: "transfers", label: "Transfers", href: "#" },
+      { id: "tr-771", label: "TR-771", current: true },
+    ],
+    status: <Badge variant="info">In Review</Badge>,
+    primaryAction: (
+      <Button variant="default" density="compact">
+        Save
+      </Button>
+    ),
+    secondaryActions: (
+      <Button variant="secondary" density="compact">
+        Submit
+      </Button>
+    ),
+    meta: [
+      { label: "Lines", value: "14" },
+      { label: "Updated", value: "09 May 2025, 14:32" },
     ],
   },
 };

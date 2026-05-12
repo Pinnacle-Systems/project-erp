@@ -1,11 +1,8 @@
 import { type ReactNode } from "react";
 import { cn } from "@erp-ui-platform/primitives";
+import { Breadcrumbs, type BreadcrumbItem } from "./breadcrumbs";
 
-export interface BreadcrumbItem {
-  label: string;
-  href?: string;
-  onClick?: () => void;
-}
+export type { BreadcrumbItem } from "./breadcrumbs";
 
 export interface MetaItem {
   label: string;
@@ -18,6 +15,7 @@ export interface PageHeaderProps {
   title: string;
   subtitle?: string;
   breadcrumbs?: BreadcrumbItem[];
+  breadcrumbSlot?: ReactNode;
   status?: ReactNode;
   primaryAction?: ReactNode;
   secondaryActions?: ReactNode;
@@ -30,6 +28,7 @@ export const PageHeader = ({
   title,
   subtitle,
   breadcrumbs,
+  breadcrumbSlot,
   status,
   primaryAction,
   secondaryActions,
@@ -46,28 +45,13 @@ export const PageHeader = ({
       className,
     )}
   >
-    {breadcrumbs && breadcrumbs.length > 0 && (
-      <nav aria-label="Breadcrumb" className="mb-1.5 flex items-center gap-1">
-        {breadcrumbs.map((item, i) => (
-          <span key={i} className="flex items-center gap-1">
-            {i > 0 && (
-              <span className="text-[var(--erp-subtle)] text-xs select-none">/</span>
-            )}
-            {item.href || item.onClick ? (
-              <a
-                href={item.href}
-                onClick={item.onClick}
-                className="text-xs text-[var(--erp-muted)] hover:text-[var(--erp-fg)] transition-colors"
-              >
-                {item.label}
-              </a>
-            ) : (
-              <span className="text-xs text-[var(--erp-subtle)]">{item.label}</span>
-            )}
-          </span>
-        ))}
-      </nav>
-    )}
+    {breadcrumbSlot ? (
+      <div className="mb-1.5 min-w-0 text-xs text-[var(--erp-color-muted-foreground)]">
+        {breadcrumbSlot}
+      </div>
+    ) : breadcrumbs && breadcrumbs.length > 0 ? (
+      <Breadcrumbs items={breadcrumbs} compact className="mb-1.5" />
+    ) : null}
 
     <div className="flex items-start justify-between gap-4">
       <div className="min-w-0 flex-1">

@@ -262,9 +262,9 @@ export const EditMode: Story = {
             status={<StatusBadge label="Submitted" tone="info" />}
             density="compact"
             breadcrumbs={[
-              { label: "Sales", href: "#" },
-              { label: "Invoices", href: "#" },
-              { label: "SI-1001" },
+              { id: "sales", label: "Sales", href: "#" },
+              { id: "invoices", label: "Invoices", href: "#" },
+              { id: "si-1001", label: "SI-1001", current: true },
             ]}
           />
           <TransactionShell
@@ -369,7 +369,10 @@ export const ApprovalMode: Story = {
             subtitle={`SI-1001 · Northwind Retail · ${INVOICE_TOTAL_FORMATTED}`}
             status={<StatusBadge label="Pending Approval" tone="warning" />}
             density="compact"
-            breadcrumbs={[{ label: "Approvals", href: "#" }, { label: "SI-1001" }]}
+            breadcrumbs={[
+              { id: "approvals", label: "Approvals", href: "#" },
+              { id: "si-1001", label: "SI-1001", current: true },
+            ]}
           />
           <TransactionShell
             title="Sales Invoice"

@@ -105,7 +105,17 @@ importers:
 
   packages/config-runtime: {}
 
-  packages/desktop-patterns: {}
+  packages/desktop-patterns:
+    dependencies:
+      '@erp-ui-platform/app-components':
+        specifier: workspace:*
+        version: link:../app-components
+      '@erp-ui-platform/layout-shells':
+        specifier: workspace:*
+        version: link:../layout-shells
+      '@erp-ui-platform/primitives':
+        specifier: workspace:*
+        version: link:../primitives
 
   packages/document-ui: {}
 
@@ -115,7 +125,11 @@ importers:
         specifier: workspace:*
         version: link:../validation-ui
 
-  packages/layout-shells: {}
+  packages/layout-shells:
+    dependencies:
+      '@erp-ui-platform/primitives':
+        specifier: workspace:*
+        version: link:../primitives
 
   packages/lookup:
     dependencies:
@@ -153,6 +167,12 @@ importers:
         version: 3.6.0
 
   packages/screen-runtime: {}
+
+  packages/theme:
+    dependencies:
+      react:
+        specifier: ^19.2.6
+        version: 19.2.6
 
   packages/tokens: {}
 

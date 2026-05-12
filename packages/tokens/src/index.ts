@@ -96,6 +96,211 @@ export const semanticColorTokens = {
   },
 } as const;
 
+export const surfaceTokens = {
+  page: colorTokens.neutral[50],
+  panel: colorTokens.white,
+  card: colorTokens.white,
+  raised: colorTokens.white,
+  sunken: colorTokens.neutral[100],
+  overlay: "rgb(15 23 42 / 0.55)",
+  hover: colorTokens.neutral[50],
+  selected: colorTokens.blue[50],
+  active: colorTokens.blue[100],
+  disabled: colorTokens.neutral[100],
+  inverse: colorTokens.neutral[900],
+} as const;
+
+export const textTokens = {
+  primary: colorTokens.neutral[900],
+  secondary: colorTokens.neutral[700],
+  muted: colorTokens.neutral[600],
+  subtle: colorTokens.neutral[500],
+  disabled: colorTokens.neutral[400],
+  inverse: colorTokens.white,
+  link: colorTokens.blue[700],
+  danger: colorTokens.red[700],
+  warning: colorTokens.amber[700],
+  success: colorTokens.green[700],
+  info: colorTokens.blue[700],
+} as const;
+
+export const borderTokens = {
+  default: colorTokens.neutral[200],
+  muted: colorTokens.neutral[100],
+  strong: colorTokens.neutral[300],
+  focus: colorTokens.blue[600],
+  danger: colorTokens.red[100],
+  warning: colorTokens.amber[100],
+  success: colorTokens.green[100],
+  selected: colorTokens.blue[100],
+  disabled: colorTokens.neutral[200],
+} as const;
+
+export const stateTokens = {
+  hover: colorTokens.neutral[50],
+  active: colorTokens.blue[100],
+  selected: colorTokens.blue[50],
+  focus: "rgb(37 99 235 / 0.28)",
+  disabled: colorTokens.neutral[100],
+  readonly: colorTokens.neutral[50],
+  loading: colorTokens.blue[50],
+  dragging: colorTokens.blue[50],
+  blocked: colorTokens.red[50],
+  locked: colorTokens.neutral[100],
+  new: colorTokens.green[50],
+  dirty: colorTokens.amber[50],
+  deleted: colorTokens.red[50],
+  stale: colorTokens.blue[50],
+  error: colorTokens.red[50],
+  warning: colorTokens.amber[50],
+  saving: colorTokens.blue[50],
+  dirtyBorder: colorTokens.amber[100],
+  deletedBorder: colorTokens.red[100],
+  errorBorder: colorTokens.red[100],
+  warningBorder: colorTokens.amber[100],
+  staleBorder: colorTokens.blue[100],
+} as const;
+
+export const validationTokens = {
+  info: {
+    bg: colorTokens.blue[50],
+    text: colorTokens.blue[700],
+    border: colorTokens.blue[100],
+    icon: colorTokens.blue[600],
+  },
+  warning: {
+    bg: colorTokens.amber[50],
+    text: colorTokens.amber[700],
+    border: colorTokens.amber[100],
+    icon: colorTokens.amber[600],
+  },
+  error: {
+    bg: colorTokens.red[50],
+    text: colorTokens.red[700],
+    border: colorTokens.red[100],
+    icon: colorTokens.red[600],
+  },
+  blocking: {
+    bg: colorTokens.red[50],
+    text: colorTokens.red[700],
+    border: colorTokens.red[100],
+    icon: colorTokens.red[600],
+  },
+} as const;
+
+export const gridTokens = {
+  header: {
+    bg: colorTokens.neutral[50],
+    text: colorTokens.neutral[600],
+    border: colorTokens.neutral[200],
+  },
+  row: {
+    bg: colorTokens.white,
+    altBg: colorTokens.neutral[50],
+    hoverBg: colorTokens.neutral[50],
+    selectedBg: colorTokens.blue[50],
+    newBg: colorTokens.green[50],
+    dirtyBg: colorTokens.amber[50],
+    deletedBg: colorTokens.red[50],
+    errorBg: colorTokens.red[50],
+    warningBg: colorTokens.amber[50],
+    staleBg: colorTokens.blue[50],
+    readonlyBg: colorTokens.neutral[50],
+    border: colorTokens.neutral[200],
+  },
+  cell: {
+    bg: colorTokens.white,
+    editingBg: colorTokens.blue[50],
+    focusRing: "rgb(37 99 235 / 0.28)",
+    readonlyBg: colorTokens.neutral[50],
+    errorBg: colorTokens.red[50],
+    warningBg: colorTokens.amber[50],
+    staleBg: colorTokens.blue[50],
+    pinnedBg: colorTokens.neutral[50],
+  },
+  footer: {
+    bg: colorTokens.neutral[50],
+    text: colorTokens.neutral[900],
+  },
+  totalRow: {
+    bg: colorTokens.neutral[50],
+  },
+  groupRow: {
+    bg: colorTokens.neutral[50],
+  },
+  resizeHandle: colorTokens.neutral[300],
+  selectionHandle: colorTokens.blue[600],
+} as const;
+
+export const shellTokens = {
+  topbar: {
+    height: "48px",
+  },
+  sidebar: {
+    width: "16rem",
+    collapsedWidth: "4rem",
+  },
+  footer: {
+    height: "48px",
+  },
+  mobileHeader: {
+    height: "48px",
+  },
+  mobileBottomNav: {
+    height: "64px",
+  },
+  mobileBottomBar: {
+    height: "64px",
+  },
+  workspaceTabs: {
+    height: "48px",
+  },
+  content: {
+    maxWidth: "80rem",
+    padding: "1.5rem",
+    gap: "0.75rem",
+  },
+  panel: {
+    padding: "1.5rem",
+    gap: "1rem",
+  },
+  splitPane: {
+    minWidth: "18rem",
+    dividerWidth: "1px",
+  },
+} as const;
+
+export const formTokens = {
+  label: {
+    width: "10rem",
+    gap: "0.5rem",
+    color: colorTokens.neutral[900],
+    requiredColor: colorTokens.red[700],
+  },
+  field: {
+    gap: "0.5rem",
+    inlineGap: "0.75rem",
+    helpTextColor: colorTokens.neutral[500],
+    errorTextColor: colorTokens.red[700],
+    disabledBg: colorTokens.neutral[50],
+    readonlyBg: colorTokens.neutral[50],
+    border: colorTokens.neutral[300],
+    errorBorder: colorTokens.red[100],
+    focusBorder: colorTokens.blue[600],
+  },
+  section: {
+    gap: "1rem",
+    padding: "1.5rem",
+    border: colorTokens.neutral[200],
+  },
+  error: {
+    gap: "0.25rem",
+  },
+  requiredMarker: {
+    color: colorTokens.red[700],
+  },
+} as const;
+
 export const typographyTokens = {
   fontFamily: {
     sans: "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
@@ -255,6 +460,14 @@ export const zIndexTokens = {
 
 export type ColorTokens = typeof colorTokens;
 export type SemanticColorTokens = typeof semanticColorTokens;
+export type SurfaceTokens = typeof surfaceTokens;
+export type TextTokens = typeof textTokens;
+export type BorderTokens = typeof borderTokens;
+export type StateTokens = typeof stateTokens;
+export type ValidationTokens = typeof validationTokens;
+export type GridTokens = typeof gridTokens;
+export type ShellTokens = typeof shellTokens;
+export type FormTokens = typeof formTokens;
 export type TypographyTokens = typeof typographyTokens;
 export type SpacingTokens = typeof spacingTokens;
 export type RadiusTokens = typeof radiusTokens;
@@ -264,5 +477,13 @@ export type StatusTokens = typeof statusTokens;
 export type ZIndexTokens = typeof zIndexTokens;
 
 export type SemanticColorName = keyof SemanticColorTokens;
+export type SurfaceTokenName = keyof SurfaceTokens;
+export type TextTokenName = keyof TextTokens;
+export type BorderTokenName = keyof BorderTokens;
+export type StateTokenName = keyof StateTokens;
+export type ValidationSeverityName = keyof ValidationTokens;
+export type GridTokenGroupName = keyof GridTokens;
+export type ShellTokenGroupName = keyof ShellTokens;
+export type FormTokenGroupName = keyof FormTokens;
 export type WorkflowStatusName = keyof StatusTokens;
 export type ShellDensityName = keyof DensityTokens;

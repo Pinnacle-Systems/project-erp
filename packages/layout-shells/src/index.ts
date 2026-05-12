@@ -12,6 +12,11 @@ export {
 export type {
   AppFrameProps,
   ContentRegionProps,
-  NavigationItem,
   NavigationShellProps,
 } from "./shells";
+export type {
+  BreadcrumbItem,
+  NavigationItem,
+  WorkspaceTab,
+  WorkspaceTabStatus,
+} from "./navigation";

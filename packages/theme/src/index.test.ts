@@ -99,6 +99,19 @@ describe("@erp-ui-platform/theme", () => {
 
     expect(variables["--erp-color-primary"]).toBe("#0f766e");
     expect(variables["--erp-control-height"]).toBe("44px");
+    expect(variables["--erp-surface-page"]).toBe("#f6fbf9");
+    expect(variables["--erp-text-link"]).toBe("#0d625c");
+    expect(variables["--erp-border-focus"]).toBe("#0f766e");
+    expect(variables["--erp-state-dirty"]).toBe("#fffbeb");
+    expect(variables["--erp-state-error-border"]).toBe("#fecaca");
+    expect(variables["--erp-validation-warning-bg"]).toBe("#fffbeb");
+    expect(variables["--erp-validation-blocking-icon"]).toBe("#b91c1c");
+    expect(variables["--erp-grid-row-dirty-bg"]).toBe("#fffbeb");
+    expect(variables["--erp-grid-selection-handle"]).toBe("#0f766e");
+    expect(variables["--erp-shell-content-padding"]).toBe("20px");
+    expect(variables["--erp-shell-mobile-bottom-bar-height"]).toBe("72px");
+    expect(variables["--erp-form-field-focus-border"]).toBe("#0f766e");
+    expect(variables["--erp-form-field-gap"]).toBe("10px");
   });
 
   it("supports the legacy applyTheme style overload", () => {

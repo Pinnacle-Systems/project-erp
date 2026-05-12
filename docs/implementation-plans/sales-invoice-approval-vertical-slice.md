@@ -59,6 +59,7 @@ Mobile may use BFF/read-model endpoints for summaries or approval queues. Those 
 Desktop must demonstrate:
 
 - Full document authoring.
+- Multi-document workspace switching for open work items.
 - Header fields.
 - Line grid.
 - Lookup and autofill.
@@ -68,6 +69,18 @@ Desktop must demonstrate:
 - Audit and attachment panels.
 
 Desktop is the authoring shell. It should prove dense review, keyboard-oriented data entry, line editing, and high-risk actions where permitted.
+
+The desktop reference app may use `MultiDocumentWorkspace` for open invoice, return, and customer work items. Workspace tabs answer "what am I currently working on?" and are not route hierarchy.
+
+Breadcrumbs are scoped to the active workspace tab. They describe hierarchy or location for the active item only, not all open tabs and not navigation history.
+
+Reference app target screens:
+
+- Desktop Sales Invoice Create/Edit can open as a workspace tab.
+- Sales Return can open as another workspace tab.
+- Customer detail can open as another workspace tab.
+- Switching tabs updates `PageHeader` breadcrumbs to match the active tab.
+- Dirty and error markers should be visible on workspace tabs using mock state.
 
 ## Mobile Scope
 
@@ -80,8 +93,11 @@ Mobile must demonstrate:
 - Quick status visibility.
 - No dense line editing.
 - No high-risk posting unless explicitly allowed by capability contract.
+- No workspace tabs by default.
 
 Mobile is the companion shell. It should not render the desktop transaction page as a smaller layout.
+
+The mobile reference app should use back navigation, screen title, document status, and optional module labels instead of desktop workspace tabs and full breadcrumbs by default.
 
 ## Out of Scope
 
@@ -145,6 +161,9 @@ The shared platform owns:
 
 - User can edit header fields.
 - User can edit line items through the editable grid.
+- User can switch between open Sales Invoice, Sales Return, and Customer detail workspace tabs.
+- Switching workspace tabs updates the active `PageHeader` breadcrumbs.
+- Workspace tab dirty and error markers render from mock state.
 - Lookup/autofill works through injected providers.
 - Totals are shown through an injected totals slot.
 - Validation messages render at document, field, line, and workflow levels.
@@ -154,9 +173,11 @@ The shared platform owns:
 ### Mobile Approval
 
 - User can view compact document summary.
+- User can navigate back from the active mobile detail screen.
 - User can approve or reject when capability allows.
 - User can comment and view attachments.
 - User can see status and workflow state.
+- Workspace tabs are not shown by default.
 - Dense line editing is not available.
 - Posting is blocked unless explicitly allowed by capability contract.
 
@@ -222,4 +243,3 @@ The shared platform owns:
 ## Completion Signal
 
 The vertical slice is successful when desktop and mobile support different workflow-fit experiences while sharing contracts, capability semantics, validation shape, and platform UI behavior.
-

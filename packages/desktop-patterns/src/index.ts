@@ -10,9 +10,17 @@ export {
   DesktopSplitPaneReview,
   DesktopWorkspaceShell,
 } from "./desktop";
+export {
+  MultiDocumentWorkspace,
+  WorkspaceTabs,
+} from "./workspace-tabs";
 export type {
   DesktopActionBarProps,
   DesktopDensePageProps,
   DesktopSplitPaneReviewProps,
   DesktopWorkspaceShellProps,
 } from "./desktop";
+export type {
+  MultiDocumentWorkspaceProps,
+  WorkspaceTabsProps,
+} from "./workspace-tabs";
