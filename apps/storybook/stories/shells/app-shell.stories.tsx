@@ -148,10 +148,10 @@ const TopBar = () => (
       <span className="text-xs text-[var(--erp-color-muted-foreground)]">Dense workspace shell</span>
     </div>
     <div className="flex items-center gap-2">
-      <Button variant="ghost" density="compact">
+      <Button variant="ghost" density="compact" width="hug">
         Search
       </Button>
-      <Button variant="secondary" density="compact">
+      <Button variant="secondary" density="compact" width="hug">
         Help
       </Button>
     </div>
@@ -171,12 +171,12 @@ const actionsForTab = (tab: WorkspaceTab) => {
   if (tab.id === "customer-abc") {
     return {
       primary: (
-        <Button variant="default" density="compact">
+        <Button variant="default" density="compact" width="hug">
           Review
         </Button>
       ),
       secondary: (
-        <Button variant="secondary" density="compact">
+        <Button variant="secondary" density="compact" width="hug">
           Merge Check
         </Button>
       ),
@@ -186,12 +186,12 @@ const actionsForTab = (tab: WorkspaceTab) => {
   if (tab.status === "dirty") {
     return {
       primary: (
-        <Button variant="default" density="compact">
+        <Button variant="default" density="compact" width="hug">
           Save
         </Button>
       ),
       secondary: (
-        <Button variant="secondary" density="compact">
+        <Button variant="secondary" density="compact" width="hug">
           Submit
         </Button>
       ),
@@ -200,12 +200,12 @@ const actionsForTab = (tab: WorkspaceTab) => {
 
   return {
     primary: (
-      <Button variant="default" density="compact">
+      <Button variant="default" density="compact" width="hug">
         Open
       </Button>
     ),
     secondary: (
-      <Button variant="secondary" density="compact">
+      <Button variant="secondary" density="compact" width="hug">
         Export
       </Button>
     ),

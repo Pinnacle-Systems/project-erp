@@ -44,20 +44,20 @@ const CheckMark = () => (
 
 const triggerVariants = cva(
   [
-    "flex w-full items-center justify-between gap-2 rounded-[var(--erp-radius-control)] border bg-[var(--erp-surface)]",
-    "text-[var(--erp-fg)] font-sans",
+    "flex w-full items-center justify-between gap-2 rounded-[var(--erp-radius-control)] border bg-[var(--erp-surface-card)]",
+    "text-[var(--erp-text-primary)] font-sans",
     "transition-colors duration-100",
     "focus:outline-none focus:ring-[length:var(--erp-focus-ring-width)] focus:ring-[var(--erp-focus-ring)] focus:ring-offset-[var(--erp-focus-ring-offset)]",
-    "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-surface-muted)] disabled:text-[var(--erp-subtle)] disabled:border-[var(--erp-border)]",
-    "data-placeholder:text-[var(--erp-subtle)]",
+    "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-form-field-disabled-bg)] disabled:text-[var(--erp-text-disabled)] disabled:border-[var(--erp-border-disabled)]",
+    "data-placeholder:text-[var(--erp-text-muted)]",
   ].join(" "),
   {
     variants: {
       state: {
         default:
-          "border-[var(--erp-border-strong)] focus:border-[var(--erp-color-primary)]",
+          "border-[var(--erp-form-field-border)] focus:border-[var(--erp-form-field-focus-border)]",
         error:
-          "border-[var(--erp-danger)] focus:ring-[var(--erp-danger)] focus:border-[var(--erp-danger)]",
+          "border-[var(--erp-form-field-error-border)] focus:ring-[var(--erp-focus-ring)] focus:border-[var(--erp-form-field-error-border)]",
       },
       density: {
         compact: "h-8 px-3 text-xs",
@@ -76,6 +76,16 @@ const triggerVariants = cva(
 export type SelectFieldDensity = NonNullable<
   VariantProps<typeof triggerVariants>["density"]
 >;
+export type SelectFieldWidth = "fill" | "xs" | "sm" | "md" | "lg" | "xl";
+
+const fieldWidthClasses: Record<SelectFieldWidth, string> = {
+  fill: "w-[var(--erp-size-intent-fill)]",
+  xs: "w-[var(--erp-control-width-xs)] max-w-full",
+  sm: "w-[var(--erp-control-width-sm)] max-w-full",
+  md: "w-[var(--erp-control-width-md)] max-w-full",
+  lg: "w-[var(--erp-control-width-lg)] max-w-full",
+  xl: "w-[var(--erp-control-width-xl)] max-w-full",
+};
 
 // Low-level Radix parts — consumers can compose these directly
 export const SelectRoot = SelectPrimitive.Root;
@@ -94,7 +104,7 @@ export const SelectTrigger = forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <span className="text-[var(--erp-muted)] shrink-0">
+      <span className="text-[var(--erp-text-muted)] shrink-0">
         <ChevronDown />
       </span>
     </SelectPrimitive.Icon>
@@ -110,7 +120,7 @@ export const SelectContent = forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 overflow-hidden rounded-[var(--erp-radius-control)] border border-[var(--erp-border)] bg-[var(--erp-surface)] shadow-md",
+        "relative z-50 overflow-hidden rounded-[var(--erp-radius-control)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] shadow-md",
         position === "popper" &&
           "w-[--radix-select-trigger-width] max-h-[--radix-select-content-available-height]",
         className,
@@ -134,8 +144,8 @@ export const SelectItem = forwardRef<
     ref={ref}
     className={cn(
       "relative flex w-full cursor-default select-none items-center rounded-sm",
-      "py-1.5 pl-8 pr-2 text-sm text-[var(--erp-fg)] outline-none",
-      "focus:bg-[var(--erp-surface-muted)] focus:text-[var(--erp-fg)]",
+      "py-1.5 pl-8 pr-2 text-sm text-[var(--erp-text-primary)] outline-none",
+      "focus:bg-[var(--erp-surface-hover)] focus:text-[var(--erp-text-primary)]",
       "data-disabled:pointer-events-none data-disabled:opacity-[var(--erp-disabled-opacity)]",
       className,
     )}
@@ -157,7 +167,7 @@ export const SelectLabel = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn("px-2 py-1 text-xs font-semibold text-[var(--erp-muted)]", className)}
+    className={cn("px-2 py-1 text-xs font-semibold text-[var(--erp-text-muted)]", className)}
     {...props}
   />
 ));
@@ -169,7 +179,7 @@ export const SelectSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 my-1 h-px bg-[var(--erp-border)]", className)}
+    className={cn("-mx-1 my-1 h-px bg-[var(--erp-border-default)]", className)}
     {...props}
   />
 ));
@@ -182,6 +192,7 @@ export interface SelectFieldProps
   errorMessage?: string;
   helpText?: string;
   density?: SelectFieldDensity;
+  width?: SelectFieldWidth;
   error?: boolean;
   id?: string;
   className?: string;
@@ -194,6 +205,7 @@ export const SelectField = ({
   errorMessage,
   helpText,
   density = "comfortable",
+  width = "md",
   error,
   id,
   className,
@@ -206,11 +218,14 @@ export const SelectField = ({
   const hasError = Boolean(error || errorMessage);
 
   return (
-    <div className={cn("flex flex-col gap-1.5", className)}>
+    <div
+      data-width={width}
+      className={cn("flex flex-col gap-1.5", fieldWidthClasses[width], className)}
+    >
       {label && (
         <label
           htmlFor={fieldId}
-          className="text-sm font-medium text-[var(--erp-fg)] select-none leading-none"
+          className="text-sm font-medium text-[var(--erp-form-label-color)] select-none leading-none"
         >
           {label}
         </label>
@@ -227,12 +242,12 @@ export const SelectField = ({
         <SelectContent>{children}</SelectContent>
       </SelectRoot>
       {errorMessage && (
-        <p className="text-xs text-[var(--erp-danger)] leading-none" role="alert">
+        <p className="text-xs text-[var(--erp-form-field-error-text-color)] leading-none" role="alert">
           {errorMessage}
         </p>
       )}
       {!errorMessage && helpText && (
-        <p className="text-xs text-[var(--erp-muted)] leading-none">{helpText}</p>
+        <p className="text-xs text-[var(--erp-form-field-help-text-color)] leading-none">{helpText}</p>
       )}
     </div>
   );

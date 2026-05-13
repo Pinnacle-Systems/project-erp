@@ -7,6 +7,7 @@ import {
   gridTokens,
   semanticColorTokens,
   shellTokens,
+  sizingTokens,
   stateTokens,
   statusTokens,
   surfaceTokens,
@@ -76,6 +77,14 @@ describe("@erp-ui-platform/tokens", () => {
     expect(formTokens.label.width).toBeDefined();
     expect(formTokens.field.focusBorder).toBeDefined();
     expect(formTokens.requiredMarker.color).toBeDefined();
+  });
+
+  it("exposes sizing intent and control width tokens", () => {
+    expect(Object.keys(sizingTokens.intent)).toEqual(["hug", "fill", "fit"]);
+    expect(Object.keys(sizingTokens.control)).toEqual(["xs", "sm", "md", "lg", "xl"]);
+    expect(sizingTokens.intent.hug).toBe("max-content");
+    expect(sizingTokens.intent.fill).toBe("100%");
+    expect(sizingTokens.control.md).toBe("12rem");
   });
 
   it("defines layered z-index tokens", () => {

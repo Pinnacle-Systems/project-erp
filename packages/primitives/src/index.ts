@@ -1,13 +1,13 @@
 export { cn } from "./lib/utils";
 
 export { Button } from "./components/button";
-export type { ButtonProps, ButtonVariant, ButtonDensity } from "./components/button";
+export type { ButtonProps, ButtonVariant, ButtonDensity, ButtonWidth } from "./components/button";
 
 export { TextField } from "./components/text-field";
-export type { TextFieldProps, TextFieldDensity } from "./components/text-field";
+export type { TextFieldProps, TextFieldDensity, TextFieldWidth } from "./components/text-field";
 
 export { Badge } from "./components/badge";
-export type { BadgeProps, BadgeVariant } from "./components/badge";
+export type { BadgeProps, BadgeVariant, BadgeWidth } from "./components/badge";
 
 export {
   Dialog,
@@ -54,4 +54,4 @@ export {
   SelectTrigger,
   SelectValue,
 } from "./components/select-field";
-export type { SelectFieldProps, SelectFieldDensity } from "./components/select-field";
+export type { SelectFieldProps, SelectFieldDensity, SelectFieldWidth } from "./components/select-field";

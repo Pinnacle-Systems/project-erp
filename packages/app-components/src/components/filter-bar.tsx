@@ -51,59 +51,55 @@ export const FilterBar = ({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-end gap-2 px-4 py-2.5 bg-[var(--erp-surface)] border-b border-[var(--erp-border)]",
+        "flex flex-wrap items-end gap-2 px-4 py-2.5 bg-[var(--erp-surface-panel)] border-b border-[var(--erp-border-default)]",
         className,
       )}
     >
-      <div className="w-56 shrink-0">
-        <TextField
-          value={searchValue}
-          onChange={(e) => onSearchChange?.(e.target.value)}
-          placeholder={searchPlaceholder}
-          density="compact"
-          aria-label="Search"
-        />
-      </div>
+      <TextField
+        value={searchValue}
+        onChange={(e) => onSearchChange?.(e.target.value)}
+        placeholder={searchPlaceholder}
+        density="compact"
+        width="md"
+        aria-label="Search"
+      />
 
       {statusOptions && statusOptions.length > 0 && (
-        <div className="w-36 shrink-0">
-          <SelectField
-            value={statusValue}
-            onValueChange={onStatusChange}
-            placeholder="All statuses"
-            density="compact"
-          >
-            {statusOptions.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value}>
-                {opt.label}
-              </SelectItem>
-            ))}
-          </SelectField>
-        </div>
+        <SelectField
+          value={statusValue}
+          onValueChange={onStatusChange}
+          placeholder="All statuses"
+          density="compact"
+          width="sm"
+        >
+          {statusOptions.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectField>
       )}
 
       {showDateFrom && (
-        <div className="w-32 shrink-0">
-          <TextField
-            type="date"
-            value={dateFrom ?? ""}
-            onChange={(e) => onDateFromChange?.(e.target.value)}
-            density="compact"
-            aria-label="From date"
-          />
-        </div>
+        <TextField
+          type="date"
+          value={dateFrom ?? ""}
+          onChange={(e) => onDateFromChange?.(e.target.value)}
+          density="compact"
+          width="sm"
+          aria-label="From date"
+        />
       )}
 
       {showDateTo && (
-        <div className="w-32 shrink-0">
-          <TextField
-            type="date"
-            value={dateTo ?? ""}
-            onChange={(e) => onDateToChange?.(e.target.value)}
-            density="compact"
-            aria-label="To date"
-          />
-        </div>
+        <TextField
+          type="date"
+          value={dateTo ?? ""}
+          onChange={(e) => onDateToChange?.(e.target.value)}
+          density="compact"
+          width="sm"
+          aria-label="To date"
+        />
       )}
 
       <div className="flex items-center gap-2 ml-auto">
@@ -111,6 +107,7 @@ export const FilterBar = ({
           <Button
             variant="ghost"
             density="compact"
+            width="hug"
             onClick={onClearFilters}
             type="button"
           >

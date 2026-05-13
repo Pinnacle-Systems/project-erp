@@ -4,20 +4,20 @@ import { cn } from "../lib/utils";
 
 const inputVariants = cva(
   [
-    "w-full rounded-[var(--erp-radius-control)] border bg-[var(--erp-surface)] font-sans",
-    "text-[var(--erp-fg)] placeholder:text-[var(--erp-subtle)]",
+    "w-full rounded-[var(--erp-radius-control)] border bg-[var(--erp-surface-card)] font-sans",
+    "text-[var(--erp-text-primary)] placeholder:text-[var(--erp-text-subtle)]",
     "transition-colors duration-100",
     "focus:outline-none focus:ring-[length:var(--erp-focus-ring-width)] focus:ring-[var(--erp-focus-ring)] focus:ring-offset-[var(--erp-focus-ring-offset)]",
-    "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-surface-muted)] disabled:text-[var(--erp-subtle)] disabled:border-[var(--erp-border)]",
-    "read-only:bg-[var(--erp-surface-muted)] read-only:text-[var(--erp-muted)]",
+    "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-form-field-disabled-bg)] disabled:text-[var(--erp-text-disabled)] disabled:border-[var(--erp-border-disabled)]",
+    "read-only:bg-[var(--erp-form-field-readonly-bg)] read-only:text-[var(--erp-text-muted)]",
   ].join(" "),
   {
     variants: {
       state: {
         default:
-          "border-[var(--erp-border-strong)] focus:border-[var(--erp-color-primary)]",
+          "border-[var(--erp-form-field-border)] focus:border-[var(--erp-form-field-focus-border)]",
         error:
-          "border-[var(--erp-danger)] focus:ring-[var(--erp-danger)] focus:border-[var(--erp-danger)]",
+          "border-[var(--erp-form-field-error-border)] focus:ring-[var(--erp-focus-ring)] focus:border-[var(--erp-form-field-error-border)]",
       },
       density: {
         compact: "h-8 px-3 text-xs",
@@ -36,6 +36,7 @@ const inputVariants = cva(
 export type TextFieldDensity = NonNullable<
   VariantProps<typeof inputVariants>["density"]
 >;
+export type TextFieldWidth = "fill" | "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface TextFieldProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
@@ -43,8 +44,18 @@ export interface TextFieldProps
   errorMessage?: string;
   helpText?: string;
   density?: TextFieldDensity;
+  width?: TextFieldWidth;
   error?: boolean;
 }
+
+const fieldWidthClasses: Record<TextFieldWidth, string> = {
+  fill: "w-[var(--erp-size-intent-fill)]",
+  xs: "w-[var(--erp-control-width-xs)] max-w-full",
+  sm: "w-[var(--erp-control-width-sm)] max-w-full",
+  md: "w-[var(--erp-control-width-md)] max-w-full",
+  lg: "w-[var(--erp-control-width-lg)] max-w-full",
+  xl: "w-[var(--erp-control-width-xl)] max-w-full",
+};
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
@@ -55,6 +66,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       helpText,
       error,
       density = "comfortable",
+      width = "md",
       id,
       ...props
     },
@@ -67,11 +79,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const helpId = inputId ? `${inputId}-help` : undefined;
 
     return (
-      <div className="flex flex-col gap-1.5">
+      <div data-width={width} className={cn("flex flex-col gap-1.5", fieldWidthClasses[width])}>
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-[var(--erp-fg)] select-none leading-none"
+            className="text-sm font-medium text-[var(--erp-form-label-color)] select-none leading-none"
           >
             {label}
           </label>
@@ -90,12 +102,12 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           {...props}
         />
         {errorMessage && (
-          <p id={errorId} className="text-xs text-[var(--erp-danger)] leading-none" role="alert">
+          <p id={errorId} className="text-xs text-[var(--erp-form-field-error-text-color)] leading-none" role="alert">
             {errorMessage}
           </p>
         )}
         {!errorMessage && helpText && (
-          <p id={helpId} className="text-xs text-[var(--erp-muted)] leading-none">
+          <p id={helpId} className="text-xs text-[var(--erp-form-field-help-text-color)] leading-none">
             {helpText}
           </p>
         )}

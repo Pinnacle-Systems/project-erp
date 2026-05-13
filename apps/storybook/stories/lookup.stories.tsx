@@ -112,7 +112,7 @@ const AutofillPreview = ({
 export const Searching: Story = {
   render: () => (
     <div className="max-w-sm flex flex-col gap-2">
-      <TextField label="Item" value="FAB" density="compact" readOnly />
+      <TextField label="Item" value="FAB" density="compact" width="fill" readOnly />
       <LoadingState variant="inline" label="Searching items..." />
     </div>
   ),
@@ -129,6 +129,7 @@ export const Results: Story = {
             label="Item"
             value={selected ? selected.label : "FAB"}
             density="compact"
+            width="fill"
             readOnly
           />
           {!selected && (
@@ -171,6 +172,7 @@ export const Selected: Story = {
           label="Item"
           value={state.query.searchText}
           density="compact"
+          width="fill"
           readOnly
         />
         <div className="flex items-center gap-2 text-xs">
@@ -211,24 +213,28 @@ export const Resolved: Story = {
             label="Item"
             value={String(autofill.item ?? "")}
             density="compact"
+            width="fill"
             readOnly
           />
           <TextField
             label="Description"
             value={String(autofill.description ?? "")}
             density="compact"
+            width="fill"
             readOnly
           />
           <TextField
             label="UOM"
             value={String(autofill.uom ?? "")}
             density="compact"
+            width="fill"
             readOnly
           />
           <TextField
             label="Unit Rate"
             value={String(autofill.unitRate ?? "")}
             density="compact"
+            width="fill"
             readOnly
           />
         </div>
@@ -250,6 +256,7 @@ export const ResolveFailed: Story = {
         error
         errorMessage="Item not found or inactive."
         density="compact"
+        width="fill"
         readOnly
       />
       <ErrorState
@@ -299,6 +306,7 @@ export const AutofillPreviewStory: Story = {
               label={k}
               value={String(v ?? "")}
               density="compact"
+              width="fill"
               readOnly
             />
           ))}
@@ -323,12 +331,14 @@ export const ValidationWarning: Story = {
           label="Item"
           value={String(autofill.item ?? "")}
           density="compact"
+          width="fill"
           readOnly
         />
         <TextField
           label="Unit Rate"
           value={String(autofill.unitRate ?? "")}
           density="compact"
+          width="fill"
           readOnly
         />
         <div className="rounded-md bg-amber-50 border border-amber-200 p-2.5 text-xs flex items-start gap-2">

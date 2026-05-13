@@ -112,6 +112,11 @@ describe("@erp-ui-platform/theme", () => {
     expect(variables["--erp-shell-mobile-bottom-bar-height"]).toBe("72px");
     expect(variables["--erp-form-field-focus-border"]).toBe("#0f766e");
     expect(variables["--erp-form-field-gap"]).toBe("10px");
+    expect(variables["--erp-size-intent-hug"]).toBe("max-content");
+    expect(variables["--erp-size-intent-fill"]).toBe("100%");
+    expect(variables["--erp-size-intent-fit"]).toBe("fit-content");
+    expect(variables["--erp-control-width-xs"]).toBe("6rem");
+    expect(variables["--erp-control-width-xl"]).toBe("24rem");
   });
 
   it("supports the legacy applyTheme style overload", () => {

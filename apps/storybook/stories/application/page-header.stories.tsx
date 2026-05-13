@@ -50,16 +50,16 @@ export const WithBreadcrumbsStatusAndActions: Story = {
     status: <Badge variant="warning">Pending Approval</Badge>,
     breadcrumbs: returnBreadcrumbs,
     primaryAction: (
-      <Button variant="default" density="compact">
+      <Button variant="default" density="compact" width="hug">
         Approve
       </Button>
     ),
     secondaryActions: (
       <>
-        <Button variant="ghost" density="compact">
+        <Button variant="ghost" density="compact" width="hug">
           Reject
         </Button>
-        <Button variant="secondary" density="compact">
+        <Button variant="secondary" density="compact" width="hug">
           Edit
         </Button>
       </>
@@ -81,12 +81,12 @@ export const DenseERPHeader: Story = {
     density: "compact",
     status: <Badge variant="success">Active</Badge>,
     primaryAction: (
-      <Button variant="default" density="compact">
+      <Button variant="default" density="compact" width="hug">
         Post Entries
       </Button>
     ),
     secondaryActions: (
-      <Button variant="secondary" density="compact">
+      <Button variant="secondary" density="compact" width="hug">
         Export
       </Button>
     ),
@@ -109,12 +109,12 @@ export const DenseERPHeaderWithBreadcrumbs: Story = {
     ],
     status: <Badge variant="info">In Review</Badge>,
     primaryAction: (
-      <Button variant="default" density="compact">
+      <Button variant="default" density="compact" width="hug">
         Save
       </Button>
     ),
     secondaryActions: (
-      <Button variant="secondary" density="compact">
+      <Button variant="secondary" density="compact" width="hug">
         Submit
       </Button>
     ),

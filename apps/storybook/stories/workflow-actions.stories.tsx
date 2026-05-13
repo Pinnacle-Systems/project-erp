@@ -181,6 +181,7 @@ export const MobileBottomBar: Story = {
               key={a.id}
               variant={variantMap[a.variant] ?? "secondary"}
               density="touch"
+              width="fill"
               disabled={a.disabled}
               className="flex-1"
             >
@@ -262,6 +263,7 @@ export const HighRiskConfirmation: Story = {
             <Button
               variant="destructive"
               density="compact"
+              width="hug"
               onClick={() => setOpen(true)}
             >
               Post Document

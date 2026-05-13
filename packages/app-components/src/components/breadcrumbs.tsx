@@ -107,7 +107,7 @@ export const Breadcrumbs = ({
                 {showSeparator && <BreadcrumbSeparator />}
                 <span
                   aria-hidden="true"
-                  className="select-none text-[var(--erp-color-muted-foreground)]"
+                  className="select-none text-[var(--erp-text-muted)]"
                 >
                   ...
                 </span>
@@ -122,9 +122,9 @@ export const Breadcrumbs = ({
             "min-w-0 max-w-48 truncate rounded-sm outline-none transition-colors",
             compact ? "px-0.5 py-0" : "px-1 py-0.5",
             isCurrent
-              ? "font-medium text-[var(--erp-color-foreground)]"
-              : "text-[var(--erp-color-muted-foreground)]",
-            interactive && !isCurrent && "hover:text-[var(--erp-color-foreground)] focus-visible:ring-2 focus-visible:ring-[var(--erp-focus-ring)]",
+              ? "font-medium text-[var(--erp-text-primary)]"
+              : "text-[var(--erp-text-muted)]",
+            interactive && !isCurrent && "hover:text-[var(--erp-text-primary)] focus-visible:ring-2 focus-visible:ring-[var(--erp-focus-ring)]",
           );
 
           return (
@@ -170,7 +170,7 @@ export const Breadcrumbs = ({
 const BreadcrumbSeparator = () => (
   <span
     aria-hidden="true"
-    className="select-none text-[var(--erp-color-muted-foreground)]"
+    className="select-none text-[var(--erp-text-muted)]"
   >
     /
   </span>

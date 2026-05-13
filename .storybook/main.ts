@@ -15,6 +15,62 @@ const config: StorybookConfig = {
   },
   viteFinal: (config) => {
     config.plugins = [...(config.plugins ?? []), tailwindcss() as any];
+    config.build = {
+      ...(config.build ?? {}),
+      // Storybook's docs, a11y, and preview runtime bundles are loaded as
+      // separate chunks below. Keep the warning threshold aligned with those
+      // known Storybook-owned lazy chunks so app/story chunks still stay small.
+      chunkSizeWarningLimit: 900,
+      rollupOptions: {
+        ...(config.build?.rollupOptions ?? {}),
+        output: {
+          ...(config.build?.rollupOptions?.output ?? {}),
+          manualChunks: (id) => {
+            if (!id.includes("node_modules")) {
+              return undefined;
+            }
+
+            if (id.includes("/react-dom/")) {
+              return "vendor-react-dom";
+            }
+
+            if (id.includes("/react/")) {
+              return "vendor-react";
+            }
+
+            if (id.includes("/@radix-ui/")) {
+              return "vendor-radix";
+            }
+
+            if (id.includes("/@storybook/addon-docs/")) {
+              return "storybook-docs-addon";
+            }
+
+            if (id.includes("/@storybook/blocks/")) {
+              return "storybook-docs-blocks";
+            }
+
+            if (
+              id.includes("/react-syntax-highlighter/") ||
+              id.includes("/refractor/") ||
+              id.includes("/@mdx-js/")
+            ) {
+              return "storybook-docs-formatting";
+            }
+
+            if (id.includes("/axe-core/")) {
+              return "axe-core";
+            }
+
+            if (id.includes("/@storybook/addon-a11y/")) {
+              return "storybook-a11y";
+            }
+
+            return undefined;
+          },
+        },
+      },
+    };
     config.resolve = {
       ...(config.resolve ?? {}),
       alias: {
