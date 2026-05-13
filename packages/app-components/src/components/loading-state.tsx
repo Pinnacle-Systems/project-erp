@@ -36,11 +36,11 @@ const Spinner = ({ className }: { className?: string }) => (
 const SkeletonRow = ({ index }: { index: number }) => (
   <div className="flex flex-col gap-1.5">
     <div
-      className="h-3.5 rounded bg-[var(--erp-border)] animate-pulse"
+      className="h-3.5 rounded bg-[var(--erp-border-default)] animate-pulse"
       style={{ width: `${75 - (index % 3) * 12}%` }}
     />
     <div
-      className="h-2.5 rounded bg-[var(--erp-surface-muted)] animate-pulse"
+      className="h-2.5 rounded bg-[var(--erp-surface-hover)] animate-pulse"
       style={{ width: `${55 - (index % 4) * 8}%` }}
     />
   </div>
@@ -55,11 +55,11 @@ export const LoadingState = ({
   if (variant === "inline") {
     return (
       <div
-        className={cn("flex items-center gap-2 text-[var(--erp-muted)]", className)}
+        className={cn("flex items-center gap-2 text-[var(--erp-text-muted)]", className)}
         role="status"
         aria-label={label}
       >
-        <Spinner className="h-4 w-4 text-[var(--erp-accent)] shrink-0" />
+        <Spinner className="h-4 w-4 text-[var(--erp-text-link)] shrink-0" />
         <span className="text-sm">{label}</span>
       </div>
     );
@@ -88,8 +88,8 @@ export const LoadingState = ({
       role="status"
       aria-label={label}
     >
-      <Spinner className="h-8 w-8 text-[var(--erp-accent)]" />
-      <p className="text-sm text-[var(--erp-muted)]">{label}</p>
+      <Spinner className="h-8 w-8 text-[var(--erp-text-link)]" />
+      <p className="text-sm text-[var(--erp-text-muted)]">{label}</p>
     </div>
   );
 };

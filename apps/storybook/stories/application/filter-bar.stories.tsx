@@ -66,7 +66,7 @@ export const WithStatusAndDate: Story = {
             setTo("");
           }}
           actions={
-            <Button variant="default" density="compact">
+            <Button variant="default" density="compact" width="hug">
               Export
             </Button>
           }

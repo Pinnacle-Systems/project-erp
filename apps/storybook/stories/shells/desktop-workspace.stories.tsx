@@ -170,7 +170,7 @@ export const WorkspaceTabsWithActiveBreadcrumb: Story = {
             density="compact"
             status={<StatusBadge label={activeTab.status ?? "clean"} tone={statusTone(activeTab.status)} />}
             primaryAction={
-              <Button variant="default" density="compact">
+              <Button variant="default" density="compact" width="hug">
                 Save
               </Button>
             }
@@ -203,10 +203,10 @@ export const MultiDocumentWorkspaceWithToolbar: Story = {
             Desktop workspace switching
           </span>
           <div className="flex items-center gap-2">
-            <Button variant="secondary" density="compact">
+            <Button variant="secondary" density="compact" width="hug">
               Refresh
             </Button>
-            <Button variant="default" density="compact">
+            <Button variant="default" density="compact" width="hug">
               Save
             </Button>
           </div>

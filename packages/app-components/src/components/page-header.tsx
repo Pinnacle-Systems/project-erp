@@ -38,7 +38,7 @@ export const PageHeader = ({
 }: PageHeaderProps) => (
   <div
     className={cn(
-      "bg-[var(--erp-surface)] border-b border-[var(--erp-border)]",
+      "bg-[var(--erp-surface-panel)] border-b border-[var(--erp-border-default)]",
       density === "compact" && "px-4 py-2",
       density === "comfortable" && "px-6 py-4",
       density === "touch" && "px-5 py-5",
@@ -46,7 +46,7 @@ export const PageHeader = ({
     )}
   >
     {breadcrumbSlot ? (
-      <div className="mb-1.5 min-w-0 text-xs text-[var(--erp-color-muted-foreground)]">
+      <div className="mb-1.5 min-w-0 text-xs text-[var(--erp-text-muted)]">
         {breadcrumbSlot}
       </div>
     ) : breadcrumbs && breadcrumbs.length > 0 ? (
@@ -58,7 +58,7 @@ export const PageHeader = ({
         <div className="flex items-center gap-2 flex-wrap">
           <h1
             className={cn(
-              "font-semibold text-[var(--erp-fg)] leading-tight",
+              "font-semibold text-[var(--erp-text-primary)] leading-tight",
               density === "compact" && "text-sm",
               density === "comfortable" && "text-base",
               density === "touch" && "text-lg",
@@ -71,7 +71,7 @@ export const PageHeader = ({
         {subtitle && (
           <p
             className={cn(
-              "text-[var(--erp-muted)] mt-0.5 truncate",
+              "text-[var(--erp-text-muted)] mt-0.5 truncate",
               density === "compact" ? "text-xs" : "text-sm",
             )}
           >
@@ -91,8 +91,8 @@ export const PageHeader = ({
     {meta && meta.length > 0 && (
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-0.5">
         {meta.map((item, i) => (
-          <span key={i} className="text-xs text-[var(--erp-muted)]">
-            <span className="font-medium text-[var(--erp-fg)]">{item.label}:</span>{" "}
+          <span key={i} className="text-xs text-[var(--erp-text-muted)]">
+            <span className="font-medium text-[var(--erp-text-primary)]">{item.label}:</span>{" "}
             {item.value}
           </span>
         ))}

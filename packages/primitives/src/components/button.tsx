@@ -17,12 +17,12 @@ const buttonVariants = cva(
         default:
           "bg-[var(--erp-color-primary)] text-[var(--erp-color-primary-foreground)] hover:bg-[var(--erp-accent-hover)] active:bg-[var(--erp-accent-active)]",
         secondary:
-          "bg-[var(--erp-surface)] text-[var(--erp-fg)] border border-[var(--erp-border-strong)] hover:bg-[var(--erp-surface-muted)] active:bg-[var(--erp-border)]",
+          "bg-[var(--erp-surface-card)] text-[var(--erp-text-primary)] border border-[var(--erp-border-strong)] hover:bg-[var(--erp-surface-hover)] active:bg-[var(--erp-surface-active)]",
         ghost:
-          "text-[var(--erp-muted)] hover:bg-[var(--erp-surface-muted)] hover:text-[var(--erp-fg)] active:bg-[var(--erp-border)]",
+          "text-[var(--erp-text-muted)] hover:bg-[var(--erp-surface-hover)] hover:text-[var(--erp-text-primary)] active:bg-[var(--erp-surface-active)]",
         destructive:
           "bg-[var(--erp-color-danger)] text-[var(--erp-color-danger-foreground)] hover:bg-[var(--erp-danger-hover)] active:bg-[var(--erp-danger-hover)]",
-        link: "text-[var(--erp-color-primary)] underline-offset-4 hover:underline h-auto px-0 py-0",
+        link: "text-[var(--erp-text-link)] underline-offset-4 hover:underline h-auto px-0 py-0",
       },
       density: {
         compact: "h-8 px-3 text-xs",
@@ -30,10 +30,16 @@ const buttonVariants = cva(
           "h-[var(--erp-control-height)] px-[var(--erp-control-padding-x)] text-[length:var(--erp-control-font-size)]",
         touch: "h-11 px-5 text-base",
       },
+      width: {
+        hug: "w-[var(--erp-size-intent-hug)] max-w-full",
+        fill: "w-[var(--erp-size-intent-fill)]",
+        fit: "w-[var(--erp-size-intent-fit)] max-w-full",
+      },
     },
     defaultVariants: {
       variant: "secondary",
       density: "comfortable",
+      width: "hug",
     },
   },
 );
@@ -43,6 +49,9 @@ export type ButtonVariant = NonNullable<
 >;
 export type ButtonDensity = NonNullable<
   VariantProps<typeof buttonVariants>["density"]
+>;
+export type ButtonWidth = NonNullable<
+  VariantProps<typeof buttonVariants>["width"]
 >;
 
 export interface ButtonProps
@@ -58,6 +67,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       variant,
       density,
+      width = "hug",
       asChild = false,
       loading = false,
       disabled,
@@ -70,7 +80,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         ref={ref}
-        className={cn(buttonVariants({ variant, density }), className)}
+        data-width={width}
+        className={cn(buttonVariants({ variant, density, width }), className)}
         disabled={disabled || loading}
         aria-busy={loading || undefined}
         {...props}

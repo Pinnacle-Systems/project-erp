@@ -158,7 +158,7 @@ const ColorTokenCard = ({
       </div>
       <p className="text-xs font-semibold text-[var(--erp-fg)]">{label}</p>
       <code className="block text-[10px] font-medium text-[var(--erp-muted)]">{cssVariable}</code>
-      <code className="block text-[10px] text-[var(--erp-subtle)]">{value}</code>
+      <code className="block text-[10px] text-[var(--erp-text-muted)]">{value}</code>
     </div>
   );
 };
@@ -250,6 +250,151 @@ const ValidationTokenFamily = () => (
     </div>
   </section>
 );
+
+const zIndexExamples: Record<keyof typeof zIndexTokens, string> = {
+  base: "Page content",
+  raised: "Raised panel",
+  sticky: "Sticky toolbar",
+  header: "App header",
+  overlay: "Backdrop",
+  popover: "Dropdown",
+  toast: "Toast",
+  modal: "Dialog",
+  tooltip: "Tooltip",
+};
+
+const ZIndexStackPreview = () => {
+  const frontToBack = Object.entries(zIndexTokens).sort(
+    ([, left], [, right]) => right - left,
+  ) as [keyof typeof zIndexTokens, number][];
+  const backToFront = [...frontToBack].reverse();
+
+  return (
+    <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-semibold text-[var(--erp-fg)]">Exploded Layer Stack</h3>
+            <p className="text-xs text-[var(--erp-text-muted)]">
+              Every card is pulled apart so the front-to-back order is visible.
+            </p>
+          </div>
+          <div className="rounded-full bg-[var(--erp-surface-inverse)] px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-inverse)]">
+            Front
+          </div>
+        </div>
+        <div className="relative min-h-[34rem] overflow-hidden rounded-md border border-[var(--erp-border)] bg-[linear-gradient(135deg,var(--erp-surface-muted),var(--erp-surface-card))] p-5">
+          <div className="absolute left-5 top-5 h-[calc(100%-2.5rem)] w-px bg-[var(--erp-border-strong)]" />
+          <div className="absolute left-3 top-4 rounded bg-[var(--erp-surface-card)] px-1 text-[10px] font-semibold text-[var(--erp-fg)]">
+            front
+          </div>
+          <div className="absolute bottom-4 left-3 rounded bg-[var(--erp-surface-card)] px-1 text-[10px] font-semibold text-[var(--erp-text-muted)]">
+            back
+          </div>
+          {frontToBack.map(([layer, value], index) => {
+            const top = 24 + index * 50;
+            const left = 32 + index * 18;
+            const width = 72 - index * 4;
+
+            return (
+              <div
+                key={layer}
+                className="absolute rounded-md border border-[var(--erp-border-strong)] bg-[var(--erp-surface-card)] px-3 py-2 shadow-md"
+                style={{
+                  top,
+                  left,
+                  width: `${width}%`,
+                  zIndex: value,
+                }}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <strong className="text-sm text-[var(--erp-fg)]">z.{layer}</strong>
+                  <code className="rounded bg-[var(--erp-surface-muted)] px-1.5 py-0.5 text-xs text-[var(--erp-fg)]">
+                    {value}
+                  </code>
+                </div>
+                <p className="mt-1 text-xs text-[var(--erp-text-muted)]">
+                  {zIndexExamples[layer]}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="grid gap-4">
+        <div className="rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
+          <h3 className="text-sm font-semibold text-[var(--erp-fg)]">Collision Example</h3>
+          <p className="mt-1 text-xs text-[var(--erp-text-muted)]">
+            When surfaces overlap, the higher token wins.
+          </p>
+          <div className="relative mt-4 h-64 overflow-hidden rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface-muted)]">
+            <div
+              className="absolute inset-x-4 top-4 h-10 rounded border border-[var(--erp-border)] bg-[var(--erp-surface-card)] px-3 py-2 text-xs font-semibold text-[var(--erp-fg)]"
+              style={{ zIndex: zIndexTokens.header }}
+            >
+              header · 200
+            </div>
+            <div
+              className="absolute left-5 top-20 h-32 w-48 rounded border border-[var(--erp-border)] bg-[var(--erp-surface-card)] p-3 text-xs text-[var(--erp-text-muted)]"
+              style={{ zIndex: zIndexTokens.base }}
+            >
+              base · 0
+            </div>
+            <div
+              className="absolute inset-0 bg-[var(--erp-surface-overlay)]"
+              style={{ zIndex: zIndexTokens.overlay }}
+            />
+            <div
+              className="absolute left-9 top-28 rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface-card)] px-3 py-2 text-xs shadow-md"
+              style={{ zIndex: zIndexTokens.popover }}
+            >
+              popover · 500
+            </div>
+            <div
+              className="absolute left-[44%] top-[58%] w-52 -translate-x-1/2 -translate-y-1/2 rounded-lg border border-[var(--erp-border-strong)] bg-[var(--erp-surface-card)] p-4 shadow-md"
+              style={{ zIndex: zIndexTokens.modal }}
+            >
+              <strong className="block text-sm text-[var(--erp-fg)]">modal · 700</strong>
+              <p className="mt-1 text-xs text-[var(--erp-text-muted)]">Above overlay and popover.</p>
+            </div>
+            <div
+              className="absolute right-5 top-20 rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface-card)] px-3 py-2 text-xs font-medium text-[var(--erp-fg)] shadow-md"
+              style={{ zIndex: zIndexTokens.toast }}
+            >
+              toast · 600
+            </div>
+            <div
+              className="absolute left-[calc(44%-4rem)] top-[calc(58%-3.25rem)] rounded bg-[var(--erp-surface-inverse)] px-2 py-1 text-[10px] font-semibold text-[var(--erp-text-inverse)]"
+              style={{ zIndex: zIndexTokens.tooltip }}
+            >
+              tooltip · 800
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface)] p-3">
+          <div className="mb-3 flex items-center justify-between text-xs">
+            <span className="font-semibold text-[var(--erp-fg)]">Back</span>
+            <span className="font-semibold text-[var(--erp-fg)]">Front</span>
+          </div>
+          <div className="grid gap-1.5">
+          {backToFront.map(([layer, value]) => (
+            <div
+              key={layer}
+              className="grid grid-cols-[4.75rem_2.5rem_minmax(0,1fr)] items-center gap-2 rounded border border-[var(--erp-border)] bg-[var(--erp-surface-muted)] px-2 py-1.5 text-[10px]"
+            >
+              <strong className="text-[var(--erp-fg)]">z.{layer}</strong>
+              <code className="text-[var(--erp-muted)]">{value}</code>
+              <span className="truncate text-[var(--erp-text-muted)]">{zIndexExamples[layer]}</span>
+            </div>
+          ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const kebabCase = (value: string) =>
   value
@@ -354,9 +499,16 @@ export const Overview: Story = {
                 preview={<div className="h-8 w-12 rounded bg-[var(--erp-surface)] border border-[var(--erp-border)]" style={{ boxShadow: value }} />}
               />
             ))}
-            {Object.entries(zIndexTokens).map(([step, value]) => (
-              <TokenRow key={step} label={`z.${step}`} value={value} />
-            ))}
+          </div>
+        </div>
+        <div className="mt-4">
+          <SectionTitle>Z-Index Stacking Order</SectionTitle>
+          <p className="mt-1 text-xs text-[var(--erp-text-muted)]">
+            Higher layers render in front of lower layers. Use the named layer
+            that matches the component role instead of inventing one-off values.
+          </p>
+          <div className="mt-3">
+            <ZIndexStackPreview />
           </div>
         </div>
       </section>

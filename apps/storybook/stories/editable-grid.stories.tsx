@@ -124,10 +124,10 @@ const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
                       aria-label={`${col.header} for row ${row.id}`}
                       error={hasError}
                       density="compact"
+                      width="fill"
                       className={[
-                        "w-full",
                         row.state === "deleted"
-                          ? "line-through text-neutral-400"
+                          ? "line-through text-[var(--erp-text-disabled)]"
                           : "",
                         cell?.isManualOverride
                           ? "border-[var(--erp-grid-selection-handle)] bg-[var(--erp-grid-cell-editing-bg)]"
@@ -138,9 +138,11 @@ const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
                   ) : (
                     <span
                       className={[
-                        "text-neutral-700",
-                        row.isPhantom ? "text-neutral-400 italic" : "",
-                        row.state === "deleted" ? "line-through text-neutral-400" : "",
+                        "text-[var(--erp-text-secondary)]",
+                        row.isPhantom ? "text-[var(--erp-text-disabled)] italic" : "",
+                        row.state === "deleted"
+                          ? "line-through text-[var(--erp-text-disabled)]"
+                          : "",
                       ].join(" ")}
                     >
                       {row.isPhantom ? "—" : String(val ?? "")}
@@ -171,7 +173,7 @@ export const EmptyGrid: Story = {
           title="No lines added"
           description="Add a line item to begin. Use the item lookup to auto-fill description and rate."
           primaryAction={
-            <button className="text-xs text-blue-600 hover:underline">
+            <button className="text-xs text-[var(--erp-text-link)] hover:underline">
               + Add line
             </button>
           }
@@ -222,7 +224,7 @@ export const DirtyRow: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-[var(--erp-text-muted)]">
           Qty changed from 12 → 15. Row transitions to dirty state.
         </p>
         <GridTable rows={[dirty]} />
@@ -243,7 +245,7 @@ export const DeletedRow: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-[var(--erp-text-muted)]">
           Deleted rows are retained until save to support undo. Visual strikethrough signals
           pending removal.
         </p>
@@ -281,7 +283,7 @@ export const ValidationErrors: Story = {
     return (
       <div className="flex flex-col gap-2">
         <GridTable rows={[withError]} />
-        <p className="text-xs text-red-600">
+        <p className="text-xs text-[var(--erp-validation-error-text)]">
           Line 1 · {errMsg.message}
         </p>
       </div>
@@ -306,7 +308,7 @@ export const LookupAutofillResult: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-[var(--erp-text-muted)]">
           Selecting an item via lookup auto-fills description and rate. The
           item cell is dirty; autofill fields are read-only until manually
           overridden.
@@ -332,12 +334,12 @@ export const StaleManualOverride: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-[var(--erp-text-muted)]">
           A manual override (blue border) prevents future autofill from
           overwriting the user-set value.
         </p>
         <GridTable rows={[change.nextRow]} />
-        <p className="text-xs text-blue-600">
+        <p className="text-xs text-[var(--erp-text-link)]">
           Qty manually set to 14. Autofill will not overwrite this field.
         </p>
       </div>

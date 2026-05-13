@@ -134,14 +134,14 @@ export const DesktopActionBar = ({
   <div
     data-component="DesktopActionBar"
     className={cn(
-      "flex min-h-10 items-center justify-between gap-3 border-t border-neutral-200 bg-white px-4 py-2",
+      "flex min-h-10 items-center justify-between gap-3 border-t border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] px-4 py-2",
       className,
     )}
   >
-    <div className="min-w-0 flex-1 text-xs text-neutral-500">{left}</div>
+    <div className="min-w-0 flex-1 text-xs text-[var(--erp-text-muted)]">{left}</div>
     <div className="flex shrink-0 items-center gap-2">
       {overflow}
-      {secondary && <div className="h-4 w-px bg-neutral-200" />}
+      {secondary && <div className="h-4 w-px bg-[var(--erp-border-default)]" />}
       {secondary}
       {primary}
     </div>
@@ -174,12 +174,12 @@ export const DesktopSplitPaneReview = ({
   <div
     data-component="DesktopSplitPaneReview"
     className={cn(
-      "grid h-full min-h-[34rem] grid-cols-[18rem_minmax(0,1fr)] overflow-hidden rounded-lg border border-neutral-200 bg-white",
-      review && "xl:grid-cols-[18rem_minmax(0,1fr)_20rem]",
+      "grid h-full min-h-[34rem] grid-cols-[var(--erp-shell-split-pane-min-width)_minmax(0,1fr)] overflow-hidden rounded-lg border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)]",
+      review && "xl:grid-cols-[var(--erp-shell-split-pane-min-width)_minmax(0,1fr)_20rem]",
       className,
     )}
   >
-    <section className="min-h-0 border-r border-neutral-200">
+    <section className="min-h-0 border-r border-[var(--erp-border-default)]">
       <PaneHeader>{listTitle}</PaneHeader>
       <div className="h-[calc(100%-2.5rem)] overflow-auto">{list}</div>
     </section>
@@ -189,7 +189,7 @@ export const DesktopSplitPaneReview = ({
       {actions}
     </section>
     {review && (
-      <section className="hidden min-h-0 border-l border-neutral-200 bg-neutral-50 xl:block">
+      <section className="hidden min-h-0 border-l border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] xl:block">
         <PaneHeader>{reviewTitle}</PaneHeader>
         <div className="h-[calc(100%-2.5rem)] overflow-auto">{review}</div>
       </section>
@@ -200,7 +200,7 @@ export const DesktopSplitPaneReview = ({
 DesktopSplitPaneReview.displayName = "DesktopSplitPaneReview";
 
 const PaneHeader = ({ children }: { children: ReactNode }) => (
-  <div className="flex h-10 items-center border-b border-neutral-200 bg-neutral-50 px-3 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+  <div className="flex h-10 items-center border-b border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] px-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-muted)]">
     {children}
   </div>
 );

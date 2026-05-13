@@ -178,6 +178,14 @@
   --erp-form-section-border: #e2e8f0;
   --erp-form-error-gap: 0.25rem;
   --erp-form-required-marker-color: #b91c1c;
+  --erp-size-intent-hug: max-content;
+  --erp-size-intent-fill: 100%;
+  --erp-size-intent-fit: fit-content;
+  --erp-control-width-xs: 6rem;
+  --erp-control-width-sm: 8rem;
+  --erp-control-width-md: 12rem;
+  --erp-control-width-lg: 16rem;
+  --erp-control-width-xl: 24rem;
   --erp-status-draft: #64748b;
   --erp-status-draft-foreground: #ffffff;
   --erp-status-draft-soft: #f8fafc;

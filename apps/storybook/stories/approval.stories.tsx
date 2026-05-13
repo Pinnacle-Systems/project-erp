@@ -50,6 +50,7 @@ const renderAction = (action: ApprovalAction) => (
           : "default"
     }
     density="comfortable"
+    width="hug"
     disabled={action.disabled}
     title={action.reason}
   >

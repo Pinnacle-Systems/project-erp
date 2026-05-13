@@ -421,10 +421,10 @@ export const MobileDocumentSummary: Story = {
       </div>
 
       <BottomBar>
-        <Button variant="ghost" density="touch" className="flex-1">
+        <Button variant="ghost" density="touch" width="fill" className="flex-1">
           Comment
         </Button>
-        <Button variant="default" density="touch" className="flex-1">
+        <Button variant="default" density="touch" width="fill" className="flex-1">
           Approve
         </Button>
       </BottomBar>
@@ -446,6 +446,7 @@ export const MobileApprovalFlow: Story = {
               : "default"
         }
         density="touch"
+        width="fill"
         disabled={action.disabled}
         title={action.reason}
         className="flex-1"
@@ -608,6 +609,7 @@ export const MobileBottomActionBar: Story = {
                   key={a.id}
                   variant={variantMap[a.variant] ?? "secondary"}
                   density="touch"
+                  width="fill"
                   className="flex-1"
                 >
                   {a.label}
@@ -802,6 +804,7 @@ export const ScannerCapturePlaceholder: Story = {
               <Button
                 variant="ghost"
                 density="touch"
+                width="fill"
                 className="flex-1"
                 onClick={() => setMode("error")}
               >
@@ -810,6 +813,7 @@ export const ScannerCapturePlaceholder: Story = {
               <Button
                 variant="default"
                 density="touch"
+                width="fill"
                 className="flex-1"
                 onClick={() => {
                   setMode("scanning");
@@ -821,22 +825,22 @@ export const ScannerCapturePlaceholder: Story = {
             </>
           )}
           {mode === "scanning" && (
-            <Button variant="ghost" density="touch" className="flex-1" onClick={() => setMode("ready")}>
+            <Button variant="ghost" density="touch" width="fill" className="flex-1" onClick={() => setMode("ready")}>
               Cancel
             </Button>
           )}
           {mode === "captured" && (
             <>
-              <Button variant="ghost" density="touch" className="flex-1" onClick={() => setMode("ready")}>
+              <Button variant="ghost" density="touch" width="fill" className="flex-1" onClick={() => setMode("ready")}>
                 Scan again
               </Button>
-              <Button variant="default" density="touch" className="flex-1">
+              <Button variant="default" density="touch" width="fill" className="flex-1">
                 Attach & close
               </Button>
             </>
           )}
           {mode === "error" && (
-            <Button variant="secondary" density="touch" className="flex-1" onClick={() => setMode("ready")}>
+            <Button variant="secondary" density="touch" width="fill" className="flex-1" onClick={() => setMode("ready")}>
               Go back
             </Button>
           )}
@@ -941,6 +945,7 @@ export const MobileValidationSheet: Story = {
             <Button
               variant="secondary"
               density="touch"
+              width="fill"
               className="flex-1"
             >
               Save Draft
@@ -948,6 +953,7 @@ export const MobileValidationSheet: Story = {
             <Button
               variant="destructive"
               density="touch"
+              width="fill"
               className="flex-1"
               disabled
               onClick={() => setConfirmOpen(true)}
@@ -1010,6 +1016,7 @@ export const MobileValidationSheet: Story = {
                 <Button
                   variant="secondary"
                   density="touch"
+                  width="fill"
                   className="flex-1"
                   onClick={() => setSheetOpen(false)}
                 >
@@ -1018,6 +1025,7 @@ export const MobileValidationSheet: Story = {
                 <Button
                   variant="default"
                   density="touch"
+                  width="fill"
                   className="flex-1"
                   onClick={() => setSheetOpen(false)}
                 >

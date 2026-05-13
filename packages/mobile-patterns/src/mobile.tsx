@@ -44,38 +44,38 @@ export const MobileTaskShell = ({
   <section
     data-component="MobileTaskShell"
     className={cn(
-      "mx-auto flex min-h-[44rem] w-full max-w-[27rem] flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xl",
+      "mx-auto flex min-h-[44rem] w-full max-w-[27rem] flex-col overflow-hidden rounded-3xl border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] shadow-xl",
       className,
     )}
   >
-    <div className="flex items-center justify-between bg-neutral-950 px-6 py-2 text-xs font-medium text-white">
+    <div className="flex items-center justify-between bg-[var(--erp-surface-inverse)] px-6 py-2 text-xs font-medium text-[var(--erp-text-inverse)]">
       <span>9:41</span>
       <span className="tracking-wide">LTE 100%</span>
     </div>
-    <header className="flex shrink-0 items-center gap-3 border-b border-neutral-100 bg-white px-4 py-3">
+    <header className="flex h-[var(--erp-shell-mobile-header-height)] shrink-0 items-center gap-3 border-b border-[var(--erp-border-muted)] bg-[var(--erp-surface-panel)] px-4 py-3">
       {backLabel && (
         <button
           type="button"
           onClick={onBack}
-          className="shrink-0 text-sm font-medium text-blue-600"
+          className="shrink-0 text-sm font-medium text-[var(--erp-text-link)]"
         >
           {backLabel}
         </button>
       )}
       <div className="min-w-0 flex-1">
-        <h1 className="truncate text-base font-semibold leading-tight text-neutral-950">
+        <h1 className="truncate text-base font-semibold leading-tight text-[var(--erp-text-primary)]">
           {title}
         </h1>
-        {subtitle && <p className="truncate text-xs text-neutral-500">{subtitle}</p>}
+        {subtitle && <p className="truncate text-xs text-[var(--erp-text-muted)]">{subtitle}</p>}
       </div>
       {status && <div className="shrink-0">{status}</div>}
     </header>
-    <div className={cn("min-h-0 flex-1 overflow-y-auto bg-neutral-50", contentClassName)}>
+    <div className={cn("min-h-0 flex-1 overflow-y-auto bg-[var(--erp-surface-page)]", contentClassName)}>
       {children}
     </div>
     {bottomBar}
-    <div className="flex shrink-0 justify-center bg-white py-2">
-      <div className="h-1 w-24 rounded-full bg-neutral-300" />
+    <div className="flex shrink-0 justify-center bg-[var(--erp-surface-card)] py-2">
+      <div className="h-1 w-24 rounded-full bg-[var(--erp-border-strong)]" />
     </div>
   </section>
 );
@@ -121,24 +121,28 @@ export const MobileDocumentSummary = ({
           key={field.label}
           className={cn(
             "rounded-xl border px-3 py-2.5",
-            field.tone === "warning" && "border-amber-200 bg-amber-50",
-            field.tone === "danger" && "border-red-200 bg-red-50",
-            field.tone === "info" && "border-blue-200 bg-blue-50",
-            (!field.tone || field.tone === "default") && "border-neutral-200 bg-white",
+            field.tone === "warning" &&
+              "border-[var(--erp-validation-warning-border)] bg-[var(--erp-validation-warning-bg)]",
+            field.tone === "danger" &&
+              "border-[var(--erp-validation-error-border)] bg-[var(--erp-validation-error-bg)]",
+            field.tone === "info" &&
+              "border-[var(--erp-validation-info-border)] bg-[var(--erp-validation-info-bg)]",
+            (!field.tone || field.tone === "default") &&
+              "border-[var(--erp-border-default)] bg-[var(--erp-surface-card)]",
           )}
         >
-          <p className="text-[10px] font-medium uppercase tracking-wide text-neutral-400">
+          <p className="text-[10px] font-medium uppercase tracking-wide text-[var(--erp-text-subtle)]">
             {field.label}
           </p>
-          <div className="mt-0.5 text-sm font-medium text-neutral-900">{field.value}</div>
+          <div className="mt-0.5 text-sm font-medium text-[var(--erp-text-primary)]">{field.value}</div>
         </div>
       ))}
     </div>
-    {totals && <div className="rounded-xl border border-blue-100 bg-blue-50 p-3">{totals}</div>}
+    {totals && <div className="rounded-xl border border-[var(--erp-border-selected)] bg-[var(--erp-surface-selected)] p-3">{totals}</div>}
     {lines.length > 0 && (
       <section>
         <div className="mb-2 flex items-center justify-between">
-          <p className="text-sm font-semibold text-neutral-700">Lines</p>
+          <p className="text-sm font-semibold text-[var(--erp-text-secondary)]">Lines</p>
           <Badge variant="muted">{readOnlyLabel}</Badge>
         </div>
         <div className="space-y-2">
@@ -146,20 +150,23 @@ export const MobileDocumentSummary = ({
             <div
               key={line.id}
               className={cn(
-                "flex items-center justify-between gap-3 rounded-xl border bg-white px-3 py-3",
-                line.tone === "warning" && "border-amber-200 bg-amber-50",
-                line.tone === "danger" && "border-red-200 bg-red-50",
-                line.tone === "success" && "border-green-200 bg-green-50",
-                (!line.tone || line.tone === "default") && "border-neutral-200",
+                "flex items-center justify-between gap-3 rounded-xl border bg-[var(--erp-surface-card)] px-3 py-3",
+                line.tone === "warning" &&
+                  "border-[var(--erp-validation-warning-border)] bg-[var(--erp-validation-warning-bg)]",
+                line.tone === "danger" &&
+                  "border-[var(--erp-validation-error-border)] bg-[var(--erp-validation-error-bg)]",
+                line.tone === "success" &&
+                  "border-[var(--erp-border-success)] bg-[var(--erp-state-new)]",
+                (!line.tone || line.tone === "default") && "border-[var(--erp-border-default)]",
               )}
             >
               <div className="min-w-0">
-                <p className="truncate text-xs font-semibold text-neutral-900">{line.title}</p>
+                <p className="truncate text-xs font-semibold text-[var(--erp-text-primary)]">{line.title}</p>
                 {line.description && (
-                  <p className="truncate text-xs text-neutral-500">{line.description}</p>
+                  <p className="truncate text-xs text-[var(--erp-text-muted)]">{line.description}</p>
                 )}
               </div>
-              <div className="shrink-0 text-right text-xs text-neutral-600">
+              <div className="shrink-0 text-right text-xs text-[var(--erp-text-muted)]">
                 {line.meta}
                 {line.status && <div className="mt-1 flex justify-end">{line.status}</div>}
               </div>
@@ -169,7 +176,7 @@ export const MobileDocumentSummary = ({
       </section>
     )}
     {desktopEditMessage && (
-      <div className="rounded-xl border border-neutral-200 bg-white px-3 py-3 text-xs text-neutral-600">
+      <div className="rounded-xl border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] px-3 py-3 text-xs text-[var(--erp-text-muted)]">
         {desktopEditMessage}
       </div>
     )}
@@ -191,9 +198,9 @@ export const MobileBottomActionBar = ({
 }: MobileBottomActionBarProps) => (
   <footer
     data-component="MobileBottomActionBar"
-    className={cn("shrink-0 border-t border-neutral-200 bg-white px-4 py-3", className)}
+    className={cn("shrink-0 border-t border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] px-4 py-3", className)}
   >
-    {helperText && <div className="mb-2 text-xs text-neutral-500">{helperText}</div>}
+    {helperText && <div className="mb-2 text-xs text-[var(--erp-text-muted)]">{helperText}</div>}
     <div className="flex gap-2">
       {actions.map((action) => (
         <Button
@@ -201,6 +208,7 @@ export const MobileBottomActionBar = ({
           type="button"
           variant={action.variant ?? "secondary"}
           density="touch"
+          width="fill"
           disabled={action.disabled}
           title={action.reason}
           onClick={action.onSelect}
@@ -238,8 +246,8 @@ export const MobileApprovalFlow = ({
   onDecision,
   className,
 }: MobileApprovalFlowProps) => (
-  <div data-component="MobileApprovalFlow" className={cn("bg-white", className)}>
-    <div className="border-b border-neutral-100 px-4 py-3">
+  <div data-component="MobileApprovalFlow" className={cn("bg-[var(--erp-surface-card)]", className)}>
+    <div className="border-b border-[var(--erp-border-muted)] px-4 py-3">
       <StatusBadge label={statusLabel ?? status} tone={statusTone} />
     </div>
     <ApprovalPanel
@@ -260,6 +268,7 @@ export const MobileApprovalFlow = ({
                 : "default"
           }
           density="touch"
+          width="fill"
           disabled={action.disabled}
           title={action.reason}
           className="flex-1"
@@ -297,19 +306,19 @@ export const ScannerCapturePlaceholder = ({
   className,
 }: ScannerCapturePlaceholderProps) => (
   <div data-component="ScannerCapturePlaceholder" className={cn("flex h-full flex-col", className)}>
-    <div className="relative flex h-80 shrink-0 items-center justify-center bg-neutral-950 text-white">
+    <div className="relative flex h-80 shrink-0 items-center justify-center bg-[var(--erp-surface-inverse)] text-[var(--erp-text-inverse)]">
       {state === "ready" && (
         <>
           <FrameCorner className="left-10 top-8 rounded-tl border-l-2 border-t-2" />
           <FrameCorner className="right-10 top-8 rounded-tr border-r-2 border-t-2" />
           <FrameCorner className="bottom-8 left-10 rounded-bl border-b-2 border-l-2" />
           <FrameCorner className="bottom-8 right-10 rounded-br border-b-2 border-r-2" />
-          <p className="px-10 text-center text-xs text-white/65">{description}</p>
+          <p className="px-10 text-center text-xs text-[color-mix(in_srgb,var(--erp-text-inverse)_65%,transparent)]">{description}</p>
         </>
       )}
       {state === "scanning" && (
         <div className="flex flex-col items-center gap-3 text-sm font-medium">
-          <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+          <span className="h-8 w-8 animate-spin rounded-full border-2 border-[color-mix(in_srgb,var(--erp-text-inverse)_30%,transparent)] border-t-[var(--erp-text-inverse)]" />
           Scanning
           <div className="absolute left-12 right-12 top-1/2 h-0.5 bg-blue-400 shadow-[0_0_12px_rgb(96_165_250)]" />
         </div>
@@ -323,20 +332,20 @@ export const ScannerCapturePlaceholder = ({
         </div>
       )}
       {state === "error" && (
-        <div className="mx-6 rounded-xl bg-white p-4 text-center text-neutral-800">
+        <div className="mx-6 rounded-xl bg-[var(--erp-surface-card)] p-4 text-center text-[var(--erp-text-secondary)]">
           <p className="text-sm font-semibold">Camera unavailable</p>
-          <p className="mt-1 text-xs text-neutral-500">
+          <p className="mt-1 text-xs text-[var(--erp-text-muted)]">
             Camera access can be connected by the host app later.
           </p>
         </div>
       )}
     </div>
-    <div className="flex-1 space-y-3 bg-neutral-50 p-4">
+    <div className="flex-1 space-y-3 bg-[var(--erp-surface-page)] p-4">
       <div>
-        <p className="text-sm font-semibold text-neutral-900">{title}</p>
-        {reference && <p className="text-xs text-neutral-500">Reference: {reference}</p>}
+        <p className="text-sm font-semibold text-[var(--erp-text-primary)]">{title}</p>
+        {reference && <p className="text-xs text-[var(--erp-text-muted)]">Reference: {reference}</p>}
       </div>
-      <div className="rounded-xl border border-neutral-200 bg-white p-3 text-xs text-neutral-600">
+      <div className="rounded-xl border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] p-3 text-xs text-[var(--erp-text-muted)]">
         Companion capture only. Document authoring and dense line edits stay in the
         desktop workspace.
       </div>
@@ -362,5 +371,5 @@ export const ScannerCapturePlaceholder = ({
 ScannerCapturePlaceholder.displayName = "ScannerCapturePlaceholder";
 
 const FrameCorner = ({ className }: { className: string }) => (
-  <div className={cn("absolute h-8 w-8 border-white", className)} />
+  <div className={cn("absolute h-8 w-8 border-[var(--erp-text-inverse)]", className)} />
 );

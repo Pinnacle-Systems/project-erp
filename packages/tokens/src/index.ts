@@ -301,6 +301,21 @@ export const formTokens = {
   },
 } as const;
 
+export const sizingTokens = {
+  intent: {
+    hug: "max-content",
+    fill: "100%",
+    fit: "fit-content",
+  },
+  control: {
+    xs: "6rem",
+    sm: "8rem",
+    md: "12rem",
+    lg: "16rem",
+    xl: "24rem",
+  },
+} as const;
+
 export const typographyTokens = {
   fontFamily: {
     sans: "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
@@ -468,6 +483,7 @@ export type ValidationTokens = typeof validationTokens;
 export type GridTokens = typeof gridTokens;
 export type ShellTokens = typeof shellTokens;
 export type FormTokens = typeof formTokens;
+export type SizingTokens = typeof sizingTokens;
 export type TypographyTokens = typeof typographyTokens;
 export type SpacingTokens = typeof spacingTokens;
 export type RadiusTokens = typeof radiusTokens;
@@ -485,5 +501,8 @@ export type ValidationSeverityName = keyof ValidationTokens;
 export type GridTokenGroupName = keyof GridTokens;
 export type ShellTokenGroupName = keyof ShellTokens;
 export type FormTokenGroupName = keyof FormTokens;
+export type SizingIntent = keyof SizingTokens["intent"];
+export type ControlWidth = keyof SizingTokens["control"];
+export type WidthMode = SizingIntent | ControlWidth;
 export type WorkflowStatusName = keyof StatusTokens;
 export type ShellDensityName = keyof DensityTokens;
