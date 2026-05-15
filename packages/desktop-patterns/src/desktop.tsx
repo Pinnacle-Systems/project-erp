@@ -134,14 +134,14 @@ export const DesktopActionBar = ({
   <div
     data-component="DesktopActionBar"
     className={cn(
-      "flex min-h-10 items-center justify-between gap-3 border-t border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] px-4 py-2",
+      "flex min-h-10 items-center justify-between gap-3 border-t border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface)] px-4 py-2",
       className,
     )}
   >
-    <div className="min-w-0 flex-1 text-xs text-[var(--erp-text-muted)]">{left}</div>
+    <div className="min-w-0 flex-1 text-xs text-[var(--erp-color-foreground-muted)]">{left}</div>
     <div className="flex shrink-0 items-center gap-2">
       {overflow}
-      {secondary && <div className="h-4 w-px bg-[var(--erp-border-default)]" />}
+      {secondary && <div className="h-4 w-px bg-[var(--erp-color-border-muted)]" />}
       {secondary}
       {primary}
     </div>
@@ -174,12 +174,12 @@ export const DesktopSplitPaneReview = ({
   <div
     data-component="DesktopSplitPaneReview"
     className={cn(
-      "grid h-full min-h-[34rem] grid-cols-[var(--erp-shell-split-pane-min-width)_minmax(0,1fr)] overflow-hidden rounded-lg border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)]",
+      "grid h-full min-h-[34rem] grid-cols-[var(--erp-shell-split-pane-min-width)_minmax(0,1fr)] overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] shadow-[var(--erp-shadow-card)]",
       review && "xl:grid-cols-[var(--erp-shell-split-pane-min-width)_minmax(0,1fr)_20rem]",
       className,
     )}
   >
-    <section className="min-h-0 border-r border-[var(--erp-border-default)]">
+    <section className="min-h-0 border-r border-[var(--erp-color-border-muted)]">
       <PaneHeader>{listTitle}</PaneHeader>
       <div className="h-[calc(100%-2.5rem)] overflow-auto">{list}</div>
     </section>
@@ -189,7 +189,7 @@ export const DesktopSplitPaneReview = ({
       {actions}
     </section>
     {review && (
-      <section className="hidden min-h-0 border-l border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] xl:block">
+      <section className="hidden min-h-0 border-l border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface-muted)] xl:block">
         <PaneHeader>{reviewTitle}</PaneHeader>
         <div className="h-[calc(100%-2.5rem)] overflow-auto">{review}</div>
       </section>
@@ -200,7 +200,7 @@ export const DesktopSplitPaneReview = ({
 DesktopSplitPaneReview.displayName = "DesktopSplitPaneReview";
 
 const PaneHeader = ({ children }: { children: ReactNode }) => (
-  <div className="flex h-10 items-center border-b border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] px-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-muted)]">
+  <div className="flex h-10 items-center border-b border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface-muted)] px-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-color-foreground-muted)]">
     {children}
   </div>
 );

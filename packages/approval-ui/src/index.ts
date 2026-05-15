@@ -176,6 +176,7 @@ export const ApprovalPanel = ({
               {
                 key: action.id,
                 "data-action-wrapper": action.id,
+                style: { display: "contents" },
               },
               renderAction
                 ? renderAction(action)

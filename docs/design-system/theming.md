@@ -29,19 +29,88 @@ Supported named themes are `default`, `clientA`, and `clientB`. Supported densit
 
 Components should use semantic variables rather than raw Tailwind colors:
 
-- Use `bg-[var(--erp-color-surface)]`, `text-[var(--erp-color-foreground)]`, `border-[var(--erp-color-border)]`.
+- Use `bg-[var(--erp-color-app-bg)]` for the outer app shell.
+- Use `bg-[var(--erp-color-page-bg)]` for page/workspace content.
+- Use `bg-[var(--erp-color-surface)]`, `bg-[var(--erp-color-surface-raised)]`, `text-[var(--erp-color-foreground)]`, and `border-[var(--erp-color-border)]`.
 - Use `bg-[var(--erp-color-primary)]` for primary actions.
-- Use `--erp-status-*` variables for generic document or workflow tones such as draft, submitted, approved, rejected, posted, and cancelled.
+- Use `--erp-status-*-bg`, `--erp-status-*-fg`, and `--erp-status-*-border` variables for generic document or workflow tones such as draft, submitted, approved, rejected, posted, cancelled, pending, warning, success, danger, and info.
 - Use `--erp-focus-ring`, `--erp-focus-ring-width`, `--erp-focus-ring-offset`, and `--erp-disabled-opacity` for accessible interaction states.
 - Keep existing short aliases like `--erp-bg`, `--erp-fg`, and `--erp-accent` only for compatibility while migrating.
 
 Avoid hardcoded reusable component classes such as `bg-white`, `text-neutral-900`, `border-neutral-200`, `bg-blue-600`, or `text-red-600` unless the color is part of a non-theme visual asset.
 
+## Component Token Vocabulary
+
+Reusable platform components (packages under `packages/`) use a stable set of component-layer semantic tokens. These are defined in `theme.css` alongside the `--erp-color-*` design tokens and carry the same effective values. They are the correct names for component authoring — not temporary migration aliases.
+
+### Surface backgrounds
+
+| Token | Semantic meaning | Equivalent `--erp-color-*` |
+| --- | --- | --- |
+| `--erp-surface-page` | Page and workspace content area | `--erp-color-page-bg` |
+| `--erp-surface-card` | Card, form, and table surface | `--erp-color-surface` |
+| `--erp-surface-raised` | Elevated card surface (above page) | `--erp-color-surface-raised` |
+| `--erp-surface-panel` | Sidebar, header, and panel surface | `--erp-color-surface` |
+| `--erp-surface-muted` | Subdued surface: table headers, filter bars | `--erp-color-surface-muted` |
+| `--erp-surface-inverse` | Inverse (dark) surface, e.g. status bar | — |
+| `--erp-surface-selected` | Selected/highlighted row or item | `--erp-color-surface-accent` |
+
+### Foreground / text
+
+| Token | Semantic meaning | Equivalent `--erp-color-*` |
+| --- | --- | --- |
+| `--erp-text-primary` | Primary body text | `--erp-color-foreground` |
+| `--erp-text-secondary` | Secondary, less prominent text | — |
+| `--erp-text-muted` | Muted hint text and metadata | `--erp-color-foreground-muted` |
+| `--erp-text-subtle` | Subtle field labels and captions | `--erp-color-foreground-subtle` |
+| `--erp-text-inverse` | Text on inverse surfaces | `--erp-color-foreground-inverse` |
+| `--erp-text-link` | Interactive link color | — |
+| `--erp-text-danger` | Danger / error foreground | — |
+| `--erp-text-warning` | Warning foreground | — |
+| `--erp-text-success` | Success foreground | — |
+| `--erp-text-info` | Info foreground | — |
+
+### Borders
+
+| Token | Semantic meaning | Equivalent `--erp-color-*` |
+| --- | --- | --- |
+| `--erp-border-default` | Standard border | `--erp-color-border` |
+| `--erp-border-muted` | Soft separator | `--erp-color-border-muted` |
+| `--erp-border-strong` | Emphasized border | `--erp-color-border-strong` |
+| `--erp-border-focus` | Focus ring border | — |
+| `--erp-border-selected` | Selected/active item border | — |
+
+### Elevation and shape
+
+| Token | Semantic meaning |
+| --- | --- |
+| `--erp-shadow-xs` | Minimal lift (inner borders, chips) |
+| `--erp-shadow-sm` | Low elevation (dropdowns, tooltips) |
+| `--erp-shadow-card` | Card elevation |
+| `--erp-shadow-floating` | Overlay/modal elevation |
+| `--erp-radius-card` | Card corner radius |
+| `--erp-radius-control` | Input and button corner radius |
+| `--erp-radius-panel` | Panel and sidebar corner radius |
+
+Use `--erp-surface-*` and `--erp-text-*` tokens in reusable components. Use `--erp-color-*` names when authoring product screens or referencing the design token layer directly. Both sets are stable and defined in `packages/theme/src/theme.css`.
+
+## Modern Light ERP Visual Language
+
+Use layered surfaces instead of pure white everywhere. The outer shell should use `--erp-color-app-bg`; page and workspace content should use `--erp-color-page-bg`; cards, forms, and tables should use `--erp-color-surface` or `--erp-color-surface-raised`.
+
+Use `--erp-color-surface-muted` for table headers, filter bars, subdued panels, and secondary containers. Use `--erp-color-surface-accent` and `--erp-color-primary-soft` sparingly for selected navigation, icon chips, KPI accents, and subtle highlights.
+
+Use status tones only for state, not decoration. Reusable status badges should use the `--erp-status-*-bg`, `--erp-status-*-fg`, and `--erp-status-*-border` variables instead of hardcoded green, yellow, red, or blue classes.
+
+Reusable components must not hardcode raw Tailwind palette colors when a semantic theme variable exists. Product screens should compose themed primitives and layout components instead of styling every surface directly.
+
+Density changes rhythm, not meaning. Theme does not own workflow, permissions, validation policy, document semantics, field visibility, routes, or business rules.
+
 ## Density
 
 Density changes interaction rhythm, not business behavior. The provider sets variables such as `--erp-control-height`, `--erp-control-padding-x`, `--erp-field-gap`, `--erp-page-padding`, `--erp-grid-row-height`, `--erp-toolbar-height`, and `--erp-mobile-bottom-bar-height`.
 
-Use `compact` for dense desktop workflows, `comfortable` as the default, and `touch` for mobile or tablet-first screens.
+Use `compact` for desktop ERP screens (data-entry, editable grids, transaction lines, approval queues, dashboards). Use `comfortable` only for exceptions where readability outweighs throughput: overview pages, onboarding, help screens, and demos. Use `touch` for mobile or tablet-first screens.
 
 ## Nested Overrides
 
@@ -62,6 +131,8 @@ Only override `theme` locally when a screen intentionally needs a separate visua
 Storybook wraps all stories with the real `ThemeProvider` and imports `@erp-ui-platform/theme/theme.css`. The toolbar exposes client theme and density controls. The color mode toolbar currently exposes only `light`; dark and system modes remain documented deferred scope.
 
 Use `Foundation/Themes` to compare named themes, densities, status tones, focus/disabled states, nested density overrides, transaction shells, and mobile approval surfaces.
+
+Use `Patterns/Mobile` (`apps/storybook/stories/mobile-patterns.stories.tsx`) for mobile screen composition: approval tasks, scanner-assisted capture, and read-only review. See `docs/design-system/mobile-patterns.md` for the full governance rules.
 
 ## Client Branding
 

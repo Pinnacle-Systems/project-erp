@@ -43,7 +43,7 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <div>
-        <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           Workflow status badges
         </p>
         <div className="flex flex-wrap gap-2">
@@ -59,10 +59,10 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           In context — document list row
         </p>
-        <div className="rounded-md border border-neutral-200 bg-white overflow-hidden">
+        <div className="overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)]">
           {[
             { doc: "SI-1004", customer: "Northwind Retail", badge: <Badge variant="warning">Pending approval</Badge> },
             { doc: "SI-1003", customer: "Contoso Ltd", badge: <Badge variant="success">Posted</Badge> },
@@ -71,10 +71,10 @@ export const AllVariants: Story = {
           ].map((row, i) => (
             <div
               key={i}
-              className="flex items-center justify-between px-4 py-2.5 border-b border-neutral-100 last:border-0 text-sm"
+              className="flex items-center justify-between border-b border-[var(--erp-color-border-muted)] px-4 py-2.5 text-sm last:border-0"
             >
-              <span className="font-mono text-neutral-700">{row.doc}</span>
-              <span className="text-neutral-600">{row.customer}</span>
+              <span className="font-mono text-[var(--erp-color-foreground)]">{row.doc}</span>
+              <span className="text-[var(--erp-color-foreground-muted)]">{row.customer}</span>
               {row.badge}
             </div>
           ))}

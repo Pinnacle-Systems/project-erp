@@ -1,0 +1,1 @@
+import{d as i,r as m}from"./storybook-docs-addon-CcVm6pEQ.js";import{c as o}from"./vendor-react-QzJwS0Xl.js";import"./vendor-react-dom-CQaxX8-L.js";var t=o(m(),1),d=(0,t.default)(2)(async(e,r)=>e===!1?r:i(r));export{d as formatter};

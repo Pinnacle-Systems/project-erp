@@ -8,6 +8,13 @@ import type {
 } from "@erp-ui-platform/approval-ui";
 import { Button } from "@erp-ui-platform/primitives";
 import { PageHeader, StatusBadge } from "@erp-ui-platform/app-components";
+import {
+  MobileApprovalCommentList,
+  MobileApprovalSummaryCard,
+  MobileApprovalTimeline,
+  MobileBottomActionBar,
+  MobileTaskShell,
+} from "@erp-ui-platform/mobile-patterns";
 import { APPROVAL_STEPS, APPROVAL_COMMENTS } from "../utils/demoData";
 
 const meta = {
@@ -256,58 +263,63 @@ export const WithComments: Story = {
   ),
 };
 
+const MOBILE_STEPS: ApprovalStep[] = [
+  {
+    id: "manager",
+    label: "Manager review",
+    status: "approved",
+    actor: { id: "u1", displayName: "M. Rao" },
+  },
+  {
+    id: "finance",
+    label: "Finance review",
+    status: "pending",
+    actor: { id: "u2", displayName: "F. Chen" },
+  },
+];
+
+const MOBILE_COMMENTS: ApprovalComment[] = [
+  {
+    id: "c1",
+    actor: { id: "u3", displayName: "Requester" },
+    message: "Please approve for dispatch.",
+    createdAt: "2025-05-11T00:00:00Z",
+  },
+];
+
 export const MobileApprovalCard: Story = {
   render: () => (
-    <div style={{ maxWidth: 420 }}>
-      <ApprovalCard
-        title="Sales Invoice"
-        docNumber="SI-2025-1001"
-        status="pending"
-        steps={[
-          {
-            id: "manager",
-            label: "Manager review",
-            status: "approved",
-            actor: { id: "u1", displayName: "M. Rao" },
-          },
-          {
-            id: "finance",
-            label: "Finance review",
-            status: "pending",
-            actor: { id: "u2", displayName: "F. Chen" },
-          },
-        ]}
-        comments={[
-          {
-            id: "c1",
-            actor: { id: "u3", displayName: "Requester" },
-            message: "Please approve for dispatch.",
-            createdAt: "2025-05-11T00:00:00Z",
-          },
-        ]}
-        allowedActions={[
-          { id: "approve", decision: "approve", label: "Approve" },
-          {
-            id: "reject",
-            decision: "reject",
-            label: "Reject",
-            requiresComment: true,
-          },
-          {
-            id: "post",
-            decision: "approve",
-            label: "Post",
-            disabled: true,
-            reason: "Posting is desktop-only.",
-          },
-        ]}
-        attachments={
-          <div className="text-xs text-neutral-600">
-            2 attachments: Receipt.pdf, PO.pdf
-          </div>
-        }
-        shell="mobile"
-      />
-    </div>
+    <MobileTaskShell
+      title="Approval"
+      subtitle="SI-2025-1001 · Sales Invoice"
+      backLabel="‹ Back"
+      status={<StatusBadge label="Pending Approval" tone="warning" />}
+      bottomBar={
+        <MobileBottomActionBar
+          actions={[
+            { id: "approve", label: "Approve", variant: "default" },
+            { id: "changes", label: "Changes", variant: "secondary" },
+            { id: "reject", label: "Reject", variant: "destructive" },
+          ]}
+        />
+      }
+    >
+      <div className="space-y-3 p-4">
+        <MobileApprovalSummaryCard
+          statusLabel="Pending Approval"
+          statusTone="warning"
+          docType="Sales Invoice"
+          docNumber="SI-2025-1001"
+          amount="₹1,24,500.00"
+          requester="A. Sharma"
+          helperText="Awaiting Finance Review"
+        />
+        <MobileApprovalTimeline steps={MOBILE_STEPS} />
+        <MobileApprovalCommentList comments={MOBILE_COMMENTS} />
+        <p className="px-1 text-xs text-[var(--erp-text-muted)]">
+          2 attachments: Receipt.pdf, PO.pdf
+        </p>
+      </div>
+    </MobileTaskShell>
   ),
 };

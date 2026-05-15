@@ -8,17 +8,17 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[var(--erp-surface-panel)] text-[var(--erp-text-primary)] border-[var(--erp-border-default)]",
+          "bg-[var(--erp-status-draft-bg)] text-[var(--erp-status-draft-fg)] border-[var(--erp-status-draft-border)]",
         success:
-          "bg-[var(--erp-status-approved-soft)] text-[var(--erp-status-approved)] border-[var(--erp-status-approved-border)]",
+          "bg-[var(--erp-status-success-bg)] text-[var(--erp-status-success-fg)] border-[var(--erp-status-success-border)]",
         warning:
-          "bg-[var(--erp-validation-warning-bg)] text-[var(--erp-validation-warning-text)] border-[var(--erp-validation-warning-border)]",
+          "bg-[var(--erp-status-warning-bg)] text-[var(--erp-status-warning-fg)] border-[var(--erp-status-warning-border)]",
         danger:
-          "bg-[var(--erp-status-rejected-soft)] text-[var(--erp-status-rejected)] border-[var(--erp-status-rejected-border)]",
+          "bg-[var(--erp-status-danger-bg)] text-[var(--erp-status-danger-fg)] border-[var(--erp-status-danger-border)]",
         info:
-          "bg-[var(--erp-status-submitted-soft)] text-[var(--erp-status-submitted)] border-[var(--erp-status-submitted-border)]",
+          "bg-[var(--erp-status-info-bg)] text-[var(--erp-status-info-fg)] border-[var(--erp-status-info-border)]",
         muted:
-          "bg-[var(--erp-surface-panel)] text-[var(--erp-text-muted)] border-[var(--erp-border-default)]",
+          "bg-[var(--erp-color-surface-muted)] text-[var(--erp-color-foreground-muted)] border-[var(--erp-color-border-muted)]",
       },
       width: {
         hug: "w-[var(--erp-size-intent-hug)] max-w-full",

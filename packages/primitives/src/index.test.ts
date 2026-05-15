@@ -12,6 +12,50 @@ describe("@erp-ui-platform/primitives sizing", () => {
     expect(html).toContain("w-[var(--erp-size-intent-hug)]");
   });
 
+  it("uses theme density variables when button density is omitted", () => {
+    const html = renderToStaticMarkup(createElement(Button, null, "Save"));
+
+    expect(html).toContain("h-[var(--erp-control-height)]");
+    expect(html).toContain("px-[var(--erp-control-padding-x)]");
+    expect(html).toContain("text-[length:var(--erp-control-font-size)]");
+    expect(html).toContain("rounded-[var(--erp-radius-md)]");
+    expect(html).not.toContain("h-7 px-2.5 text-xs");
+    expect(html).not.toContain("h-11 px-5 text-base");
+  });
+
+  it("supports explicit compact button density", () => {
+    const html = renderToStaticMarkup(
+      createElement(Button, { density: "compact" }, "Save"),
+    );
+
+    expect(html).toContain("h-7");
+    expect(html).toContain("px-2.5");
+    expect(html).toContain("text-xs");
+    expect(html).toContain("rounded-[var(--erp-radius-sm)]");
+  });
+
+  it("supports explicit comfortable button density", () => {
+    const html = renderToStaticMarkup(
+      createElement(Button, { density: "comfortable" }, "Save"),
+    );
+
+    expect(html).toContain("h-[var(--erp-control-height)]");
+    expect(html).toContain("px-[var(--erp-control-padding-x)]");
+    expect(html).toContain("text-[length:var(--erp-control-font-size)]");
+    expect(html).toContain("rounded-[var(--erp-radius-md)]");
+  });
+
+  it("supports explicit touch button density", () => {
+    const html = renderToStaticMarkup(
+      createElement(Button, { density: "touch" }, "Approve"),
+    );
+
+    expect(html).toContain("h-11");
+    expect(html).toContain("px-5");
+    expect(html).toContain("text-base");
+    expect(html).toContain("rounded-[var(--erp-radius-lg)]");
+  });
+
   it("supports fill width for buttons", () => {
     const html = renderToStaticMarkup(
       createElement(Button, { width: "fill" }, "Continue"),

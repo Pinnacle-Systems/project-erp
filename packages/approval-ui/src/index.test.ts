@@ -70,4 +70,16 @@ describe("@erp-ui-platform/approval-ui", () => {
 
     expect(renderAction).toHaveBeenCalledWith(action);
   });
+
+  it("does not let action wrappers block flex item sizing", () => {
+    const element = ApprovalPanel(baseProps);
+    const actions = element.props.children.find(
+      (child: { props?: Record<string, unknown> } | null) =>
+        child?.props?.["data-slot"] === "approval-actions",
+    );
+    const wrapper = actions.props.children[0];
+
+    expect(wrapper.props["data-action-wrapper"]).toBe("approve");
+    expect(wrapper.props.style).toEqual({ display: "contents" });
+  });
 });

@@ -24,7 +24,7 @@ export const AllStatuses: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           Tones
         </p>
         <div className="flex flex-wrap gap-2">
@@ -37,7 +37,7 @@ export const AllStatuses: Story = {
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           Generic workflow statuses
         </p>
         <div className="flex flex-wrap gap-2">

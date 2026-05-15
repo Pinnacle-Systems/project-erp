@@ -5,7 +5,10 @@ export type MobilePatternsPackageMarker = {
 };
 
 export {
+  MobileApprovalCommentList,
   MobileApprovalFlow,
+  MobileApprovalSummaryCard,
+  MobileApprovalTimeline,
   MobileBottomActionBar,
   MobileDocumentSummary,
   MobileTaskShell,
@@ -13,7 +16,10 @@ export {
 } from "./mobile";
 export type {
   MobileActionItem,
+  MobileApprovalCommentListProps,
   MobileApprovalFlowProps,
+  MobileApprovalSummaryCardProps,
+  MobileApprovalTimelineProps,
   MobileBottomActionBarProps,
   MobileDocumentField,
   MobileDocumentLine,

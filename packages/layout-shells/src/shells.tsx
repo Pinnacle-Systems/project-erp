@@ -25,14 +25,14 @@ export const AppFrame = ({
     data-component="AppFrame"
     data-density={density}
     className={cn(
-      "min-h-screen bg-[var(--erp-surface-page)] text-[var(--erp-text-primary)]",
+      "min-h-screen bg-[var(--erp-color-app-bg)] text-[var(--erp-color-foreground)]",
       "grid grid-cols-1",
       navigation && "lg:grid-cols-[var(--erp-shell-sidebar-width)_minmax(0,1fr)]",
       className,
     )}
   >
     {navigation && (
-      <aside className="hidden min-h-screen border-r border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] lg:block">
+      <aside className="hidden min-h-screen border-r border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface-raised)] lg:block">
         {navigation}
       </aside>
     )}
@@ -66,11 +66,11 @@ export const NavigationShell = ({
   <nav
     data-component="NavigationShell"
     aria-label={title}
-    className={cn("flex h-full min-h-screen flex-col bg-[var(--erp-surface-panel)]", className)}
+    className={cn("flex h-full min-h-screen flex-col bg-[var(--erp-color-surface-raised)]", className)}
   >
-    <div className="border-b border-[var(--erp-border-default)] px-4 py-4">
-      <p className="text-sm font-semibold leading-tight text-[var(--erp-text-primary)]">{title}</p>
-      {subtitle && <p className="mt-1 text-xs text-[var(--erp-text-muted)]">{subtitle}</p>}
+    <div className="border-b border-[var(--erp-color-border-muted)] px-4 py-4">
+      <p className="text-sm font-semibold leading-tight text-[var(--erp-color-foreground)]">{title}</p>
+      {subtitle && <p className="mt-1 text-xs text-[var(--erp-color-foreground-muted)]">{subtitle}</p>}
     </div>
     <div className="flex-1 overflow-y-auto px-2 py-3">
       {items.filter((item) => !item.hidden).map((item) => {
@@ -84,17 +84,17 @@ export const NavigationShell = ({
             title={item.reason}
             className={cn(
               "mb-1 flex w-full items-center gap-3 rounded-md px-3 py-2 text-left",
-              "text-sm text-[var(--erp-text-muted)] transition-colors",
-              "hover:bg-[var(--erp-surface-hover)] hover:text-[var(--erp-text-primary)]",
+              "border border-transparent text-sm text-[var(--erp-color-foreground-muted)] transition-colors",
+              "hover:bg-[var(--erp-color-surface-muted)] hover:text-[var(--erp-color-foreground)]",
               "disabled:cursor-not-allowed disabled:opacity-[var(--erp-disabled-opacity)]",
-              active && "bg-[var(--erp-surface-selected)] text-[var(--erp-text-link)] hover:bg-[var(--erp-surface-selected)] hover:text-[var(--erp-text-link)]",
+              active && "border-[var(--erp-color-primary-border)] bg-[var(--erp-color-primary-soft)] text-[var(--erp-color-primary)] hover:bg-[var(--erp-color-primary-soft)] hover:text-[var(--erp-color-primary)]",
             )}
           >
-            {item.icon && <span className="shrink-0 text-[var(--erp-text-subtle)]">{item.icon}</span>}
+            {item.icon && <span className="shrink-0 text-[var(--erp-color-foreground-subtle)]">{item.icon}</span>}
             <span className="min-w-0 flex-1">
               <span className="block truncate font-medium">{item.label}</span>
               {item.description && (
-                <span className="block truncate text-xs text-[var(--erp-text-muted)]">
+                <span className="block truncate text-xs text-[var(--erp-color-foreground-muted)]">
                   {item.description}
                 </span>
               )}
@@ -108,7 +108,7 @@ export const NavigationShell = ({
         );
       })}
     </div>
-    {footer && <div className="border-t border-[var(--erp-border-default)] p-3">{footer}</div>}
+    {footer && <div className="border-t border-[var(--erp-color-border-muted)] p-3">{footer}</div>}
   </nav>
 );
 
@@ -138,8 +138,8 @@ export const ContentRegion = ({
     data-variant={variant}
     className={cn(
       "flex h-full min-h-0 flex-col",
-      variant === "workspace" && "bg-[var(--erp-surface-page)]",
-      variant === "panel" && "bg-[var(--erp-surface-panel)]",
+      variant === "workspace" && "bg-[var(--erp-color-page-bg)]",
+      variant === "panel" && "bg-[var(--erp-color-surface)]",
       className,
     )}
   >
@@ -153,12 +153,12 @@ export const ContentRegion = ({
     >
       <div className="min-h-0 overflow-auto">{children}</div>
       {aside && (
-        <aside className="min-h-0 overflow-auto border-t border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] xl:border-l xl:border-t-0">
+        <aside className="min-h-0 overflow-auto border-t border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface)] xl:border-l xl:border-t-0">
           {aside}
         </aside>
       )}
     </div>
-    {footer && <div className="shrink-0 border-t border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)]">{footer}</div>}
+    {footer && <div className="shrink-0 border-t border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface)]">{footer}</div>}
   </section>
 );
 

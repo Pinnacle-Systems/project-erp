@@ -7,7 +7,7 @@ import {
   type GridRow,
 } from "@erp-ui-platform/editable-grid";
 import type { ValidationMessage } from "@erp-ui-platform/validation-ui";
-import { Badge, TextField } from "@erp-ui-platform/primitives";
+import { Badge, GridCellInput } from "@erp-ui-platform/primitives";
 import { EmptyState } from "@erp-ui-platform/app-components";
 
 const meta = {
@@ -33,6 +33,9 @@ const columns: GridColumnDefinition<Line>[] = [
   { id: "rate", header: "Rate", field: "rate", editable: false },
 ];
 
+// Columns whose values are numeric — right-align and use tabular nums
+const NUMERIC_COLS = new Set(["quantity", "rate"]);
+
 // ── helpers ───────────────────────────────────────────────────────────────────
 
 const RowStateMarker = ({ row }: { row: GridRow<Line> }) => {
@@ -57,13 +60,11 @@ const CellMarkers = ({ row }: { row: GridRow<Line> }) => {
   }
   if (!markers.length) return null;
   return (
-    <div className="flex gap-1 flex-wrap">
+    <div className="flex flex-wrap gap-0.5">
       {[...new Set(markers)].map((m) => (
         <Badge
           key={m}
-          variant={
-            m === "error" ? "danger" : m === "stale" ? "warning" : "info"
-          }
+          variant={m === "error" ? "danger" : m === "stale" ? "warning" : "info"}
         >
           {m}
         </Badge>
@@ -72,90 +73,134 @@ const CellMarkers = ({ row }: { row: GridRow<Line> }) => {
   );
 };
 
+// Cell text shown when a cell is not editable or the row is phantom/deleted
+const CellText = ({
+  value,
+  numeric = false,
+  phantom = false,
+  deleted = false,
+}: {
+  value: string;
+  numeric?: boolean;
+  phantom?: boolean;
+  deleted?: boolean;
+}) => (
+  <span
+    className={[
+      "block h-6 w-full px-1.5 text-xs leading-6",
+      numeric ? "text-right tabular-nums" : "",
+      phantom ? "italic text-(--erp-text-disabled)" : "text-(--erp-text-secondary)",
+      deleted ? "line-through text-(--erp-text-disabled)" : "",
+    ]
+      .filter(Boolean)
+      .join(" ")}
+  >
+    {phantom ? "—" : value}
+  </span>
+);
+
 const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
-  <div className="overflow-hidden rounded-md border border-[var(--erp-grid-row-border)] text-xs">
-    <table className="w-full">
+  <div className="overflow-hidden rounded-(--erp-radius-card) border border-(--erp-grid-row-border)">
+    <table className="w-full border-collapse text-xs">
       <thead>
-        <tr className="border-b border-[var(--erp-grid-header-border)] bg-[var(--erp-grid-header-bg)]">
-          <th className="w-28 px-3 py-2 text-left font-medium text-[var(--erp-grid-header-text)]">
+        <tr className="border-b border-(--erp-grid-header-border) bg-(--erp-grid-header-bg)">
+          {/* State */}
+          <th className="h-7 w-18 px-1.5 text-left text-[11px] font-semibold uppercase tracking-wide text-(--erp-grid-header-text)">
             State
           </th>
+          {/* Data columns */}
           {columns.map((c) => (
             <th
               key={c.id}
-              className="px-3 py-2 text-left font-medium text-[var(--erp-grid-header-text)]"
+              className={[
+                "h-7 px-1.5 text-[11px] font-semibold uppercase tracking-wide text-(--erp-grid-header-text)",
+                c.id === "quantity" ? "w-14" : "",
+                c.id === "rate" ? "w-16" : "",
+                c.id === "item" ? "w-28" : "",
+                NUMERIC_COLS.has(c.id) ? "text-right" : "text-left",
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               {c.header}
             </th>
           ))}
-          <th className="w-28 px-3 py-2 text-left font-medium text-[var(--erp-grid-header-text)]">
+          {/* Markers */}
+          <th className="h-7 w-18 px-1.5 text-left text-[11px] font-semibold uppercase tracking-wide text-(--erp-grid-header-text)">
             Markers
           </th>
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => (
-          <tr
-            key={row.id}
-            className={[
-              "border-b border-[var(--erp-grid-row-border)] bg-[var(--erp-grid-row-bg)] last:border-b-0",
-              row.state === "deleted"
-                ? "bg-[var(--erp-grid-row-deleted-bg)] opacity-60"
-                : row.state === "dirty"
-                  ? "bg-[var(--erp-grid-row-dirty-bg)]"
-                  : row.isPhantom
-                    ? "bg-[var(--erp-grid-row-readonly-bg)]"
-                    : "",
-            ].join(" ")}
-          >
-            <td className="px-3 py-2">
-              <RowStateMarker row={row} />
-            </td>
-            {columns.map((col) => {
-              const cell = row.cells[col.id];
-              const val = row.data[col.field];
-              const hasError =
-                (cell?.validationMessages.length ?? 0) > 0;
-              return (
-                <td key={col.id} className="px-3 py-2">
-                  {col.editable !== false && !row.isPhantom ? (
-                    <TextField
-                      value={String(val ?? "")}
-                      aria-label={`${col.header} for row ${row.id}`}
-                      error={hasError}
-                      density="compact"
-                      width="fill"
-                      className={[
-                        row.state === "deleted"
-                          ? "line-through text-[var(--erp-text-disabled)]"
-                          : "",
-                        cell?.isManualOverride
-                          ? "border-[var(--erp-grid-selection-handle)] bg-[var(--erp-grid-cell-editing-bg)]"
-                          : "",
-                      ].join(" ")}
-                      readOnly
-                    />
-                  ) : (
-                    <span
-                      className={[
-                        "text-[var(--erp-text-secondary)]",
-                        row.isPhantom ? "text-[var(--erp-text-disabled)] italic" : "",
-                        row.state === "deleted"
-                          ? "line-through text-[var(--erp-text-disabled)]"
-                          : "",
-                      ].join(" ")}
-                    >
-                      {row.isPhantom ? "—" : String(val ?? "")}
-                    </span>
-                  )}
-                </td>
-              );
-            })}
-            <td className="px-3 py-2">
-              <CellMarkers row={row} />
-            </td>
-          </tr>
-        ))}
+        {rows.map((row) => {
+          const isDeleted = row.state === "deleted";
+          const isDirty = row.state === "dirty";
+          const isPhantom = row.isPhantom;
+
+          return (
+            <tr
+              key={row.id}
+              className={[
+                "border-b border-(--erp-grid-row-border) last:border-b-0",
+                isDeleted
+                  ? "bg-(--erp-grid-row-deleted-bg)"
+                  : isDirty
+                    ? "bg-(--erp-grid-row-dirty-bg)"
+                    : isPhantom
+                      ? "bg-(--erp-grid-row-readonly-bg)"
+                      : "bg-(--erp-grid-row-bg)",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+            >
+              {/* State badge cell */}
+              <td className="px-1.5 py-0.5">
+                <RowStateMarker row={row} />
+              </td>
+
+              {/* Data cells */}
+              {columns.map((col) => {
+                const cell = row.cells[col.id];
+                const val = row.data[col.field];
+                const hasError = (cell?.validationMessages.length ?? 0) > 0;
+                const numeric = NUMERIC_COLS.has(col.id);
+                const isEditable = col.editable !== false && !isPhantom && !isDeleted;
+                const hasManualOverride = Boolean(cell?.isManualOverride);
+
+                return (
+                  <td key={col.id} className="px-0 py-0.5">
+                    {isEditable ? (
+                      <GridCellInput
+                        value={String(val ?? "")}
+                        aria-label={`${col.header} for row ${row.id}`}
+                        error={hasError}
+                        numeric={numeric}
+                        readOnly
+                        className={
+                          hasManualOverride
+                            ? "border-(--erp-grid-selection-handle) bg-(--erp-grid-cell-editing-bg)"
+                            : undefined
+                        }
+                      />
+                    ) : (
+                      <CellText
+                        value={String(val ?? "")}
+                        numeric={numeric}
+                        phantom={isPhantom}
+                        deleted={isDeleted}
+                      />
+                    )}
+                  </td>
+                );
+              })}
+
+              {/* Marker badge cell */}
+              <td className="px-1.5 py-0.5">
+                <CellMarkers row={row} />
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   </div>
@@ -173,7 +218,7 @@ export const EmptyGrid: Story = {
           title="No lines added"
           description="Add a line item to begin. Use the item lookup to auto-fill description and rate."
           primaryAction={
-            <button className="text-xs text-[var(--erp-text-link)] hover:underline">
+            <button className="text-xs text-(--erp-text-link) hover:underline">
               + Add line
             </button>
           }
@@ -224,7 +269,7 @@ export const DirtyRow: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <p className="text-xs text-[var(--erp-text-muted)]">
+        <p className="text-xs text-(--erp-text-muted)">
           Qty changed from 12 → 15. Row transitions to dirty state.
         </p>
         <GridTable rows={[dirty]} />
@@ -245,7 +290,7 @@ export const DeletedRow: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <p className="text-xs text-[var(--erp-text-muted)]">
+        <p className="text-xs text-(--erp-text-muted)">
           Deleted rows are retained until save to support undo. Visual strikethrough signals
           pending removal.
         </p>
@@ -283,7 +328,7 @@ export const ValidationErrors: Story = {
     return (
       <div className="flex flex-col gap-2">
         <GridTable rows={[withError]} />
-        <p className="text-xs text-[var(--erp-validation-error-text)]">
+        <p className="text-xs text-(--erp-validation-error-text)">
           Line 1 · {errMsg.message}
         </p>
       </div>
@@ -308,10 +353,9 @@ export const LookupAutofillResult: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <p className="text-xs text-[var(--erp-text-muted)]">
-          Selecting an item via lookup auto-fills description and rate. The
-          item cell is dirty; autofill fields are read-only until manually
-          overridden.
+        <p className="text-xs text-(--erp-text-muted)">
+          Selecting an item via lookup auto-fills description and rate. The item cell is dirty;
+          autofill fields are read-only until manually overridden.
         </p>
         <GridTable rows={[withAutofill]} />
       </div>
@@ -334,12 +378,12 @@ export const StaleManualOverride: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <p className="text-xs text-[var(--erp-text-muted)]">
-          A manual override (blue border) prevents future autofill from
-          overwriting the user-set value.
+        <p className="text-xs text-(--erp-text-muted)">
+          A manual override (blue border) prevents future autofill from overwriting the
+          user-set value.
         </p>
         <GridTable rows={[change.nextRow]} />
-        <p className="text-xs text-[var(--erp-text-link)]">
+        <p className="text-xs text-(--erp-text-link)">
           Qty manually set to 14. Autofill will not overwrite this field.
         </p>
       </div>

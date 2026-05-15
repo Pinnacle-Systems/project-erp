@@ -6,6 +6,9 @@ export type { ButtonProps, ButtonVariant, ButtonDensity, ButtonWidth } from "./c
 export { TextField } from "./components/text-field";
 export type { TextFieldProps, TextFieldDensity, TextFieldWidth } from "./components/text-field";
 
+export { GridCellInput } from "./components/grid-cell-input";
+export type { GridCellInputProps } from "./components/grid-cell-input";
+
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeVariant, BadgeWidth } from "./components/badge";
 
