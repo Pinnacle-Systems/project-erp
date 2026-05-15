@@ -148,7 +148,7 @@ const KPICard = ({
     style={{ minHeight: "var(--erp-kpi-card-min-height)" }}
   >
     <div className="mb-3 flex items-start justify-between gap-2">
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
+      <p className="text-(length:--erp-font-size-xs) font-semibold uppercase tracking-(--erp-tracking-caps) text-[var(--erp-text-subtle)]">
         {label}
       </p>
       {icon && <IconChip icon={icon} tone={iconTone} size="sm" />}
@@ -201,7 +201,7 @@ const DocSummaryCard = ({
       <div className="flex min-w-0 items-center gap-2.5">
         {icon && <IconChip icon={icon} tone={iconTone} size="sm" />}
         <div className="min-w-0">
-          <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
+          <p className="text-(length:--erp-font-size-xs) font-semibold uppercase tracking-(--erp-tracking-caps) text-[var(--erp-text-subtle)]">
             {docType}
           </p>
           <p className="truncate text-xs font-medium text-[var(--erp-text-secondary)]">{docNumber}</p>
@@ -212,7 +212,7 @@ const DocSummaryCard = ({
       </div>
     </div>
     <div className="p-4">
-      <p className="text-[10px] uppercase tracking-wide text-[var(--erp-text-subtle)]">{heroLabel}</p>
+      <p className="text-(length:--erp-font-size-xs) uppercase tracking-(--erp-tracking-caps) text-[var(--erp-text-subtle)]">{heroLabel}</p>
       <p
         className={cn(
           "mb-3 text-2xl font-bold tabular-nums",
@@ -224,7 +224,7 @@ const DocSummaryCard = ({
       <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-t border-[var(--erp-border-muted)] pt-3">
         {fields.map(({ label, value }) => (
           <div key={label} className="min-w-0">
-            <p className="text-[10px] text-[var(--erp-text-subtle)]">{label}</p>
+            <p className="text-(length:--erp-font-size-xs) text-[var(--erp-text-subtle)]">{label}</p>
             <p className="truncate text-xs font-medium text-[var(--erp-text-secondary)]">{value}</p>
           </div>
         ))}
@@ -252,7 +252,7 @@ const SectionHeader = ({
   <div className="flex items-start justify-between gap-4 border-b border-[var(--erp-border-muted)] pb-3">
     <div>
       {label && (
-        <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
+        <p className="mb-0.5 text-(length:--erp-font-size-xs) font-semibold uppercase tracking-(--erp-tracking-caps) text-[var(--erp-text-subtle)]">
           {label}
         </p>
       )}
@@ -263,6 +263,51 @@ const SectionHeader = ({
     </div>
     {action && <div className="shrink-0">{action}</div>}
   </div>
+);
+
+// ── table anatomy helpers (story-local, not exported) ────────────────────────
+
+const DenseTableHeaderCell = ({
+  align = "left",
+  className,
+  children,
+}: {
+  align?: "left" | "right";
+  className?: string;
+  children: ReactNode;
+}) => (
+  <th
+    className={cn(
+      "px-(--erp-table-cell-padding-x) py-(--erp-table-header-padding-y) text-(length:--erp-font-size-xs) leading-(--erp-line-height-dense) font-semibold uppercase tracking-(--erp-tracking-caps) text-(--erp-text-subtle)",
+      align === "right" ? "text-right" : "text-left",
+      className,
+    )}
+  >
+    {children}
+  </th>
+);
+
+const DenseTableCell = ({
+  align,
+  colSpan,
+  className,
+  children,
+}: {
+  align?: "right";
+  colSpan?: number;
+  className?: string;
+  children?: ReactNode;
+}) => (
+  <td
+    colSpan={colSpan}
+    className={cn(
+      "px-(--erp-table-cell-padding-x) py-(--erp-table-cell-padding-y) text-(length:--erp-font-size-xs) leading-(--erp-line-height-dense)",
+      align === "right" && "text-right",
+      className,
+    )}
+  >
+    {children}
+  </td>
 );
 
 // ── story data ────────────────────────────────────────────────────────────────
@@ -295,26 +340,28 @@ export const IconChips: Story = {
   render: () => (
     <div className="space-y-6 p-6" style={{ background: "var(--erp-surface-page)" }}>
       <div>
-        <p className="mb-3 text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
+        <p className="mb-3 text-(length:--erp-font-size-xs) font-semibold uppercase tracking-(--erp-tracking-caps) text-[var(--erp-text-subtle)]">
           Medium (default) — KPI cards, section identities, document summaries
         </p>
         <div className="flex flex-wrap gap-5">
           {CHIP_TONES.map(({ tone, label, icon }) => (
             <div key={tone} className="flex flex-col items-center gap-2">
               <IconChip icon={icon} tone={tone} size="md" />
+              {/* text-[10px] intentional: decorative catalog label under icon chip, not data text */}
               <span className="text-[10px] text-[var(--erp-text-muted)]">{label}</span>
             </div>
           ))}
         </div>
       </div>
       <div>
-        <p className="mb-3 text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
+        <p className="mb-3 text-(length:--erp-font-size-xs) font-semibold uppercase tracking-(--erp-tracking-caps) text-[var(--erp-text-subtle)]">
           Small — inline use alongside labels, card headers, table row accents
         </p>
         <div className="flex flex-wrap gap-5">
           {CHIP_TONES.map(({ tone, label, icon }) => (
             <div key={tone} className="flex flex-col items-center gap-2">
               <IconChip icon={icon} tone={tone} size="sm" />
+              {/* text-[10px] intentional: decorative catalog label under icon chip, not data text */}
               <span className="text-[10px] text-[var(--erp-text-muted)]">{label}</span>
             </div>
           ))}
@@ -480,25 +527,19 @@ export const DenseTableCard: Story = {
   render: () => (
     <div className="p-6" style={{ background: "var(--erp-surface-page)" }}>
       <div className="overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] shadow-[var(--erp-shadow-card)]">
-        <div className="flex items-center justify-between border-b border-[var(--erp-border-muted)] px-4 py-3">
+        <div className="flex items-center justify-between border-b border-[var(--erp-border-muted)] px-(--erp-table-cell-padding-x) py-(--erp-table-header-padding-y)">
           <p className="text-sm font-semibold text-[var(--erp-text-primary)]">Recent documents</p>
           <Button variant="ghost" density="compact" width="hug">
             View all
           </Button>
         </div>
-        <table className="w-full text-xs">
+        <table className="w-full text-(length:--erp-font-size-xs)">
           <thead>
             <tr className="bg-[var(--erp-surface-muted)]">
               {(["Ref", "Party", "Date", "Amount", "Status"] as const).map((h, i) => (
-                <th
-                  key={h}
-                  className={cn(
-                    "px-4 py-2 text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]",
-                    i === 3 ? "text-right" : "text-left",
-                  )}
-                >
+                <DenseTableHeaderCell key={h} align={i === 3 ? "right" : "left"}>
                   {h}
-                </th>
+                </DenseTableHeaderCell>
               ))}
             </tr>
           </thead>
@@ -508,30 +549,30 @@ export const DenseTableCard: Story = {
                 key={row.ref}
                 className="border-t border-[var(--erp-border-muted)] transition-colors duration-[var(--erp-motion-fast)] hover:bg-[var(--erp-surface-hover)]"
               >
-                <td className="px-4 py-2.5 font-mono text-[var(--erp-text-primary)]">{row.ref}</td>
-                <td className="px-4 py-2.5 text-[var(--erp-text-secondary)]">{row.party}</td>
-                <td className="px-4 py-2.5 tabular-nums text-[var(--erp-text-muted)]">{row.date}</td>
-                <td className="px-4 py-2.5 text-right tabular-nums font-medium text-[var(--erp-text-primary)]">
+                <DenseTableCell className="font-mono text-(--erp-text-primary)">{row.ref}</DenseTableCell>
+                <DenseTableCell className="text-(--erp-text-secondary)">{row.party}</DenseTableCell>
+                <DenseTableCell className="tabular-nums text-(--erp-text-muted)">{row.date}</DenseTableCell>
+                <DenseTableCell align="right" className="tabular-nums font-medium text-(--erp-text-primary)">
                   {row.amount}
-                </td>
-                <td className="px-4 py-2.5">
+                </DenseTableCell>
+                <DenseTableCell>
                   <StatusBadge
                     label={STATUS_LABELS[row.status] ?? row.status}
                     tone={row.status as StatusBadgeTone}
                   />
-                </td>
+                </DenseTableCell>
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr className="border-t border-[var(--erp-border-default)] bg-[var(--erp-surface-muted)]">
-              <td colSpan={3} className="px-4 py-2.5 text-[var(--erp-text-muted)]">
+              <DenseTableCell colSpan={3} className="text-(--erp-text-muted)">
                 5 documents
-              </td>
-              <td className="px-4 py-2.5 text-right font-bold tabular-nums text-[var(--erp-text-primary)]">
+              </DenseTableCell>
+              <DenseTableCell align="right" className="font-bold tabular-nums text-(--erp-text-primary)">
                 ₹2,20,910
-              </td>
-              <td className="px-4 py-2.5" />
+              </DenseTableCell>
+              <DenseTableCell />
             </tr>
           </tfoot>
         </table>

@@ -29,7 +29,7 @@ export const Basic: Story = {
           onSearchChange={setSearch}
           searchPlaceholder="Search records..."
         />
-        <p className="text-xs text-neutral-400 px-4 pt-3">
+        <p className="text-xs text-neutral-500 px-4 pt-3">
           Search value: "{search}"
         </p>
       </div>
@@ -71,7 +71,7 @@ export const WithStatusAndDate: Story = {
             </Button>
           }
         />
-        <p className="text-xs text-neutral-400 px-4 pt-3">
+        <p className="text-xs text-neutral-500 px-4 pt-3">
           Active filters: {hasFilters ? "yes" : "none"}
         </p>
       </div>

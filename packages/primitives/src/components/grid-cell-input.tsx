@@ -16,16 +16,17 @@ export const GridCellInput = forwardRef<HTMLInputElement, GridCellInputProps>(
     <input
       ref={ref}
       className={cn(
-        "h-6 w-full bg-transparent text-xs font-sans",
-        "rounded-(--erp-radius-xs) border border-transparent px-1.5 py-0",
-        "text-(--erp-color-foreground) placeholder:text-(--erp-color-foreground-subtle)",
+        "h-(--erp-grid-cell-height) w-full bg-transparent text-(length:--erp-font-size-xs) leading-(--erp-line-height-dense) font-sans",
+        "rounded-(--erp-radius-xs) border border-transparent px-(--erp-grid-cell-padding-x) py-0",
+        "text-(--erp-text-secondary) placeholder:text-(--erp-color-foreground-subtle)",
         "transition-colors duration-(--erp-motion-fast)",
-        "hover:border-(--erp-border-muted) hover:bg-(--erp-color-surface-muted)",
+        "hover:border-(--erp-border-muted) hover:bg-(--erp-surface-muted)",
         "focus:outline-none focus:border-(--erp-form-field-focus-border) focus:bg-(--erp-grid-cell-editing-bg)",
         "focus:shadow-[inset_0_0_0_1px_var(--erp-focus-ring)]",
         "disabled:pointer-events-none disabled:opacity-(--erp-disabled-opacity)",
-        "read-only:hover:border-transparent read-only:hover:bg-transparent read-only:cursor-default",
-        error && "border-(--erp-form-field-error-border)",
+        "read-only:bg-(--erp-grid-cell-readonly-bg) read-only:hover:border-transparent read-only:hover:bg-transparent read-only:cursor-default",
+        // override CSS vars locally: error ring stays red on focus, editing bg turns red-tinted
+        error && "[--erp-focus-ring:rgb(185_28_28/0.40)] [--erp-grid-cell-editing-bg:var(--erp-grid-cell-error-bg)] border-(--erp-form-field-error-border)",
         numeric && "text-right tabular-nums",
         className,
       )}

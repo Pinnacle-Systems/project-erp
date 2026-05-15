@@ -189,6 +189,7 @@ SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 export interface SelectFieldProps
   extends ComponentPropsWithoutRef<typeof SelectPrimitive.Root> {
   label?: string;
+  "aria-label"?: string;
   errorMessage?: string;
   helpText?: string;
   density?: SelectFieldDensity;
@@ -202,6 +203,7 @@ export interface SelectFieldProps
 
 export const SelectField = ({
   label,
+  "aria-label": ariaLabel,
   errorMessage,
   helpText,
   density = "comfortable",
@@ -236,6 +238,7 @@ export const SelectField = ({
           state={hasError ? "error" : "default"}
           density={density}
           aria-invalid={hasError || undefined}
+          aria-label={!label ? ariaLabel : undefined}
         >
           <SelectValue placeholder={placeholder ?? "Select..."} />
         </SelectTrigger>

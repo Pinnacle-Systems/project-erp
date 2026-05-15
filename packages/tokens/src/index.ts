@@ -331,6 +331,7 @@ export const typographyTokens = {
   },
   lineHeight: {
     tight: "1.2",
+    dense: "1.25",
     normal: "1.5",
     relaxed: "1.65",
   },
@@ -378,6 +379,12 @@ export const shadowTokens = {
   focus: "0 0 0 3px rgb(37 99 235 / 0.28)",
 } as const;
 
+/**
+ * Legacy density tokens using a desktop/mobile device-category shape.
+ * Predates the unified CSS data-density attribute and does not include the
+ * touch mode, grid cell sizing, or table padding tokens.
+ * See `platformDensityTokens` for the CSS-aligned structure.
+ */
 export const densityTokens = {
   desktop: {
     compact: {
@@ -405,6 +412,60 @@ export const densityTokens = {
       touchTarget: "3rem",
       pagePadding: spacingTokens[5],
       sectionGap: spacingTokens[5],
+    },
+  },
+} as const;
+
+/**
+ * Platform density tokens keyed by CSS data-density attribute value.
+ * These map 1:1 to [data-density="compact|comfortable|touch"] in theme.css.
+ *
+ * Grid tokens are for editable/spreadsheet interaction surfaces (EditableGrid).
+ * Table tokens are for read-only dense data display (DenseTableCard and similar).
+ * The two sets are intentionally different — do not unify their padding values.
+ *
+ * SHAPE MISMATCH NOTE: `densityTokens` above uses a desktop/mobile ×
+ * compact/comfortable matrix that does not include touch mode or grid/table
+ * sizing. The two exports are kept separate; do not try to merge them.
+ */
+export const platformDensityTokens = {
+  compact: {
+    grid: {
+      cellHeight: "24px",
+      headerHeight: "28px",
+      cellPaddingX: "4px",
+      cellPaddingY: "1px",
+    },
+    table: {
+      cellPaddingX: "12px",
+      cellPaddingY: "8px",
+      headerPaddingY: "6px",
+    },
+  },
+  comfortable: {
+    grid: {
+      cellHeight: "28px",
+      headerHeight: "32px",
+      cellPaddingX: "6px",
+      cellPaddingY: "2px",
+    },
+    table: {
+      cellPaddingX: "16px",
+      cellPaddingY: "10px",
+      headerPaddingY: "8px",
+    },
+  },
+  touch: {
+    grid: {
+      cellHeight: "36px",
+      headerHeight: "40px",
+      cellPaddingX: "8px",
+      cellPaddingY: "4px",
+    },
+    table: {
+      cellPaddingX: "16px",
+      cellPaddingY: "12px",
+      headerPaddingY: "10px",
     },
   },
 } as const;
@@ -489,6 +550,8 @@ export type SpacingTokens = typeof spacingTokens;
 export type RadiusTokens = typeof radiusTokens;
 export type ShadowTokens = typeof shadowTokens;
 export type DensityTokens = typeof densityTokens;
+export type PlatformDensityTokens = typeof platformDensityTokens;
+export type PlatformDensityMode = keyof PlatformDensityTokens;
 export type StatusTokens = typeof statusTokens;
 export type ZIndexTokens = typeof zIndexTokens;
 

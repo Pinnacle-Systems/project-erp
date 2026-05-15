@@ -119,7 +119,7 @@ export const DesktopActionBar: Story = {
               ))}
             </div>
           </div>
-          <div className="px-4 py-10 text-center text-xs text-neutral-400">
+          <div className="px-4 py-10 text-center text-xs text-neutral-600">
             Document body area
           </div>
         </div>
@@ -172,7 +172,7 @@ export const MobileBottomBar: Story = {
           </span>
           <StatusBadge label="Pending" tone="warning" />
         </div>
-        <div className="px-4 py-4 text-xs text-neutral-400">
+        <div className="px-4 py-4 text-xs text-neutral-600">
           Document summary
         </div>
         <div className="absolute bottom-0 left-0 right-0 flex gap-2 p-3 bg-white border-t border-neutral-200">
@@ -201,7 +201,7 @@ export const DisabledWithReason: Story = {
       <TooltipProvider>
         <div className="flex flex-col gap-4">
           <div>
-            <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-2">
+            <p className="text-xs font-semibold text-neutral-600 uppercase tracking-wide mb-2">
               Hover over disabled buttons to see reason
             </p>
             <div className="flex flex-wrap gap-2">
@@ -211,7 +211,7 @@ export const DisabledWithReason: Story = {
             </div>
           </div>
           <div>
-            <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-2">
+            <p className="text-xs font-semibold text-neutral-600 uppercase tracking-wide mb-2">
               Resolved states
             </p>
             <table className="w-full text-xs border border-neutral-200 rounded-md overflow-hidden">
@@ -231,7 +231,7 @@ export const DisabledWithReason: Story = {
                         {a.disabled ? "disabled" : "allowed"}
                       </Badge>
                     </td>
-                    <td className="px-3 py-2 text-neutral-500">
+                    <td className="px-3 py-2 text-neutral-600">
                       {a.reason?.message ?? "—"}
                     </td>
                   </tr>
@@ -254,7 +254,7 @@ export const HighRiskConfirmation: Story = {
     return (
       <TooltipProvider>
         <div className="flex flex-col gap-3">
-          <p className="text-xs text-neutral-500">
+          <p className="text-xs text-neutral-600">
             High-risk actions (riskLevel: &quot;high&quot;,{" "}
             requiresConfirmation: true) show a confirmation dialog before
             executing.
@@ -310,7 +310,7 @@ export const PostBlockedByCapability: Story = {
     return (
       <TooltipProvider>
         <div className="flex flex-col gap-3">
-          <p className="text-xs text-neutral-500">
+          <p className="text-xs text-neutral-600">
             The Post action is blocked by the capability system — validation
             must be resolved first.
           </p>
@@ -382,7 +382,7 @@ export const CapabilityStates: Story = {
                       tone={toneMap[row.decision]}
                     />
                   </td>
-                  <td className="px-4 py-2.5 text-neutral-400">
+                  <td className="px-4 py-2.5 text-neutral-600">
                     {row.reason ?? "—"}
                   </td>
                 </tr>
