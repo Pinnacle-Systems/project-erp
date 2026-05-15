@@ -18,6 +18,7 @@ import {
   type Density,
   type ThemeName,
 } from "@erp-ui-platform/theme";
+import { NavigationShell } from "@erp-ui-platform/layout-shells";
 import { TransactionShell } from "@erp-ui-platform/transaction-shell";
 import {
   createValidationSummary,
@@ -43,6 +44,32 @@ const fields = [
   { label: "Invoice Date", value: "11 May 2026" },
   { label: "Amount", value: "₹1,793.60" },
 ];
+
+const kpis = [
+  { label: "Open receivables", value: "₹18.4L", trend: "+8.2%", tone: "positive" },
+  { label: "Pending approvals", value: "23", trend: "-3", tone: "negative" },
+  { label: "Fulfillment SLA", value: "96.8%", trend: "+1.4%", tone: "positive" },
+];
+
+const invoiceLines = [
+  { item: "FAB-001", description: "Fabric roll", qty: 12, status: "Approved" },
+  { item: "ACC-220", description: "Accessory pack", qty: 8, status: "Pending" },
+  { item: "SVC-042", description: "Finishing service", qty: 1, status: "Submitted" },
+];
+
+const statusExamples = [
+  ["Draft", "draft"],
+  ["Submitted", "submitted"],
+  ["Approved", "approved"],
+  ["Rejected", "rejected"],
+  ["Posted", "posted"],
+  ["Cancelled", "cancelled"],
+  ["Pending", "pending"],
+  ["Warning", "warning"],
+  ["Success", "success"],
+  ["Danger", "danger"],
+  ["Info", "info"],
+] as const;
 
 const validationSummary = createValidationSummary([
   validationBlocking,
@@ -77,39 +104,116 @@ const ThemeSample = ({
   theme?: ThemeName;
   density?: Density;
 }) => (
-  <ThemeProvider theme={theme} density={density} className="rounded-lg border border-[var(--erp-border)] bg-[var(--erp-bg)] p-[var(--erp-page-padding)]">
-    <div className="overflow-hidden rounded-[var(--erp-radius-panel)] border border-[var(--erp-border)] bg-[var(--erp-surface)] shadow-[var(--erp-shadow-sm)]">
+  <ThemeProvider
+    theme={theme}
+    density={density}
+    className="rounded-[var(--erp-radius-shell)] bg-[var(--erp-color-app-bg)] p-[var(--erp-page-padding)] text-[var(--erp-color-foreground)]"
+  >
+    <div className="grid overflow-hidden rounded-[var(--erp-radius-shell)] border border-[var(--erp-color-border-muted)] bg-[var(--erp-color-page-bg)] shadow-[var(--erp-shadow-card)] lg:grid-cols-[15rem_minmax(0,1fr)]">
+      <NavigationShell
+        title={`${theme} ERP`}
+        subtitle="Finance workspace"
+        activeItemId="dashboard"
+        items={[
+          { id: "dashboard", label: "Dashboard", description: "KPIs and work queue" },
+          { id: "invoices", label: "Invoices", badge: 12 },
+          { id: "approvals", label: "Approvals", badge: 5 },
+          { id: "reports", label: "Reports" },
+        ]}
+      />
+      <div className="min-w-0">
       <PageHeader
         title="Sales Invoice"
-        subtitle="SI-1002 · Theme token sample"
+        subtitle="SI-1002 · modern light theme sample"
         density={density}
-        status={<StatusBadge label="Pending" tone="warning" />}
+        status={<StatusBadge label="Pending" tone="pending" />}
         primaryAction={<Button variant="default" density={density}>Submit</Button>}
-        secondaryActions={<Button variant="secondary" density={density}>Save</Button>}
+        secondaryActions={
+          <>
+            <Button variant="ghost" density={density}>Preview</Button>
+            <Button variant="secondary" density={density}>Save</Button>
+          </>
+        }
         meta={fields}
       />
-      <div className="grid gap-[var(--erp-gap)] p-4 md:grid-cols-2">
-        <TextField label="Customer" defaultValue="Northwind Retail" density={density} />
-        <SelectField label="Payment Terms" defaultValue="net30" density={density}>
-          <SelectItem value="net30">Net 30</SelectItem>
-          <SelectItem value="net60">Net 60</SelectItem>
-        </SelectField>
-        <TextField
-          label="Tax Code"
-          defaultValue="Not set"
-          errorMessage="Tax code is required before posting."
-          density={density}
-        />
-        <div className="flex items-end gap-2">
-          <Badge>Draft</Badge>
-          <Badge variant="info">Submitted</Badge>
-          <Badge variant="success">Approved</Badge>
-          <Badge variant="danger">Blocked</Badge>
+      <div className="grid gap-[var(--erp-section-gap)] p-[var(--erp-page-padding)]">
+        <div className="grid gap-[var(--erp-gap)] md:grid-cols-3">
+          {kpis.map((kpi) => (
+            <div
+              key={kpi.label}
+              className="min-h-[var(--erp-kpi-card-min-height)] rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface-raised)] p-4 shadow-[var(--erp-shadow-card)]"
+            >
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <div className="flex h-[var(--erp-kpi-icon-size)] w-[var(--erp-kpi-icon-size)] items-center justify-center rounded-[var(--erp-kpi-icon-radius)] bg-[var(--erp-color-primary-soft)] text-sm font-semibold text-[var(--erp-color-primary)]">
+                  {kpi.label.slice(0, 2)}
+                </div>
+                <span
+                  className={
+                    kpi.tone === "positive"
+                      ? "text-xs font-semibold text-[var(--erp-kpi-trend-positive-fg)]"
+                      : "text-xs font-semibold text-[var(--erp-kpi-trend-negative-fg)]"
+                  }
+                >
+                  {kpi.trend}
+                </span>
+              </div>
+              <p className="text-xs font-medium text-[var(--erp-color-foreground-muted)]">{kpi.label}</p>
+              <p className="mt-1 text-2xl font-semibold text-[var(--erp-color-foreground)]">{kpi.value}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid gap-[var(--erp-gap)] rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] p-4 shadow-[var(--erp-shadow-card)] md:grid-cols-2">
+          <TextField label="Customer" defaultValue="Northwind Retail" density={density} />
+          <SelectField label="Payment Terms" defaultValue="net30" density={density}>
+            <SelectItem value="net30">Net 30</SelectItem>
+            <SelectItem value="net60">Net 60</SelectItem>
+          </SelectField>
+          <TextField
+            label="Tax Code"
+            defaultValue="Not set"
+            errorMessage="Tax code is required before posting."
+            density={density}
+          />
+          <div className="flex items-end gap-2">
+            <Badge>Draft</Badge>
+            <Badge variant="info">Submitted</Badge>
+            <Badge variant="success">Approved</Badge>
+            <Badge variant="danger">Blocked</Badge>
+          </div>
+        </div>
+
+        <div className="overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] shadow-[var(--erp-shadow-card)]">
+          <div className="border-b border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface-muted)] px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-[var(--erp-color-foreground-muted)]">
+            Invoice lines
+          </div>
+          <table className="w-full border-collapse text-sm">
+            <thead className="bg-[var(--erp-color-surface-muted)] text-xs text-[var(--erp-color-foreground-muted)]">
+              <tr>
+                <th className="px-4 py-2 text-left font-medium">Item</th>
+                <th className="px-4 py-2 text-left font-medium">Description</th>
+                <th className="px-4 py-2 text-right font-medium">Qty</th>
+                <th className="px-4 py-2 text-left font-medium">State</th>
+              </tr>
+            </thead>
+            <tbody>
+              {invoiceLines.map((line) => (
+                <tr key={line.item} className="border-t border-[var(--erp-color-border-muted)]">
+                  <td className="px-4 py-2 font-mono text-xs text-[var(--erp-color-foreground)]">{line.item}</td>
+                  <td className="px-4 py-2 text-[var(--erp-color-foreground-muted)]">{line.description}</td>
+                  <td className="px-4 py-2 text-right text-[var(--erp-color-foreground)]">{line.qty}</td>
+                  <td className="px-4 py-2"><StatusBadge label={line.status} tone={line.status.toLowerCase() as "approved" | "pending" | "submitted"} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <ValidationSummaryPanel summary={validationSummary} title="Cannot post" />
+        <div>
+          <ConfirmDialogExample density={density} />
         </div>
       </div>
-      <ValidationSummaryPanel summary={validationSummary} title="Cannot post" />
-      <div className="p-4">
-        <ConfirmDialogExample density={density} />
       </div>
     </div>
   </ThemeProvider>
@@ -157,16 +261,13 @@ export const StatusTonesByTheme: Story = {
           key={theme}
           theme={theme}
           density="comfortable"
-          className="rounded-lg border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4"
+          className="rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] p-4 shadow-[var(--erp-shadow-card)]"
         >
-          <p className="mb-3 text-sm font-semibold text-[var(--erp-fg)]">{theme}</p>
+          <p className="mb-3 text-sm font-semibold text-[var(--erp-color-foreground)]">{theme}</p>
           <div className="flex flex-wrap gap-2">
-            <StatusBadge label="Draft" tone="default" />
-            <StatusBadge label="Submitted" tone="info" />
-            <StatusBadge label="Approved" tone="success" />
-            <StatusBadge label="Warning" tone="warning" />
-            <StatusBadge label="Blocked" tone="danger" />
-            <StatusBadge label="Muted" tone="muted" />
+            {statusExamples.map(([label, tone]) => (
+              <StatusBadge key={tone} label={label} tone={tone} />
+            ))}
           </div>
         </ThemeProvider>
       ))}

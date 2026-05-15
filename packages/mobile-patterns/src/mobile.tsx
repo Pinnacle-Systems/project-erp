@@ -128,7 +128,7 @@ export const MobileDocumentSummary = ({
             field.tone === "info" &&
               "border-[var(--erp-validation-info-border)] bg-[var(--erp-validation-info-bg)]",
             (!field.tone || field.tone === "default") &&
-              "border-[var(--erp-border-default)] bg-[var(--erp-surface-card)]",
+              "border-[var(--erp-border-muted)] bg-[var(--erp-surface-page)]",
           )}
         >
           <p className="text-[10px] font-medium uppercase tracking-wide text-[var(--erp-text-subtle)]">
@@ -161,7 +161,7 @@ export const MobileDocumentSummary = ({
               )}
             >
               <div className="min-w-0">
-                <p className="truncate text-xs font-semibold text-[var(--erp-text-primary)]">{line.title}</p>
+                <p className="truncate text-sm font-semibold text-[var(--erp-text-primary)]">{line.title}</p>
                 {line.description && (
                   <p className="truncate text-xs text-[var(--erp-text-muted)]">{line.description}</p>
                 )}
@@ -320,12 +320,12 @@ export const ScannerCapturePlaceholder = ({
         <div className="flex flex-col items-center gap-3 text-sm font-medium">
           <span className="h-8 w-8 animate-spin rounded-full border-2 border-[color-mix(in_srgb,var(--erp-text-inverse)_30%,transparent)] border-t-[var(--erp-text-inverse)]" />
           Scanning
-          <div className="absolute left-12 right-12 top-1/2 h-0.5 bg-blue-400 shadow-[0_0_12px_rgb(96_165_250)]" />
+          <div className="absolute left-12 right-12 top-1/2 h-0.5 bg-[var(--erp-color-primary)] shadow-[0_0_12px_var(--erp-color-primary-soft)]" />
         </div>
       )}
       {state === "captured" && (
         <div className="flex flex-col items-center gap-2">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-2xl">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--erp-status-success-fg)] text-2xl">
             ✓
           </div>
           <p className="text-sm font-medium">{capturedLabel}</p>
@@ -373,3 +373,188 @@ ScannerCapturePlaceholder.displayName = "ScannerCapturePlaceholder";
 const FrameCorner = ({ className }: { className: string }) => (
   <div className={cn("absolute h-8 w-8 border-[var(--erp-text-inverse)]", className)} />
 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MobileApprovalSummaryCard
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface MobileApprovalSummaryCardProps {
+  statusLabel: string;
+  statusTone: StatusBadgeTone;
+  docType: string;
+  docNumber: string;
+  amount: string;
+  requester: string;
+  helperText?: string;
+  className?: string;
+}
+
+export const MobileApprovalSummaryCard = ({
+  statusLabel,
+  statusTone,
+  docType,
+  docNumber,
+  amount,
+  requester,
+  helperText,
+  className,
+}: MobileApprovalSummaryCardProps) => (
+  <div
+    data-component="MobileApprovalSummaryCard"
+    className={cn(
+      "rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] p-4 shadow-[var(--erp-shadow-card)]",
+      className,
+    )}
+  >
+    <div className="mb-3 flex items-center justify-between gap-2">
+      <StatusBadge label={statusLabel} tone={statusTone} />
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
+        {docType}
+      </p>
+    </div>
+    <p className="mb-0.5 text-sm font-medium text-[var(--erp-text-secondary)]">{docNumber}</p>
+    <p className="mb-4 text-2xl font-bold tabular-nums text-[var(--erp-text-primary)]">{amount}</p>
+    <p className="text-xs text-[var(--erp-text-muted)]">
+      Requester:{" "}
+      <span className="font-medium text-[var(--erp-text-secondary)]">{requester}</span>
+    </p>
+    {helperText && (
+      <p className="mt-3 border-t border-[var(--erp-border-muted)] pt-2 text-xs text-[var(--erp-text-muted)]">
+        {helperText}
+      </p>
+    )}
+  </div>
+);
+
+MobileApprovalSummaryCard.displayName = "MobileApprovalSummaryCard";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MobileApprovalTimeline
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface MobileApprovalTimelineProps {
+  steps: readonly ApprovalStep[];
+  className?: string;
+}
+
+const timelineDotClass = (status: ApprovalStatus): string => {
+  if (status === "approved")
+    return "h-2.5 w-2.5 rounded-full bg-[var(--erp-status-success-fg)] ring-2 ring-[var(--erp-status-success-bg)]";
+  if (status === "pending")
+    return "h-3 w-3 rounded-full bg-[var(--erp-status-info-fg)] ring-2 ring-[var(--erp-status-info-bg)]";
+  if (status === "rejected")
+    return "h-2.5 w-2.5 rounded-full bg-[var(--erp-status-danger-fg)]";
+  return "h-2.5 w-2.5 rounded-full border-2 border-[var(--erp-border-strong)] bg-[var(--erp-surface-card)]";
+};
+
+const timelineLabelClass = (status: ApprovalStatus): string =>
+  status === "not_started" || status === "cancelled"
+    ? "text-[var(--erp-text-muted)]"
+    : "text-[var(--erp-text-primary)]";
+
+const timelineStateLabel = (
+  status: ApprovalStatus,
+): { text: string; className: string } => {
+  if (status === "approved")
+    return { text: "Completed", className: "text-[var(--erp-status-success-fg)]" };
+  if (status === "pending")
+    return { text: "In review", className: "text-[var(--erp-status-info-fg)]" };
+  if (status === "rejected")
+    return { text: "Rejected", className: "text-[var(--erp-status-danger-fg)]" };
+  if (status === "changes_requested")
+    return { text: "Changes requested", className: "text-[var(--erp-status-warning-fg)]" };
+  if (status === "cancelled")
+    return { text: "Cancelled", className: "text-[var(--erp-text-muted)]" };
+  return { text: "Not started", className: "text-[var(--erp-text-muted)]" };
+};
+
+export const MobileApprovalTimeline = ({
+  steps,
+  className,
+}: MobileApprovalTimelineProps) => (
+  <div
+    data-component="MobileApprovalTimeline"
+    className={cn(
+      "rounded-[var(--erp-radius-card)] border border-[var(--erp-border-muted)] bg-[var(--erp-surface-card)] px-4 py-3 shadow-[var(--erp-shadow-xs)]",
+      className,
+    )}
+  >
+    <p className="mb-3 text-xs font-semibold text-[var(--erp-text-secondary)]">Approval progress</p>
+    <ol className="space-y-0">
+      {steps.map((step, i) => {
+        const isLast = i === steps.length - 1;
+        const stateLabel = timelineStateLabel(step.status);
+        return (
+          <li key={step.id} className="flex gap-3">
+            <div className="flex flex-col items-center">
+              <div className={cn("mt-0.5 shrink-0", timelineDotClass(step.status))} />
+              {!isLast && (
+                <div
+                  className="my-1 w-px flex-1 bg-[var(--erp-border-muted)]"
+                  style={{ minHeight: "1.5rem" }}
+                />
+              )}
+            </div>
+            <div className={cn("flex flex-1 flex-col gap-0.5", !isLast && "pb-3")}>
+              <p className={cn("text-sm font-medium leading-tight", timelineLabelClass(step.status))}>
+                {step.label}
+              </p>
+              <div className="flex items-center gap-2">
+                <span className={cn("text-xs", stateLabel.className)}>{stateLabel.text}</span>
+                {step.actor && (
+                  <span className="text-xs text-[var(--erp-text-muted)]">
+                    · {step.actor.displayName}
+                  </span>
+                )}
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+);
+
+MobileApprovalTimeline.displayName = "MobileApprovalTimeline";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MobileApprovalCommentList
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface MobileApprovalCommentListProps {
+  comments: readonly ApprovalComment[];
+  className?: string;
+}
+
+export const MobileApprovalCommentList = ({
+  comments,
+  className,
+}: MobileApprovalCommentListProps) => {
+  if (comments.length === 0) return null;
+  return (
+    <div data-component="MobileApprovalCommentList" className={cn("space-y-2", className)}>
+      <p className="text-xs font-semibold text-[var(--erp-text-secondary)]">Notes</p>
+      {comments.map((comment) => (
+        <div
+          key={comment.id}
+          className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-muted)] bg-[var(--erp-surface-card)] px-3 py-3"
+        >
+          <p className="mb-0.5 text-xs font-semibold text-[var(--erp-text-primary)]">
+            {comment.actor.displayName}
+          </p>
+          <p className="text-sm text-[var(--erp-text-secondary)]">{comment.message}</p>
+          <p className="mt-1 text-[10px] text-[var(--erp-text-muted)]">
+            {new Date(comment.createdAt).toLocaleDateString(undefined, {
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+MobileApprovalCommentList.displayName = "MobileApprovalCommentList";

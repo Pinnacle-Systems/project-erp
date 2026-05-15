@@ -99,7 +99,16 @@ describe("@erp-ui-platform/theme", () => {
 
     expect(variables["--erp-color-primary"]).toBe("#0f766e");
     expect(variables["--erp-control-height"]).toBe("44px");
-    expect(variables["--erp-surface-page"]).toBe("#f6fbf9");
+    expect(variables["--erp-surface-page"]).toBe("#f4fbf9");
+    expect(variables["--erp-color-app-bg"]).toBe("#edf7f5");
+    expect(variables["--erp-color-page-bg"]).toBe("#f4fbf9");
+    expect(variables["--erp-color-surface-raised"]).toBeDefined();
+    expect(variables["--erp-color-surface-accent"]).toBe("#ecfdf5");
+    expect(variables["--erp-color-foreground-muted"]).toBeDefined();
+    expect(variables["--erp-color-border-muted"]).toBeDefined();
+    expect(variables["--erp-color-primary-hover"]).toBe("#0d625c");
+    expect(variables["--erp-color-primary-soft"]).toBe("#ecfdf5");
+    expect(variables["--erp-color-primary-border"]).toBe("#a7f3d0");
     expect(variables["--erp-text-link"]).toBe("#0d625c");
     expect(variables["--erp-border-focus"]).toBe("#0f766e");
     expect(variables["--erp-state-dirty"]).toBe("#fffbeb");
@@ -117,6 +126,61 @@ describe("@erp-ui-platform/theme", () => {
     expect(variables["--erp-size-intent-fit"]).toBe("fit-content");
     expect(variables["--erp-control-width-xs"]).toBe("6rem");
     expect(variables["--erp-control-width-xl"]).toBe("24rem");
+  });
+
+  it("defines the modern light ERP variable contract for every named theme", () => {
+    const contractVariables = [
+      "--erp-color-app-bg",
+      "--erp-color-page-bg",
+      "--erp-color-surface",
+      "--erp-color-surface-muted",
+      "--erp-color-surface-raised",
+      "--erp-color-surface-accent",
+      "--erp-color-border",
+      "--erp-color-border-muted",
+      "--erp-color-border-strong",
+      "--erp-color-foreground",
+      "--erp-color-foreground-muted",
+      "--erp-color-foreground-subtle",
+      "--erp-color-foreground-inverse",
+      "--erp-color-primary",
+      "--erp-color-primary-hover",
+      "--erp-color-primary-soft",
+      "--erp-color-primary-border",
+      "--erp-status-draft-bg",
+      "--erp-status-draft-fg",
+      "--erp-status-draft-border",
+      "--erp-status-submitted-bg",
+      "--erp-status-approved-bg",
+      "--erp-status-rejected-bg",
+      "--erp-status-posted-bg",
+      "--erp-status-cancelled-bg",
+      "--erp-status-pending-bg",
+      "--erp-status-warning-bg",
+      "--erp-status-success-bg",
+      "--erp-status-danger-bg",
+      "--erp-status-info-bg",
+      "--erp-focus-ring",
+      "--erp-radius-card",
+      "--erp-radius-shell",
+      "--erp-shadow-none",
+      "--erp-shadow-card",
+      "--erp-shadow-floating",
+      "--erp-control-height",
+      "--erp-page-padding",
+      "--erp-grid-row-height",
+      "--erp-kpi-card-min-height",
+      "--erp-chart-grid-color",
+    ] as const;
+
+    for (const theme of supportedThemeNames) {
+      const variables = getThemeVariables(theme, "comfortable", "light");
+
+      for (const variable of contractVariables) {
+        expect(variables[variable]).toBeDefined();
+        expect(variables[variable]).not.toBe("");
+      }
+    }
   });
 
   it("supports the legacy applyTheme style overload", () => {

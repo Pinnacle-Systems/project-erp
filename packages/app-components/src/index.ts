@@ -26,3 +26,6 @@ export type { LoadingStateProps, LoadingVariant } from "./components/loading-sta
 
 export { ConfirmDialog } from "./components/confirm-dialog";
 export type { ConfirmDialogProps } from "./components/confirm-dialog";
+
+export { IconChip } from "./components/icon-chip";
+export type { IconChipProps, IconChipTone, IconChipSize } from "./components/icon-chip";

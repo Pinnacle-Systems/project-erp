@@ -41,26 +41,26 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-8">
       <div>
-        <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           Page (full-height)
         </p>
-        <div className="border border-neutral-200 rounded-md bg-white">
+        <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)]">
           <LoadingState variant="page" label="Loading transactions..." />
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           Inline
         </p>
-        <div className="border border-neutral-200 rounded-md bg-white p-4">
+        <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] p-4">
           <LoadingState variant="inline" label="Saving draft..." />
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           Skeleton
         </p>
-        <div className="border border-neutral-200 rounded-md bg-white">
+        <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)]">
           <LoadingState variant="skeleton" rows={5} />
         </div>
       </div>

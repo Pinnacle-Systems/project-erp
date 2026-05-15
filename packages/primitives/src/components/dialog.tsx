@@ -37,7 +37,7 @@ export const DialogContent = forwardRef<
       ref={ref}
       className={cn(
         "fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2",
-        "w-full max-w-lg rounded-[var(--erp-radius-panel)] bg-[var(--erp-surface-card)] shadow-[var(--erp-shadow-md)] border border-[var(--erp-border-default)]",
+        "w-full max-w-lg rounded-[var(--erp-radius-card)] bg-[var(--erp-color-surface-raised)] shadow-[var(--erp-shadow-floating)] border border-[var(--erp-color-border)]",
         "p-6 outline-none",
         "focus:outline-none",
         className,
@@ -75,7 +75,7 @@ export const DialogTitle = forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn("text-base font-semibold leading-tight text-[var(--erp-text-primary)]", className)}
+    className={cn("text-base font-semibold leading-tight text-[var(--erp-color-foreground)]", className)}
     {...props}
   />
 ));
@@ -87,7 +87,7 @@ export const DialogDescription = forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-[var(--erp-text-muted)] leading-relaxed", className)}
+    className={cn("text-sm text-[var(--erp-color-foreground-muted)] leading-relaxed", className)}
     {...props}
   />
 ));

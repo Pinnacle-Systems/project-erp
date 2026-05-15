@@ -137,7 +137,17 @@ importers:
         specifier: workspace:*
         version: link:../validation-ui
 
-  packages/mobile-patterns: {}
+  packages/mobile-patterns:
+    dependencies:
+      '@erp-ui-platform/app-components':
+        specifier: workspace:*
+        version: link:../app-components
+      '@erp-ui-platform/approval-ui':
+        specifier: workspace:*
+        version: link:../approval-ui
+      '@erp-ui-platform/primitives':
+        specifier: workspace:*
+        version: link:../primitives
 
   packages/primitives:
     dependencies:

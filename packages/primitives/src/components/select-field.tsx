@@ -44,12 +44,12 @@ const CheckMark = () => (
 
 const triggerVariants = cva(
   [
-    "flex w-full items-center justify-between gap-2 rounded-[var(--erp-radius-control)] border bg-[var(--erp-surface-card)]",
-    "text-[var(--erp-text-primary)] font-sans",
+    "flex w-full items-center justify-between gap-2 rounded-[var(--erp-radius-control)] border bg-[var(--erp-color-surface-raised)]",
+    "text-[var(--erp-color-foreground)] font-sans",
     "transition-colors duration-100",
     "focus:outline-none focus:ring-[length:var(--erp-focus-ring-width)] focus:ring-[var(--erp-focus-ring)] focus:ring-offset-[var(--erp-focus-ring-offset)]",
     "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-form-field-disabled-bg)] disabled:text-[var(--erp-text-disabled)] disabled:border-[var(--erp-border-disabled)]",
-    "data-placeholder:text-[var(--erp-text-muted)]",
+    "data-placeholder:text-[var(--erp-color-foreground-muted)]",
   ].join(" "),
   {
     variants: {
@@ -104,7 +104,7 @@ export const SelectTrigger = forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <span className="text-[var(--erp-text-muted)] shrink-0">
+      <span className="text-[var(--erp-color-foreground-muted)] shrink-0">
         <ChevronDown />
       </span>
     </SelectPrimitive.Icon>
@@ -120,7 +120,7 @@ export const SelectContent = forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 overflow-hidden rounded-[var(--erp-radius-control)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] shadow-md",
+        "relative z-50 overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface-raised)] shadow-[var(--erp-shadow-floating)]",
         position === "popper" &&
           "w-[--radix-select-trigger-width] max-h-[--radix-select-content-available-height]",
         className,
@@ -144,8 +144,8 @@ export const SelectItem = forwardRef<
     ref={ref}
     className={cn(
       "relative flex w-full cursor-default select-none items-center rounded-sm",
-      "py-1.5 pl-8 pr-2 text-sm text-[var(--erp-text-primary)] outline-none",
-      "focus:bg-[var(--erp-surface-hover)] focus:text-[var(--erp-text-primary)]",
+      "py-1.5 pl-8 pr-2 text-sm text-[var(--erp-color-foreground)] outline-none",
+      "focus:bg-[var(--erp-color-primary-soft)] focus:text-[var(--erp-color-foreground)]",
       "data-disabled:pointer-events-none data-disabled:opacity-[var(--erp-disabled-opacity)]",
       className,
     )}
@@ -167,7 +167,7 @@ export const SelectLabel = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn("px-2 py-1 text-xs font-semibold text-[var(--erp-text-muted)]", className)}
+    className={cn("px-2 py-1 text-xs font-semibold text-[var(--erp-color-foreground-muted)]", className)}
     {...props}
   />
 ));
@@ -179,7 +179,7 @@ export const SelectSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 my-1 h-px bg-[var(--erp-border-default)]", className)}
+    className={cn("-mx-1 my-1 h-px bg-[var(--erp-color-border-muted)]", className)}
     {...props}
   />
 ));
