@@ -1,3 +1,5 @@
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import type { StorybookConfig } from "@storybook/react-vite";
 
@@ -8,9 +10,9 @@ const config: StorybookConfig = {
     "../packages/**/*.stories.@(ts|tsx|mdx)",
     "../apps/storybook/stories/**/*.stories.@(ts|tsx|mdx)",
   ],
-  addons: ["@storybook/addon-docs", "@storybook/addon-a11y"],
+  addons: [getAbsolutePath("@storybook/addon-docs"), getAbsolutePath("@storybook/addon-a11y")],
   framework: {
-    name: "@storybook/react-vite",
+    name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
   viteFinal: (config) => {
@@ -93,3 +95,7 @@ const config: StorybookConfig = {
 };
 
 export default config;
+
+function getAbsolutePath(value: string): any {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}

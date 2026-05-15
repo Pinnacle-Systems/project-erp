@@ -71,6 +71,7 @@ export const FilterBar = ({
           placeholder="All statuses"
           density="compact"
           width="sm"
+          aria-label="Status"
         >
           {statusOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
