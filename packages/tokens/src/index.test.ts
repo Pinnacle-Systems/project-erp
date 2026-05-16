@@ -70,6 +70,15 @@ describe("@erp-ui-platform/tokens", () => {
     expect(gridTokens.selectionHandle).toBeDefined();
   });
 
+  it("separates hover, alt-row, and cell-editing backgrounds", () => {
+    // hover must use a primary tint, not the same neutral as the alt-row stripe
+    expect(gridTokens.row.hoverBg).not.toBe(gridTokens.row.altBg);
+    // editing/focus must be visually stronger than hover
+    expect(gridTokens.cell.editingBg).not.toBe(gridTokens.row.hoverBg);
+    // alt-row and editing must not collide either
+    expect(gridTokens.cell.editingBg).not.toBe(gridTokens.row.altBg);
+  });
+
   it("exposes shell and form layout token families", () => {
     expect(shellTokens.topbar.height).toBeDefined();
     expect(shellTokens.workspaceTabs.height).toBeDefined();

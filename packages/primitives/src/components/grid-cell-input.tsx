@@ -20,11 +20,14 @@ export const GridCellInput = forwardRef<HTMLInputElement, GridCellInputProps>(
         "rounded-(--erp-radius-xs) border border-transparent px-(--erp-grid-cell-padding-x) py-0",
         "text-(--erp-text-secondary) placeholder:text-(--erp-color-foreground-subtle)",
         "transition-colors duration-(--erp-motion-fast)",
-        "hover:border-(--erp-border-muted) hover:bg-(--erp-surface-muted)",
+        // inset bottom shadow = underline affordance; does not interfere with border or focus ring
+        "shadow-[inset_0_-1px_0_var(--erp-border-muted)]",
+        "hover:border-(--erp-border-muted) hover:bg-(--erp-surface-muted) hover:shadow-none",
         "focus:outline-none focus:border-(--erp-form-field-focus-border) focus:bg-(--erp-grid-cell-editing-bg)",
         "focus:shadow-[inset_0_0_0_1px_var(--erp-focus-ring)]",
         "disabled:pointer-events-none disabled:opacity-(--erp-disabled-opacity)",
-        "read-only:bg-(--erp-grid-cell-readonly-bg) read-only:hover:border-transparent read-only:hover:bg-transparent read-only:cursor-default",
+        // readonly: no underline shadow, no hover affordance — cursor-default is the only signal
+        "read-only:shadow-none read-only:hover:border-transparent read-only:hover:bg-transparent read-only:cursor-default",
         // override CSS vars locally: error ring stays red on focus, editing bg turns red-tinted
         error && "[--erp-focus-ring:rgb(185_28_28/0.40)] [--erp-grid-cell-editing-bg:var(--erp-grid-cell-error-bg)] border-(--erp-form-field-error-border)",
         numeric && "text-right tabular-nums",

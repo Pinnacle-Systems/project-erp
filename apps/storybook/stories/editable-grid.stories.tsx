@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { type ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import {
   applyCellChange,
   createEmptyRow,
@@ -134,7 +134,10 @@ const CellText = ({
   </span>
 );
 
-const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
+const GridTable = ({ rows, forceHoverId }: { rows: GridRow<Line>[]; forceHoverId?: string }) => {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  return (
   <div className="max-w-full overflow-x-auto">
     <div className="w-fit overflow-hidden rounded-(--erp-radius-card) border border-(--erp-grid-row-border)">
       <table className="border-collapse text-(length:--erp-font-size-xs)">
@@ -161,26 +164,36 @@ const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => {
+          {rows.map((row, idx) => {
             const isDeleted = row.state === "deleted";
             const isDirty = row.state === "dirty";
             const isPhantom = row.isPhantom;
+            const isHovered = row.id === forceHoverId || row.id === hoveredId;
+            const isAltRow = idx % 2 === 1;
             const hasRowErrors = Object.values(row.cells).some(
               (c) => c.validationMessages.length > 0,
             );
 
+            const rowBg = isDeleted
+              ? "bg-(--erp-grid-row-deleted-bg)"
+              : isDirty
+                ? "bg-(--erp-grid-row-dirty-bg)"
+                : isPhantom
+                  ? "bg-(--erp-grid-row-readonly-bg)"
+                  : isHovered
+                    ? "bg-(--erp-grid-row-hover-bg)"
+                    : isAltRow
+                      ? "bg-(--erp-grid-row-alt-bg)"
+                      : "bg-(--erp-grid-row-bg)";
+
             return (
               <tr
                 key={row.id}
+                onMouseEnter={() => setHoveredId(row.id)}
+                onMouseLeave={() => setHoveredId(null)}
                 className={[
-                  "border-b border-(--erp-grid-row-border) last:border-b-0",
-                  isDeleted
-                    ? "bg-(--erp-grid-row-deleted-bg)"
-                    : isDirty
-                      ? "bg-(--erp-grid-row-dirty-bg)"
-                      : isPhantom
-                        ? "bg-(--erp-grid-row-readonly-bg)"
-                        : "group bg-(--erp-grid-row-bg) even:bg-(--erp-grid-row-alt-bg) hover:bg-(--erp-grid-row-hover-bg)",
+                  "group border-b border-(--erp-grid-row-border) last:border-b-0",
+                  rowBg,
                 ]
                   .filter(Boolean)
                   .join(" ")}
@@ -246,7 +259,8 @@ const GridTable = ({ rows }: { rows: GridRow<Line>[] }) => (
       </table>
     </div>
   </div>
-);
+  );
+};
 
 // ── stories ───────────────────────────────────────────────────────────────────
 
@@ -620,6 +634,12 @@ export const AllRowStates: Story = {
             states: editing, error, manual override, stale. Transparent cell backgrounds let
             row state show through — hover a clean row to confirm.
           </p>
+          <p>
+            <span className="font-medium text-(--erp-text-primary)">Color intent: </span>
+            Hover (<code>--erp-grid-row-hover-bg</code>) uses a primary-tinted blue so it reads
+            as interaction. Alternating rows (<code>--erp-grid-row-alt-bg</code>) use a neutral
+            surface tint so they read as structure, not interaction. Hover a clean row to compare.
+          </p>
         </div>
         <GridTable
           rows={[row1, row2, row3, row4, row5, row6, row7, row8, row9, row10]}
@@ -627,6 +647,45 @@ export const AllRowStates: Story = {
         <p className="text-xs text-(--erp-validation-error-text)">
           Row 4 (BTN-112) · {errMsg.message}
         </p>
+      </div>
+    );
+  },
+};
+
+export const HoverAffordance: Story = {
+  render: () => {
+    const makeClean = (id: string, defaults: Partial<Line>) =>
+      ({
+        ...createEmptyRow<Line>({ id, columns, defaults: defaults as Line, isPhantom: false }),
+        state: "clean" as const,
+      });
+
+    const row1 = makeClean("h1", { item: "FAB-001", description: "Fabric roll", quantity: 12, rate: 100 });
+    const row2 = makeClean("h2", { item: "ACC-220", description: "Accessory pack", quantity: 8, rate: 40 });
+    const row3 = makeClean("h3", { item: "THR-305", description: "Thread spool", quantity: 5, rate: 18 });
+    const row4 = makeClean("h4", { item: "ELS-007", description: "Elastic band", quantity: 50, rate: 12 });
+
+    // row2 is forced into the hover state so the color separation is statically visible
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="space-y-1 text-xs text-(--erp-text-muted)">
+          <p>
+            <span className="font-medium text-(--erp-text-primary)">Hover vs stripe separation. </span>
+            Row 2 (even, normally neutral-tinted) is shown in its forced-hover state.
+            The hover background uses a subtle primary-color tint (
+            <code>--erp-grid-row-hover-bg</code>)
+            while alternating rows use a neutral tint (
+            <code>--erp-grid-row-alt-bg</code>). Move your mouse over any row to see
+            the live hover; it should read as interaction, not striping.
+          </p>
+          <p>
+            Editable cells (Item, Qty) stay transparent at rest so the row color shows
+            through. On direct cell hover they show a neutral surface tint — a distinct
+            hue from the primary-tinted row — preserving the editable affordance.
+            The focused/editing cell overrides everything with the strongest blue.
+          </p>
+        </div>
+        <GridTable rows={[row1, row2, row3, row4]} forceHoverId="h2" />
       </div>
     );
   },
