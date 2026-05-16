@@ -197,7 +197,7 @@ export const gridTokens = {
   row: {
     bg: colorTokens.white,
     altBg: colorTokens.neutral[50],
-    hoverBg: colorTokens.neutral[50],
+    hoverBg: colorTokens.blue[50],
     selectedBg: colorTokens.blue[50],
     newBg: colorTokens.green[50],
     dirtyBg: colorTokens.amber[50],
@@ -210,7 +210,7 @@ export const gridTokens = {
   },
   cell: {
     bg: colorTokens.white,
-    editingBg: colorTokens.blue[50],
+    editingBg: colorTokens.blue[100],
     focusRing: "rgb(37 99 235 / 0.28)",
     readonlyBg: colorTokens.neutral[50],
     errorBg: colorTokens.red[50],

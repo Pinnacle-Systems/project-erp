@@ -26,6 +26,7 @@ export type ThemeTokens = {
     surfaceMuted: string;
     surfaceRaised: string;
     surfaceAccent: string;
+    rowHoverBg: string;
     border: string;
     borderMuted: string;
     borderStrong: string;
@@ -104,6 +105,7 @@ export const defaultTheme: ThemeTokens = {
     surfaceMuted: "#f1f5f9",
     surfaceRaised: "#ffffff",
     surfaceAccent: "#eef6ff",
+    rowHoverBg: "#d9e8ff",
     border: "#dbe3ec",
     borderMuted: "#e8eef5",
     borderStrong: "#c6d1de",
@@ -156,6 +158,7 @@ export const clientATheme: ThemeTokens = {
     pageBg: "#f5f8ff",
     bg: "#edf3ff",
     surfaceAccent: "#edf4ff",
+    rowHoverBg: "#d5e2f9",
     accent: "#1455d9",
     accentHover: "#0f47bd",
     accentActive: "#0b3a99",
@@ -177,6 +180,7 @@ export const clientBTheme: ThemeTokens = {
     pageBg: "#f4fbf9",
     bg: "#edf7f5",
     surfaceAccent: "#ecfdf5",
+    rowHoverBg: "#cce5e3",
     accent: "#0f766e",
     accentHover: "#0d625c",
     accentActive: "#115e59",
@@ -643,7 +647,7 @@ export const getThemeVariables = (
     "--erp-grid-header-border": t.colors.border,
     "--erp-grid-row-bg": t.colors.surface,
     "--erp-grid-row-alt-bg": t.colors.surfaceMuted,
-    "--erp-grid-row-hover-bg": t.colors.surfaceMuted,
+    "--erp-grid-row-hover-bg": t.colors.rowHoverBg,
     "--erp-grid-row-selected-bg": t.colors.accentSoft,
     "--erp-grid-row-new-bg": t.colors.successSoft,
     "--erp-grid-row-dirty-bg": t.colors.warningSoft,
@@ -656,7 +660,7 @@ export const getThemeVariables = (
     "--erp-grid-cell-bg": t.colors.surface,
     "--erp-grid-cell-editing-bg": t.colors.accentSoft,
     "--erp-grid-cell-focus-ring": t.colors.focusRing,
-    "--erp-grid-cell-readonly-bg": t.colors.surfaceMuted,
+    "--erp-grid-cell-readonly-bg": "transparent",
     "--erp-grid-cell-error-bg": t.colors.dangerSoft,
     "--erp-grid-cell-warning-bg": t.colors.warningSoft,
     "--erp-grid-cell-stale-bg": t.colors.infoSoft,
