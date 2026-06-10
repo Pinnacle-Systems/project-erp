@@ -12,7 +12,7 @@ export interface LoadingStateProps {
 const Spinner = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={cn("animate-spin", className)}
+    className={cn("motion-safe:animate-spin", className)}
     fill="none"
     viewBox="0 0 24 24"
     aria-hidden="true"
@@ -36,11 +36,11 @@ const Spinner = ({ className }: { className?: string }) => (
 const SkeletonRow = ({ index }: { index: number }) => (
   <div className="flex flex-col gap-1.5">
     <div
-      className="h-3.5 rounded bg-[var(--erp-border-default)] animate-pulse"
+      className="h-3.5 rounded bg-[var(--erp-border-default)] motion-safe:animate-pulse"
       style={{ width: `${75 - (index % 3) * 12}%` }}
     />
     <div
-      className="h-2.5 rounded bg-[var(--erp-surface-hover)] animate-pulse"
+      className="h-2.5 rounded bg-[var(--erp-surface-hover)] motion-safe:animate-pulse"
       style={{ width: `${55 - (index % 4) * 8}%` }}
     />
   </div>

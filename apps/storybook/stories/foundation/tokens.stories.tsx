@@ -116,7 +116,7 @@ const StatusCard = ({
       }}
     >
       <strong className="block text-xs">{label}</strong>
-      <code className="text-[10px] font-medium">{status}</code>
+      <code className="text-xs text-slate-400 font-mono">{status}</code>
     </div>
   );
 };
@@ -158,8 +158,8 @@ const ColorTokenCard = ({
         />
       </div>
       <p className="text-xs font-semibold text-[var(--erp-fg)]">{label}</p>
-      <code className="block text-[10px] font-medium text-[var(--erp-muted)]">{cssVariable}</code>
-      <code className="block text-[10px] text-[var(--erp-text-muted)]">{value}</code>
+      <code className="block text-xs text-slate-400 font-mono">{cssVariable}</code>
+      <code className="block text-xs text-slate-400 font-mono">{value}</code>
     </div>
   );
 };
@@ -240,7 +240,7 @@ const ValidationTokenFamily = () => (
             />
             <strong className="text-xs capitalize">{severity}</strong>
           </div>
-          <div className="grid gap-1 text-[10px] font-medium">
+          <div className="grid gap-1 text-xs text-slate-400 font-mono">
             <code>{`--erp-validation-${severity}-bg`}</code>
             <code>{`--erp-validation-${severity}-text`}</code>
             <code>{`--erp-validation-${severity}-border`}</code>

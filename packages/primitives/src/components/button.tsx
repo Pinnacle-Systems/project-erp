@@ -7,7 +7,7 @@ const buttonVariants = cva(
   [
     "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium",
     "h-[var(--erp-control-height)] px-[var(--erp-control-padding-x)] text-[length:var(--erp-control-font-size)] rounded-[var(--erp-radius-md)]",
-    "leading-none select-none transition duration-[var(--erp-motion-fast)] ease-[var(--erp-ease-standard)]",
+    "leading-none select-none transition duration-150 ease-out",
     "focus-visible:outline-none focus-visible:ring-[length:var(--erp-focus-ring-width)] focus-visible:ring-[var(--erp-focus-ring)] focus-visible:ring-offset-[var(--erp-focus-ring-offset)]",
     "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)]",
     "aria-busy:pointer-events-none",
@@ -18,7 +18,7 @@ const buttonVariants = cva(
         default:
           "border border-[var(--erp-color-primary)] bg-[var(--erp-color-primary)] text-[var(--erp-text-inverse)] shadow-[var(--erp-shadow-sm)] hover:border-[var(--erp-color-primary-hover)] hover:bg-[var(--erp-color-primary-hover)] hover:shadow-[var(--erp-shadow-button-hover)] active:bg-[var(--erp-accent-active)] active:border-[var(--erp-accent-active)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px",
         secondary:
-          "border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] text-[var(--erp-color-foreground)] shadow-[var(--erp-shadow-xs)] hover:bg-[var(--erp-color-surface-muted)] hover:shadow-[var(--erp-shadow-button-hover)] active:bg-[var(--erp-color-primary-soft)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px",
+          "border shadow-[var(--erp-shadow-xs)] hover:shadow-[var(--erp-shadow-button-hover)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px bg-white border-slate-200 text-slate-900 hover:bg-slate-50 dark:bg-transparent dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800",
         ghost:
           "text-[var(--erp-color-foreground-muted)] hover:bg-[var(--erp-color-surface-muted)] hover:text-[var(--erp-color-foreground)] active:bg-[var(--erp-color-primary-soft)] active:translate-y-px",
         destructive:
@@ -88,7 +88,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading && (
           <svg
-            className="h-4 w-4 shrink-0 animate-spin"
+            className="h-4 w-4 shrink-0 motion-safe:animate-spin"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
