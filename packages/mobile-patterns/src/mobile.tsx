@@ -318,7 +318,7 @@ export const ScannerCapturePlaceholder = ({
       )}
       {state === "scanning" && (
         <div className="flex flex-col items-center gap-3 text-sm font-medium">
-          <span className="h-8 w-8 animate-spin rounded-full border-2 border-[color-mix(in_srgb,var(--erp-text-inverse)_30%,transparent)] border-t-[var(--erp-text-inverse)]" />
+          <span className="h-8 w-8 motion-safe:animate-spin rounded-full border-2 border-[color-mix(in_srgb,var(--erp-text-inverse)_30%,transparent)] border-t-[var(--erp-text-inverse)]" />
           Scanning
           <div className="absolute left-12 right-12 top-1/2 h-0.5 bg-[var(--erp-color-primary)] shadow-[0_0_12px_var(--erp-color-primary-soft)]" />
         </div>

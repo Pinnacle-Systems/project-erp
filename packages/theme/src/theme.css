@@ -1,3 +1,4 @@
+@custom-variant dark (&:is(.dark *));
 @theme {
   --font-family-sans: var(--erp-font-family-sans);
   --font-family-mono: var(--erp-font-family-mono);
@@ -620,4 +621,13 @@
 
 [data-component="ValidationSummaryPanel"] li[data-severity="info"]::before {
   color: var(--erp-validation-info-icon);
+}
+
+@layer base {
+  .dark {
+    --erp-text-danger: var(--color-rose-400);
+    --erp-text-success: var(--color-emerald-400);
+    --erp-text-info: var(--color-sky-400);
+    --erp-text-warning: var(--color-amber-400);
+  }
 }

@@ -47,23 +47,33 @@ const preview: Preview = {
       toolbar: {
         title: "Mode",
         icon: "contrast",
-        items: ["light"],
+        items: ["light", "dark", "system"],
         dynamicTitle: true,
       },
     },
   },
   decorators: [
-    (Story, context) =>
-      createElement(
+    (Story, context) => {
+      const isDark = context.globals.colorMode === "dark" || 
+        (context.globals.colorMode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      
+      if (isDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      return createElement(
         ThemeProvider,
         {
           theme: context.globals.clientTheme as ThemeName,
           density: context.globals.density as Density,
           colorMode: context.globals.colorMode as ColorMode,
-          className: "erp-storybook-shell",
+          className: "erp-storybook-shell bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50",
         },
         createElement(Story),
-      ),
+      );
+    },
   ],
   parameters: {
     controls: {

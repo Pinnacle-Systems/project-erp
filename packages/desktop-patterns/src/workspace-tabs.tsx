@@ -159,7 +159,7 @@ const TabStatusMarker = ({ status }: { status: WorkspaceTab["status"] }) => {
       className={cn(
         "h-1.5 w-1.5 shrink-0 rounded-full",
         status === "dirty" && "bg-[var(--erp-text-warning)]",
-        status === "saving" && "animate-pulse bg-[var(--erp-text-info)]",
+        status === "saving" && "motion-safe:animate-pulse bg-[var(--erp-text-info)]",
         status === "error" && "bg-[var(--erp-text-danger)]",
       )}
     />

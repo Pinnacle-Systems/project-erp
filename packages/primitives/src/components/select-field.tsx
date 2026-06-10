@@ -46,7 +46,7 @@ const triggerVariants = cva(
   [
     "flex w-full items-center justify-between gap-2 rounded-[var(--erp-radius-control)] border bg-[var(--erp-color-surface-raised)]",
     "text-[var(--erp-color-foreground)] font-sans",
-    "transition-colors duration-100",
+    "transition-colors duration-150 ease-out",
     "focus:outline-none focus:ring-[length:var(--erp-focus-ring-width)] focus:ring-[var(--erp-focus-ring)] focus:ring-offset-[var(--erp-focus-ring-offset)]",
     "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-form-field-disabled-bg)] disabled:text-[var(--erp-text-disabled)] disabled:border-[var(--erp-border-disabled)]",
     "data-placeholder:text-[var(--erp-color-foreground-muted)]",
@@ -121,6 +121,7 @@ export const SelectContent = forwardRef<
       ref={ref}
       className={cn(
         "relative z-50 overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface-raised)] shadow-[var(--erp-shadow-floating)]",
+        "dark:bg-slate-900 dark:shadow-none dark:border-t dark:border-t-white/10 dark:border-l dark:border-l-white/10",
         position === "popper" &&
           "w-[--radix-select-trigger-width] max-h-[--radix-select-content-available-height]",
         className,

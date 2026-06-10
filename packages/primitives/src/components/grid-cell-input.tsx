@@ -19,7 +19,7 @@ export const GridCellInput = forwardRef<HTMLInputElement, GridCellInputProps>(
         "h-(--erp-grid-cell-height) w-full bg-transparent text-(length:--erp-font-size-xs) leading-(--erp-line-height-dense) font-sans",
         "rounded-(--erp-radius-xs) border border-transparent px-(--erp-grid-cell-padding-x) py-0",
         "text-(--erp-text-secondary) placeholder:text-(--erp-color-foreground-subtle)",
-        "transition-colors duration-(--erp-motion-fast)",
+        "transition-colors duration-150 ease-out",
         // inset bottom shadow = underline affordance; does not interfere with border or focus ring
         "shadow-[inset_0_-1px_0_var(--erp-border-muted)]",
         "hover:border-(--erp-border-muted) hover:bg-(--erp-surface-muted) hover:shadow-none",

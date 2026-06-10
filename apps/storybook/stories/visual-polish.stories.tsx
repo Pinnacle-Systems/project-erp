@@ -547,7 +547,7 @@ export const DenseTableCard: Story = {
             {TABLE_ROWS.map((row) => (
               <tr
                 key={row.ref}
-                className="border-t border-[var(--erp-border-muted)] transition-colors duration-[var(--erp-motion-fast)] hover:bg-[var(--erp-surface-hover)]"
+                className="border-t border-[var(--erp-border-muted)] transition-colors duration-150 ease-out hover:bg-[var(--erp-surface-hover)]"
               >
                 <DenseTableCell className="font-mono text-(--erp-text-primary)">{row.ref}</DenseTableCell>
                 <DenseTableCell className="text-(--erp-text-secondary)">{row.party}</DenseTableCell>

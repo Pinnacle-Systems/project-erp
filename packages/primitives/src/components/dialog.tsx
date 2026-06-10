@@ -19,7 +19,7 @@ export const DialogOverlay = forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-[var(--erp-surface-overlay)] backdrop-blur-[2px]",
+      "fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm",
       className,
     )}
     {...props}
@@ -37,7 +37,8 @@ export const DialogContent = forwardRef<
       ref={ref}
       className={cn(
         "fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2",
-        "w-full max-w-lg rounded-[var(--erp-radius-card)] bg-[var(--erp-color-surface-raised)] shadow-[var(--erp-shadow-floating)] border border-[var(--erp-color-border)]",
+        "w-full max-w-lg rounded-[var(--erp-radius-card)] bg-white shadow-[var(--erp-shadow-floating)] border border-slate-200 dark:border-slate-800",
+        "dark:bg-slate-900 dark:shadow-none",
         "p-6 outline-none",
         "focus:outline-none",
         className,
@@ -75,7 +76,7 @@ export const DialogTitle = forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn("text-base font-semibold leading-tight text-[var(--erp-color-foreground)]", className)}
+    className={cn("text-base font-semibold leading-tight text-slate-900 dark:text-slate-50", className)}
     {...props}
   />
 ));
@@ -87,7 +88,7 @@ export const DialogDescription = forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-[var(--erp-color-foreground-muted)] leading-relaxed", className)}
+    className={cn("text-sm text-slate-500 dark:text-slate-400 leading-relaxed", className)}
     {...props}
   />
 ));
