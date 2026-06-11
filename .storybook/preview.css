@@ -4,14 +4,10 @@
 
 :root {
   font-family: var(--erp-font-family-sans);
-  color: var(--erp-fg);
-  background: var(--erp-bg);
 }
 
 .erp-storybook-shell {
   min-height: 100vh;
-  background: var(--erp-bg);
-  color: var(--erp-fg);
   padding: var(--erp-page-padding, 24px);
 }
 
