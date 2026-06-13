@@ -20,6 +20,7 @@ import {
 import { cap } from "../utils/demoCapabilities";
 import { ActionButton } from "../utils/demoActions";
 import { validationVariance } from "../utils/demoValidation";
+import { FormGrid, Card } from "@erp-ui-platform/layout";
 
 const meta = {
   title: "Shells/Desktop",
@@ -100,9 +101,9 @@ export const DenseTransactionPage: Story = {
 
     return (
       <TooltipProvider>
-        <div className="bg-neutral-50 min-h-screen p-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden shadow-sm">
+        <div className="min-h-screen bg-background p-4">
+          <div className="mx-auto max-w-5xl">
+            <Card padding="none" className="overflow-hidden">
               <PageHeader
                 title="Sales Delivery"
                 subtitle="SD-8821 · Main Warehouse → Truck-17"
@@ -133,7 +134,7 @@ export const DenseTransactionPage: Story = {
                 mode="edit"
                 density="compact"
                 header={
-                  <div className="grid grid-cols-3 gap-3">
+                  <FormGrid columns={3} gap="sm">
                     <TextField
                       label="Customer"
                       defaultValue="Northwind Retail"
@@ -149,7 +150,7 @@ export const DenseTransactionPage: Story = {
                       defaultValue="Truck-17"
                       density="compact"
                     />
-                  </div>
+                  </FormGrid>
                 }
                 lines={
                   <table className="w-full text-xs mt-1">
@@ -226,7 +227,7 @@ export const DenseTransactionPage: Story = {
                   </>
                 }
               />
-            </div>
+            </Card>
           </div>
         </div>
       </TooltipProvider>
@@ -286,11 +287,11 @@ export const DesktopWorkspacePattern: Story = {
             />
           }
         >
-          <div className="grid grid-cols-3 gap-3 p-4">
+          <FormGrid columns={3} gap="sm" className="p-4">
             <TextField label="Customer" defaultValue="Northwind Retail" density="compact" />
             <TextField label="Warehouse" defaultValue="Main Warehouse" density="compact" />
             <TextField label="Dispatch Route" defaultValue="Truck-17" density="compact" />
-          </div>
+          </FormGrid>
           <table className="w-full text-xs">
             <thead>
               <tr className="border-y border-neutral-200 bg-neutral-50">
@@ -346,11 +347,11 @@ export const DesktopSplitPaneReviewPattern: Story = {
               density="compact"
               status={<StatusBadge label="Pending" tone="warning" />}
             />
-            <div className="grid grid-cols-3 gap-3 p-4">
+            <FormGrid columns={3} gap="sm" className="p-4">
               <TextField label="Vendor" defaultValue="Acme Supplies" density="compact" />
               <TextField label="Amount" defaultValue="₹1,24,500.00" density="compact" />
               <TextField label="Department" defaultValue="Procurement" density="compact" />
-            </div>
+            </FormGrid>
           </div>
         }
         review={

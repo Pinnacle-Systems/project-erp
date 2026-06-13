@@ -16,6 +16,7 @@ import {
   MobileTaskShell,
 } from "@erp-ui-platform/mobile-patterns";
 import { APPROVAL_STEPS, APPROVAL_COMMENTS } from "../utils/demoData";
+import { Card } from "@erp-ui-platform/layout";
 
 const meta = {
   title: "Patterns/Approval",
@@ -84,7 +85,7 @@ const ApprovalCard = ({
   attachments?: React.ReactNode;
   shell?: "desktop" | "mobile";
 }) => (
-  <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden">
+  <Card padding="none" className="overflow-hidden">
     <PageHeader
       title={title ?? "Document"}
       subtitle={docNumber}
@@ -109,7 +110,7 @@ const ApprovalCard = ({
       }
       attachments={attachments}
     />
-  </div>
+  </Card>
 );
 
 // ── stories ───────────────────────────────────────────────────────────────────
@@ -316,7 +317,7 @@ export const MobileApprovalCard: Story = {
         />
         <MobileApprovalTimeline steps={MOBILE_STEPS} />
         <MobileApprovalCommentList comments={MOBILE_COMMENTS} />
-        <p className="px-1 text-xs text-[var(--erp-text-muted)]">
+        <p className="px-1 text-xs text-muted-foreground">
           2 attachments: Receipt.pdf, PO.pdf
         </p>
       </div>

@@ -6,7 +6,7 @@ import { cn } from "../lib/utils";
 const buttonVariants = cva(
   [
     "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium",
-    "h-[var(--erp-control-height)] px-[var(--erp-control-padding-x)] text-[length:var(--erp-control-font-size)] rounded-[var(--erp-radius-md)]",
+    "h-control px-[var(--erp-control-padding-x)] text-control rounded-control",
     "leading-none select-none transition duration-150 ease-out",
     "focus-visible:outline-none focus-visible:ring-[length:var(--erp-focus-ring-width)] focus-visible:ring-[var(--erp-focus-ring)] focus-visible:ring-offset-[var(--erp-focus-ring-offset)]",
     "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)]",
@@ -16,19 +16,19 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border border-[var(--erp-color-primary)] bg-[var(--erp-color-primary)] text-[var(--erp-text-inverse)] shadow-[var(--erp-shadow-sm)] hover:border-[var(--erp-color-primary-hover)] hover:bg-[var(--erp-color-primary-hover)] hover:shadow-[var(--erp-shadow-button-hover)] active:bg-[var(--erp-accent-active)] active:border-[var(--erp-accent-active)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px",
+          "border border-[var(--erp-color-primary)] bg-primary text-primary-foreground shadow-control hover:border-[var(--erp-color-primary-hover)] hover:bg-primary-hover hover:shadow-[var(--erp-shadow-button-hover)] active:bg-[var(--erp-accent-active)] active:border-[var(--erp-accent-active)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px",
         secondary:
           "border shadow-[var(--erp-shadow-xs)] hover:shadow-[var(--erp-shadow-button-hover)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px bg-white border-slate-200 text-slate-900 hover:bg-slate-50 dark:bg-transparent dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800",
         ghost:
-          "text-[var(--erp-color-foreground-muted)] hover:bg-[var(--erp-color-surface-muted)] hover:text-[var(--erp-color-foreground)] active:bg-[var(--erp-color-primary-soft)] active:translate-y-px",
+          "text-muted-foreground hover:bg-surface-muted hover:text-foreground active:bg-[var(--erp-color-primary-soft)] active:translate-y-px",
         destructive:
-          "border border-[var(--erp-color-danger)] bg-[var(--erp-color-danger)] text-[var(--erp-text-inverse)] shadow-[var(--erp-shadow-sm)] hover:border-[var(--erp-danger-hover)] hover:bg-[var(--erp-danger-hover)] hover:shadow-[var(--erp-shadow-button-destructive-hover)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px",
+          "border border-[var(--erp-color-danger)] bg-danger text-primary-foreground shadow-control hover:border-[var(--erp-danger-hover)] hover:bg-[var(--erp-danger-hover)] hover:shadow-[var(--erp-shadow-button-destructive-hover)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px",
         link: "text-[var(--erp-text-link)] underline-offset-4 hover:underline h-auto px-0 py-0",
       },
       density: {
         compact: "h-7 px-2.5 text-xs rounded-[var(--erp-radius-sm)]",
         comfortable:
-          "h-[var(--erp-control-height)] px-[var(--erp-control-padding-x)] text-[length:var(--erp-control-font-size)] rounded-[var(--erp-radius-md)]",
+          "h-control px-[var(--erp-control-padding-x)] text-control rounded-control",
         touch: "h-11 px-5 text-base rounded-[var(--erp-radius-lg)]",
       },
       width: {

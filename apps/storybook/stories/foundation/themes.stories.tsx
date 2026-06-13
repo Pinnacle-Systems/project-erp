@@ -107,9 +107,9 @@ const ThemeSample = ({
   <ThemeProvider
     theme={theme}
     density={density}
-    className="rounded-[var(--erp-radius-shell)] bg-[var(--erp-color-app-bg)] p-[var(--erp-page-padding)] text-[var(--erp-color-foreground)]"
+    className="rounded-[var(--erp-radius-shell)] bg-[var(--erp-color-app-bg)] p-[var(--erp-page-padding)] text-foreground"
   >
-    <div className="grid overflow-hidden rounded-[var(--erp-radius-shell)] border border-[var(--erp-color-border-muted)] bg-[var(--erp-color-page-bg)] shadow-[var(--erp-shadow-card)] lg:grid-cols-[15rem_minmax(0,1fr)]">
+    <div className="grid overflow-hidden rounded-[var(--erp-radius-shell)] border border-border-subtle bg-[var(--erp-color-page-bg)] shadow-card lg:grid-cols-[15rem_minmax(0,1fr)]">
       <NavigationShell
         title={`${theme} ERP`}
         subtitle="Finance workspace"
@@ -141,7 +141,7 @@ const ThemeSample = ({
           {kpis.map((kpi) => (
             <div
               key={kpi.label}
-              className="min-h-[var(--erp-kpi-card-min-height)] rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface-raised)] p-4 shadow-[var(--erp-shadow-card)]"
+              className="min-h-[var(--erp-kpi-card-min-height)] rounded-card border border-border bg-surface-raised p-4 shadow-card"
             >
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div className="flex h-[var(--erp-kpi-icon-size)] w-[var(--erp-kpi-icon-size)] items-center justify-center rounded-[var(--erp-kpi-icon-radius)] bg-[var(--erp-color-primary-soft)] text-sm font-semibold text-[var(--erp-color-primary)]">
@@ -157,13 +157,13 @@ const ThemeSample = ({
                   {kpi.trend}
                 </span>
               </div>
-              <p className="text-xs font-medium text-[var(--erp-color-foreground-muted)]">{kpi.label}</p>
-              <p className="mt-1 text-2xl font-semibold text-[var(--erp-color-foreground)]">{kpi.value}</p>
+              <p className="text-xs font-medium text-muted-foreground">{kpi.label}</p>
+              <p className="mt-1 text-2xl font-semibold text-foreground">{kpi.value}</p>
             </div>
           ))}
         </div>
 
-        <div className="grid gap-[var(--erp-gap)] rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] p-4 shadow-[var(--erp-shadow-card)] md:grid-cols-2">
+        <div className="grid gap-[var(--erp-gap)] rounded-card border border-border bg-surface p-4 shadow-card md:grid-cols-2">
           <TextField label="Customer" defaultValue="Northwind Retail" density={density} />
           <SelectField label="Payment Terms" defaultValue="net30" density={density}>
             <SelectItem value="net30">Net 30</SelectItem>
@@ -183,12 +183,12 @@ const ThemeSample = ({
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] shadow-[var(--erp-shadow-card)]">
-          <div className="border-b border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface-muted)] px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-[var(--erp-color-foreground-muted)]">
+        <div className="overflow-hidden rounded-card border border-border bg-surface shadow-card">
+          <div className="border-b border-border-subtle bg-surface-muted px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             Invoice lines
           </div>
           <table className="w-full border-collapse text-sm">
-            <thead className="bg-[var(--erp-color-surface-muted)] text-xs text-[var(--erp-color-foreground-muted)]">
+            <thead className="bg-surface-muted text-xs text-muted-foreground">
               <tr>
                 <th className="px-4 py-2 text-left font-medium">Item</th>
                 <th className="px-4 py-2 text-left font-medium">Description</th>
@@ -198,10 +198,10 @@ const ThemeSample = ({
             </thead>
             <tbody>
               {invoiceLines.map((line) => (
-                <tr key={line.item} className="border-t border-[var(--erp-color-border-muted)]">
-                  <td className="px-4 py-2 font-mono text-xs text-[var(--erp-color-foreground)]">{line.item}</td>
-                  <td className="px-4 py-2 text-[var(--erp-color-foreground-muted)]">{line.description}</td>
-                  <td className="px-4 py-2 text-right text-[var(--erp-color-foreground)]">{line.qty}</td>
+                <tr key={line.item} className="border-t border-border-subtle">
+                  <td className="px-4 py-2 font-mono text-xs text-foreground">{line.item}</td>
+                  <td className="px-4 py-2 text-muted-foreground">{line.description}</td>
+                  <td className="px-4 py-2 text-right text-foreground">{line.qty}</td>
                   <td className="px-4 py-2"><StatusBadge label={line.status} tone={line.status.toLowerCase() as "approved" | "pending" | "submitted"} /></td>
                 </tr>
               ))}
@@ -261,9 +261,9 @@ export const StatusTonesByTheme: Story = {
           key={theme}
           theme={theme}
           density="comfortable"
-          className="rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] p-4 shadow-[var(--erp-shadow-card)]"
+          className="rounded-card border border-border bg-surface p-4 shadow-card"
         >
-          <p className="mb-3 text-sm font-semibold text-[var(--erp-color-foreground)]">{theme}</p>
+          <p className="mb-3 text-sm font-semibold text-foreground">{theme}</p>
           <div className="flex flex-wrap gap-2">
             {statusExamples.map(([label, tone]) => (
               <StatusBadge key={tone} label={label} tone={tone} />
@@ -282,7 +282,7 @@ export const FocusAndDisabledStates: Story = {
       density="comfortable"
       className="grid gap-4 rounded-lg border border-[var(--erp-border)] bg-[var(--erp-bg)] p-[var(--erp-page-padding)] md:grid-cols-2"
     >
-      <div className="grid gap-3 rounded-[var(--erp-radius-panel)] border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
+      <div className="grid gap-3 rounded-panel border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
         <p className="text-sm font-semibold text-[var(--erp-fg)]">Focus tokens</p>
         <Button autoFocus>Focused button</Button>
         <TextField label="Focused field" defaultValue="Focus uses --erp-focus-ring" />
@@ -291,7 +291,7 @@ export const FocusAndDisabledStates: Story = {
           <SelectItem value="hold">Hold</SelectItem>
         </SelectField>
       </div>
-      <div className="grid gap-3 rounded-[var(--erp-radius-panel)] border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
+      <div className="grid gap-3 rounded-panel border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
         <p className="text-sm font-semibold text-[var(--erp-fg)]">Disabled tokens</p>
         <Button disabled>Disabled button</Button>
         <TextField label="Disabled field" defaultValue="Read only" disabled />
@@ -341,7 +341,7 @@ export const TransactionShellByTheme: Story = {
           key={theme}
           theme={theme}
           density="compact"
-          className="overflow-hidden rounded-lg border border-[var(--erp-border)] bg-[var(--erp-surface)] shadow-[var(--erp-shadow-sm)]"
+          className="overflow-hidden rounded-lg border border-[var(--erp-border)] bg-[var(--erp-surface)] shadow-control"
         >
           <PageHeader
             title="Sales Invoice"

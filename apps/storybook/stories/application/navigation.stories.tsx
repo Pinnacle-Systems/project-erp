@@ -61,7 +61,7 @@ export const BreadcrumbsInsidePageHeader: Story = {
     items: invoiceBreadcrumbs,
   },
   render: () => (
-    <div className="overflow-hidden rounded-md border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)]">
+    <div className="overflow-hidden rounded-md border border-border bg-surface">
       <PageHeader
         title="Sales Invoice SI-1024"
         subtitle="ABC Traders"

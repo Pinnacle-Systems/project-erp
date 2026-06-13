@@ -29,3 +29,15 @@ export type { ConfirmDialogProps } from "./components/confirm-dialog";
 
 export { IconChip } from "./components/icon-chip";
 export type { IconChipProps, IconChipTone, IconChipSize } from "./components/icon-chip";
+
+export { AuditTrail } from "./components/audit-trail";
+export type { AuditTrailProps, AuditTrailItem } from "./components/audit-trail";
+
+export { AttachmentList } from "./components/attachment-list";
+export type { AttachmentListProps, AttachmentItem } from "./components/attachment-list";
+
+export { ApprovalActionBar } from "./components/approval-action-bar";
+export type { ApprovalActionBarProps, ApprovalActionConfig } from "./components/approval-action-bar";
+
+export { TotalsPanel } from "./components/totals-panel";
+export type { TotalsPanelProps, TotalsPanelItem } from "./components/totals-panel";

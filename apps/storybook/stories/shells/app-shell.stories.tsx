@@ -114,11 +114,11 @@ export const DesktopAppFrameWithWorkspaceTabsAndBreadcrumbs: Story = {
             </>
           }
         >
-          <div className="grid min-h-full gap-4 bg-[var(--erp-color-background)] p-4">
-            <section className="rounded-md border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] p-4">
+          <div className="grid min-h-full gap-4 bg-background p-4">
+            <section className="rounded-md border border-border bg-surface p-4">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-semibold text-[var(--erp-color-foreground)]">
+                  <p className="text-sm font-semibold text-foreground">
                     {activeTab.title}
                   </p>
                   <p className="mt-1 text-sm text-[var(--erp-color-muted-foreground)]">
@@ -142,9 +142,9 @@ export const DesktopAppFrameWithWorkspaceTabsAndBreadcrumbs: Story = {
 };
 
 const TopBar = () => (
-  <div className="flex h-12 items-center justify-between border-b border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] px-4">
+  <div className="flex h-12 items-center justify-between border-b border-border bg-surface px-4">
     <div className="flex items-center gap-3">
-      <span className="text-sm font-semibold text-[var(--erp-color-foreground)]">ERP Desktop</span>
+      <span className="text-sm font-semibold text-foreground">ERP Desktop</span>
       <span className="text-xs text-[var(--erp-color-muted-foreground)]">Dense workspace shell</span>
     </div>
     <div className="flex items-center gap-2">
@@ -159,11 +159,11 @@ const TopBar = () => (
 );
 
 const PlaceholderMetric = ({ label, value }: { label: string; value: string }) => (
-  <div className="rounded-md border border-[var(--erp-color-border)] bg-[var(--erp-color-background)] px-3 py-2">
+  <div className="rounded-md border border-border bg-background px-3 py-2">
     <p className="text-[0.6875rem] font-medium uppercase text-[var(--erp-color-muted-foreground)]">
       {label}
     </p>
-    <p className="mt-1 truncate text-sm text-[var(--erp-color-foreground)]">{value}</p>
+    <p className="mt-1 truncate text-sm text-foreground">{value}</p>
   </div>
 );
 

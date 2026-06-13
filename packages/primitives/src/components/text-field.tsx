@@ -4,12 +4,12 @@ import { cn } from "../lib/utils";
 
 const inputVariants = cva(
   [
-    "w-full rounded-[var(--erp-radius-control)] border bg-[var(--erp-color-surface-raised)] font-sans",
-    "text-[var(--erp-color-foreground)] placeholder:text-[var(--erp-color-foreground-subtle)]",
+    "w-full rounded-control border bg-surface-raised font-sans",
+    "text-foreground placeholder:text-[var(--erp-color-foreground-subtle)]",
     "transition-colors duration-150 ease-out",
     "focus:outline-none focus:ring-[length:var(--erp-focus-ring-width)] focus:ring-[var(--erp-focus-ring)] focus:ring-offset-[var(--erp-focus-ring-offset)]",
     "disabled:pointer-events-none disabled:opacity-[var(--erp-disabled-opacity)] disabled:bg-[var(--erp-form-field-disabled-bg)] disabled:text-[var(--erp-text-disabled)] disabled:border-[var(--erp-border-disabled)]",
-    "read-only:bg-[var(--erp-form-field-readonly-bg)] read-only:text-[var(--erp-color-foreground-muted)]",
+    "read-only:bg-[var(--erp-form-field-readonly-bg)] read-only:text-muted-foreground",
   ].join(" "),
   {
     variants: {
@@ -22,7 +22,7 @@ const inputVariants = cva(
       density: {
         compact: "h-8 px-3 text-xs",
         comfortable:
-          "h-[var(--erp-control-height)] px-[var(--erp-control-padding-x)] text-[length:var(--erp-control-font-size)]",
+          "h-control px-[var(--erp-control-padding-x)] text-control",
         touch: "h-11 px-4 text-base",
       },
     },

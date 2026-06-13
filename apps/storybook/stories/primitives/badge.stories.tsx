@@ -62,7 +62,7 @@ export const AllVariants: Story = {
         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           In context — document list row
         </p>
-        <div className="overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)]">
+        <div className="overflow-hidden rounded-card border border-border bg-surface">
           {[
             { doc: "SI-1004", customer: "Northwind Retail", badge: <Badge variant="warning">Pending approval</Badge> },
             { doc: "SI-1003", customer: "Contoso Ltd", badge: <Badge variant="success">Posted</Badge> },
@@ -71,10 +71,10 @@ export const AllVariants: Story = {
           ].map((row, i) => (
             <div
               key={i}
-              className="flex items-center justify-between border-b border-[var(--erp-color-border-muted)] px-4 py-2.5 text-sm last:border-0"
+              className="flex items-center justify-between border-b border-border-subtle px-4 py-2.5 text-sm last:border-0"
             >
-              <span className="font-mono text-[var(--erp-color-foreground)]">{row.doc}</span>
-              <span className="text-[var(--erp-color-foreground-muted)]">{row.customer}</span>
+              <span className="font-mono text-foreground">{row.doc}</span>
+              <span className="text-muted-foreground">{row.customer}</span>
               {row.badge}
             </div>
           ))}

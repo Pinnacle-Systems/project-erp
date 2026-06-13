@@ -18,7 +18,7 @@ const badgeVariants = cva(
         info:
           "bg-[var(--erp-status-info-bg)] text-[var(--erp-status-info-fg)] border-[var(--erp-status-info-border)]",
         muted:
-          "bg-[var(--erp-color-surface-muted)] text-[var(--erp-color-foreground-muted)] border-[var(--erp-color-border-muted)]",
+          "bg-surface-muted text-muted-foreground border-border-subtle",
       },
       width: {
         hug: "w-[var(--erp-size-intent-hug)] max-w-full",

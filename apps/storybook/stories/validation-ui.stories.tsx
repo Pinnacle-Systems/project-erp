@@ -55,7 +55,7 @@ const ValidationBanner = ({
   return (
     <div className={`rounded-md border p-3 ${bg}`} role="alert">
       <div className="flex items-center gap-2 mb-1.5">
-        <span className="text-xs font-semibold text-[var(--erp-text-secondary)]">{title}</span>
+        <span className="text-xs font-semibold text-muted-foreground">{title}</span>
         <Badge variant={severityVariant[top]}>
           {summary.messages.length} issue{summary.messages.length !== 1 ? "s" : ""}
         </Badge>
@@ -64,7 +64,7 @@ const ValidationBanner = ({
         {summary.messages.map((m) => (
           <li
             key={m.id}
-            className="flex items-start gap-1.5 text-xs text-[var(--erp-text-secondary)]"
+            className="flex items-start gap-1.5 text-xs text-muted-foreground"
           >
             <Badge
               variant={severityVariant[m.severity]}
@@ -86,22 +86,22 @@ export const ValidationSummary: Story = {
   render: () => (
     <div className="max-w-lg flex flex-col gap-5">
       <div>
-        <p className="text-xs font-semibold text-[var(--erp-text-muted)] uppercase tracking-wide mb-2">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
           Blocking + warnings + info
         </p>
         <ValidationBanner messages={[validationBlocking, validationWarning, validationInfo]} />
       </div>
       <div>
-        <p className="text-xs font-semibold text-[var(--erp-text-muted)] uppercase tracking-wide mb-2">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
           Warnings only
         </p>
         <ValidationBanner messages={[validationWarning, validationInfo]} title="Attention" />
       </div>
       <div>
-        <p className="text-xs font-semibold text-[var(--erp-text-muted)] uppercase tracking-wide mb-2">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
           No issues (no banner rendered)
         </p>
-        <div className="h-8 rounded border border-dashed border-[var(--erp-border-default)] flex items-center px-3">
+        <div className="h-8 rounded border border-dashed border-border flex items-center px-3">
           <span className="text-xs text-[var(--erp-text-disabled)]">ValidationBanner renders nothing</span>
         </div>
         <ValidationBanner messages={[]} />
@@ -161,15 +161,15 @@ export const LineError: Story = {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-[var(--erp-border-muted)]">
-              <td className="px-3 py-2 font-mono text-[var(--erp-text-secondary)]">FAB-001</td>
-              <td className="px-3 py-2 text-[var(--erp-text-secondary)]">Fabric roll</td>
-              <td className="px-3 py-2 text-right text-[var(--erp-text-secondary)]">12</td>
+            <tr className="border-b border-border-subtle">
+              <td className="px-3 py-2 font-mono text-muted-foreground">FAB-001</td>
+              <td className="px-3 py-2 text-muted-foreground">Fabric roll</td>
+              <td className="px-3 py-2 text-right text-muted-foreground">12</td>
               <td></td>
             </tr>
             <tr className="bg-[var(--erp-grid-row-error-bg)] border-b border-[var(--erp-validation-error-border)]">
-              <td className="px-3 py-2 font-mono text-[var(--erp-text-secondary)]">ACC-220</td>
-              <td className="px-3 py-2 text-[var(--erp-text-secondary)]">Accessory pack</td>
+              <td className="px-3 py-2 font-mono text-muted-foreground">ACC-220</td>
+              <td className="px-3 py-2 text-muted-foreground">Accessory pack</td>
               <td className="px-3 py-2 text-right">
                 <TextField
                   value="0"
@@ -184,7 +184,7 @@ export const LineError: Story = {
                 <Badge variant="danger">Error</Badge>
               </td>
             </tr>
-            <tr className="border-[var(--erp-border-muted)]">
+            <tr className="border-border-subtle">
               <td className="px-3 py-2 font-mono text-[var(--erp-text-disabled)]">+</td>
               <td className="px-3 py-2 text-[var(--erp-text-disabled)] italic" colSpan={3}>
                 Add line...

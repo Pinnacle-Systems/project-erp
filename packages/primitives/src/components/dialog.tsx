@@ -37,7 +37,7 @@ export const DialogContent = forwardRef<
       ref={ref}
       className={cn(
         "fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2",
-        "w-full max-w-lg rounded-[var(--erp-radius-card)] bg-white shadow-[var(--erp-shadow-floating)] border border-slate-200 dark:border-slate-800",
+        "w-full max-w-lg rounded-card bg-white shadow-popover border border-slate-200 dark:border-slate-800",
         "dark:bg-slate-900 dark:shadow-none",
         "p-6 outline-none",
         "focus:outline-none",

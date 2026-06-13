@@ -17,7 +17,7 @@ import {
   Badge,
   TooltipProvider,
 } from "@erp-ui-platform/primitives";
-import { PageHeader, StatusBadge } from "@erp-ui-platform/app-components";
+import { PageHeader, StatusBadge, TotalsPanel, AttachmentList, AuditTrail } from "@erp-ui-platform/app-components";
 import { cap, statusTone } from "../utils/demoCapabilities";
 import { ActionBar } from "../utils/demoActions";
 import {
@@ -27,6 +27,14 @@ import {
   AUDIT_ENTRIES,
   DEMO_ATTACHMENTS,
 } from "../utils/demoData";
+import {
+  FormGrid,
+  DescriptionList,
+  Stack,
+  DataLabel,
+  Card,
+  Panel,
+} from "@erp-ui-platform/layout";
 
 const meta = {
   title: "Patterns/Transaction",
@@ -38,7 +46,7 @@ type Story = StoryObj;
 // ── slot content ──────────────────────────────────────────────────────────────
 
 const HeaderForm = ({ readOnly = false }: { readOnly?: boolean }) => (
-  <div className="grid grid-cols-3 gap-3">
+  <FormGrid columns={3} gap="sm">
     <TextField
       label="Customer"
       defaultValue="Northwind Retail"
@@ -69,7 +77,7 @@ const HeaderForm = ({ readOnly = false }: { readOnly?: boolean }) => (
       readOnly={readOnly}
       density="compact"
     />
-  </div>
+  </FormGrid>
 );
 
 const LinesTable = ({ highlightLine }: { highlightLine?: number } = {}) => (
@@ -107,63 +115,49 @@ const LinesTable = ({ highlightLine }: { highlightLine?: number } = {}) => (
   </table>
 );
 
-const TotalsPanel = () => (
-  <div className="flex justify-end pt-1">
-    <div className="flex flex-col gap-1 min-w-44">
-      {INVOICE_TOTALS.map((r) => (
-        <div key={r.label} className="flex justify-between text-xs text-neutral-600">
-          <span>{r.label}</span>
-          <span>{r.value}</span>
-        </div>
-      ))}
-      <div className="flex justify-between text-sm font-semibold text-neutral-900 pt-1 border-t border-neutral-200">
-        <span>Total</span>
-        <span>{INVOICE_TOTAL_FORMATTED}</span>
-      </div>
-    </div>
+const DemoTotals = () => (
+  <div className="flex justify-end">
+    <TotalsPanel
+      className="min-w-64 border-none p-0 bg-transparent"
+      align="financial"
+      items={[
+        ...INVOICE_TOTALS.map((t) => ({ ...t, emphasis: "muted" as const })),
+        { label: "Total", value: INVOICE_TOTAL_FORMATTED, emphasis: "strong", dividerBefore: true }
+      ]}
+    />
   </div>
 );
 
-const AttachmentsSlot = () => (
-  <div className="flex flex-col gap-1.5">
-    <p className="text-xs font-semibold text-neutral-600">Attachments</p>
-    <div className="flex flex-wrap gap-2">
-      {DEMO_ATTACHMENTS.map((name) => (
-        <div
-          key={name}
-          className="flex items-center gap-1.5 rounded border border-neutral-200 bg-neutral-50 px-2 py-1 text-xs text-neutral-700"
-        >
-          <span>📎</span>
-          <span>{name}</span>
-        </div>
-      ))}
-    </div>
-  </div>
+const DemoAttachments = () => (
+  <AttachmentList
+    density="compact"
+    items={DEMO_ATTACHMENTS.map((name, i) => ({ id: String(i), name }))}
+    onView={(item: any) => console.log(item)}
+  />
 );
 
-const AuditSlot = () => (
-  <div className="flex flex-col gap-1.5">
-    <p className="text-xs font-semibold text-neutral-600">Audit Trail</p>
-    <div className="flex flex-col gap-1">
-      {AUDIT_ENTRIES.map((entry, i) => (
-        <div key={i} className="flex gap-3 text-xs text-neutral-600">
-          <span className="text-neutral-400 shrink-0 w-36">{entry.when}</span>
-          <span className="text-neutral-500 shrink-0 w-20">{entry.who}</span>
-          <span>{entry.what}</span>
-        </div>
-      ))}
-    </div>
-  </div>
+const DemoAudit = () => (
+  <AuditTrail
+    density="compact"
+    items={AUDIT_ENTRIES.map((entry, i) => ({
+      id: String(i),
+      title: entry.what,
+      actor: entry.who,
+      timestamp: entry.when,
+      tone: i === AUDIT_ENTRIES.length - 1 ? "success" : "default"
+    }))}
+  />
 );
+
 
 // ── story wrapper ─────────────────────────────────────────────────────────────
 
 const Page = ({ children }: { children: React.ReactNode }) => (
-  <div className="bg-neutral-50 min-h-screen p-4">
-    <div className="max-w-5xl mx-auto">
-      <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden shadow-sm">
+  <div className="min-h-screen bg-background p-4">
+    <div className="mx-auto max-w-5xl">
+      <Card padding="none" className="overflow-hidden">
         {children}
-      </div>
+      </Card>
     </div>
   </div>
 );
@@ -214,7 +208,7 @@ export const CreateMode: Story = {
             density="compact"
             header={<HeaderForm />}
             lines={<LinesTable />}
-            totals={<TotalsPanel />}
+            totals={<DemoTotals />}
             validationMessages={[]}
             actions={<ActionBar actions={resolved} />}
           />
@@ -275,7 +269,7 @@ export const EditMode: Story = {
             density="compact"
             header={<HeaderForm />}
             lines={<LinesTable />}
-            totals={<TotalsPanel />}
+            totals={<DemoTotals />}
             validationMessages={[]}
             actions={<ActionBar actions={resolved} />}
           />
@@ -333,10 +327,10 @@ export const ViewMode: Story = {
             density="compact"
             header={<HeaderForm readOnly />}
             lines={<LinesTable />}
-            totals={<TotalsPanel />}
+            totals={<DemoTotals />}
             actions={undefined}
-            audit={<AuditSlot />}
-            attachments={<AttachmentsSlot />}
+            audit={<DemoAudit />}
+            attachments={<DemoAttachments />}
           />
         </Page>
       </TooltipProvider>
@@ -382,7 +376,7 @@ export const ApprovalMode: Story = {
             density="compact"
             header={<HeaderForm readOnly />}
             lines={<LinesTable />}
-            totals={<TotalsPanel />}
+            totals={<DemoTotals />}
             actions={<ActionBar actions={resolved} />}
           />
         </Page>
@@ -446,7 +440,7 @@ export const WithBlockingValidation: Story = {
             mode="edit"
             density="compact"
             header={
-              <div className="flex flex-col gap-3">
+              <Stack gap="sm">
                 <HeaderForm />
                 <TextField
                   label="Customer"
@@ -456,10 +450,10 @@ export const WithBlockingValidation: Story = {
                   density="compact"
                   className="max-w-xs"
                 />
-              </div>
+              </Stack>
             }
             lines={<LinesTable />}
-            totals={<TotalsPanel />}
+            totals={<DemoTotals />}
             validationMessages={validationMessages}
             actions={<ActionBar actions={resolved} />}
           />
@@ -488,8 +482,8 @@ export const WithAttachments: Story = {
           density="compact"
           header={<HeaderForm readOnly />}
           lines={<LinesTable />}
-          totals={<TotalsPanel />}
-          attachments={<AttachmentsSlot />}
+          totals={<DemoTotals />}
+          attachments={<DemoAttachments />}
         />
       </Page>
     </TooltipProvider>
@@ -515,9 +509,9 @@ export const WithAudit: Story = {
           density="compact"
           header={<HeaderForm readOnly />}
           lines={<LinesTable />}
-          totals={<TotalsPanel />}
-          attachments={<AttachmentsSlot />}
-          audit={<AuditSlot />}
+          totals={<DemoTotals />}
+          attachments={<DemoAttachments />}
+          audit={<DemoAudit />}
         />
       </Page>
     </TooltipProvider>

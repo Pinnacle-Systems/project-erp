@@ -20,7 +20,7 @@ export const WorkspaceTabs = ({
   <div
     data-component="WorkspaceTabs"
     className={cn(
-      "flex h-[var(--erp-shell-workspace-tabs-height)] items-end overflow-x-auto border-b border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface)] px-2",
+      "flex h-[var(--erp-shell-workspace-tabs-height)] items-end overflow-x-auto border-b border-border-subtle bg-surface px-2",
       className,
     )}
     role="tablist"
@@ -34,8 +34,8 @@ export const WorkspaceTabs = ({
           data-state={active ? "active" : "inactive"}
           className={cn(
             "group relative flex h-10 max-w-64 shrink-0 items-center border-x border-t text-xs transition-colors",
-            "border-transparent text-[var(--erp-color-foreground-muted)] hover:bg-[var(--erp-color-surface-muted)] hover:text-[var(--erp-color-foreground)]",
-            active && "border-[var(--erp-color-border)] bg-[var(--erp-color-page-bg)] text-[var(--erp-color-foreground)]",
+            "border-transparent text-muted-foreground hover:bg-surface-muted hover:text-foreground",
+            active && "border-border bg-[var(--erp-color-page-bg)] text-foreground",
           )}
         >
           <button
@@ -49,14 +49,14 @@ export const WorkspaceTabs = ({
               "focus-visible:ring-2 focus-visible:ring-[var(--erp-focus-ring)] focus-visible:ring-offset-[var(--erp-focus-ring-offset)]",
             )}
           >
-            {tab.icon && <span className="shrink-0 text-[var(--erp-color-foreground-muted)]">{tab.icon}</span>}
+            {tab.icon && <span className="shrink-0 text-muted-foreground">{tab.icon}</span>}
             <span className="flex min-w-0 flex-1 flex-col">
               <span className="flex min-w-0 items-center gap-1.5">
                 <TabStatusMarker status={tab.status} />
                 <span className="truncate font-medium">{tab.title}</span>
               </span>
               {(tab.subtitle || tab.documentType) && (
-                <span className="truncate text-[0.6875rem] leading-3 text-[var(--erp-color-foreground-muted)]">
+                <span className="truncate text-[0.6875rem] leading-3 text-muted-foreground">
                   {tab.subtitle ?? tab.documentType}
                 </span>
               )}
@@ -71,8 +71,8 @@ export const WorkspaceTabs = ({
                 onTabClose(tab.id);
               }}
               className={cn(
-                "mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-sm text-[var(--erp-color-foreground-muted)] outline-none transition-colors",
-                "hover:bg-[var(--erp-color-surface-muted)] hover:text-[var(--erp-color-foreground)]",
+                "mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-sm text-muted-foreground outline-none transition-colors",
+                "hover:bg-surface-muted hover:text-foreground",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--erp-focus-ring)]",
               )}
             >
@@ -129,7 +129,7 @@ export const MultiDocumentWorkspace = ({
         onTabClose={onTabClose}
       />
       {toolbar && (
-        <div className="shrink-0 border-b border-[var(--erp-color-border-muted)] bg-[var(--erp-color-surface-muted)] px-3 py-2">
+        <div className="shrink-0 border-b border-border-subtle bg-surface-muted px-3 py-2">
           {toolbar}
         </div>
       )}

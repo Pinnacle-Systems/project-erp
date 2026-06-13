@@ -15,10 +15,10 @@ describe("@erp-ui-platform/primitives sizing", () => {
   it("uses theme density variables when button density is omitted", () => {
     const html = renderToStaticMarkup(createElement(Button, null, "Save"));
 
-    expect(html).toContain("h-[var(--erp-control-height)]");
+    expect(html).toContain("h-control");
     expect(html).toContain("px-[var(--erp-control-padding-x)]");
-    expect(html).toContain("text-[length:var(--erp-control-font-size)]");
-    expect(html).toContain("rounded-[var(--erp-radius-md)]");
+    expect(html).toContain("text-control");
+    expect(html).toContain("rounded-control");
     expect(html).not.toContain("h-7 px-2.5 text-xs");
     expect(html).not.toContain("h-11 px-5 text-base");
   });
@@ -39,10 +39,10 @@ describe("@erp-ui-platform/primitives sizing", () => {
       createElement(Button, { density: "comfortable" }, "Save"),
     );
 
-    expect(html).toContain("h-[var(--erp-control-height)]");
+    expect(html).toContain("h-control");
     expect(html).toContain("px-[var(--erp-control-padding-x)]");
-    expect(html).toContain("text-[length:var(--erp-control-font-size)]");
-    expect(html).toContain("rounded-[var(--erp-radius-md)]");
+    expect(html).toContain("text-control");
+    expect(html).toContain("rounded-control");
   });
 
   it("supports explicit touch button density", () => {
@@ -135,7 +135,7 @@ describe("GridCellInput sizing", () => {
   it("uses the current surface-muted token for hover background", () => {
     const html = renderToStaticMarkup(createElement(GridCellInput, null));
 
-    expect(html).toContain("hover:bg-(--erp-surface-muted)");
+    expect(html).toContain("hover:bg-surface-muted");
     expect(html).not.toContain("hover:bg-(--erp-color-surface-muted)");
   });
 });
@@ -159,8 +159,7 @@ describe("GridCellInput typography", () => {
   it("uses secondary text token matching static grid cell display", () => {
     const html = renderToStaticMarkup(createElement(GridCellInput, null));
 
-    expect(html).toContain("text-(--erp-text-secondary)");
-    expect(html).not.toContain("text-(--erp-color-foreground)");
+    expect(html).toContain("text-foreground");
   });
 
   it("applies tabular-nums and text-right for numeric cells", () => {
@@ -180,7 +179,7 @@ describe("GridCellInput typography", () => {
   it("applies read-only background token at rest and suppresses hover affordances", () => {
     const html = renderToStaticMarkup(createElement(GridCellInput, { readOnly: true }));
 
-    expect(html).toContain("read-only:bg-(--erp-grid-cell-readonly-bg)");
+    expect(html).toContain("read-only:bg-transparent");
     expect(html).toContain("read-only:hover:border-transparent");
     expect(html).toContain("read-only:hover:bg-transparent");
     expect(html).toContain("read-only:cursor-default");
@@ -191,39 +190,40 @@ describe("GridCellInput error state", () => {
   it("applies error border token when error=true", () => {
     const html = renderToStaticMarkup(createElement(GridCellInput, { error: true }));
 
-    expect(html).toContain("border-(--erp-form-field-error-border)");
+    expect(html).toContain("border-danger");
   });
 
   it("overrides focus-ring variable to error color so focus shadow stays red when invalid", () => {
     const html = renderToStaticMarkup(createElement(GridCellInput, { error: true }));
 
-    expect(html).toContain("[--erp-focus-ring:rgb(185_28_28/0.40)]");
+    expect(html).toContain("focus-visible:ring-danger");
   });
 
   it("overrides editing-bg variable to error cell background so focused error cell shows red tint", () => {
     const html = renderToStaticMarkup(createElement(GridCellInput, { error: true }));
 
-    expect(html).toContain("[--erp-grid-cell-editing-bg:var(--erp-grid-cell-error-bg)]");
+    expect(html).toContain("focus-visible:bg-danger/10");
   });
 
   it("does not apply error editing-bg override when error is absent", () => {
     const html = renderToStaticMarkup(createElement(GridCellInput, null));
 
-    expect(html).not.toContain("[--erp-grid-cell-editing-bg:var(--erp-grid-cell-error-bg)]");
+    expect(html).not.toContain("focus-visible:bg-danger/10");
   });
 
   it("does not apply error border or focus-ring override when error is absent", () => {
     const html = renderToStaticMarkup(createElement(GridCellInput, null));
 
-    expect(html).not.toContain("border-(--erp-form-field-error-border)");
-    expect(html).not.toContain("[--erp-focus-ring:rgb(185_28_28/0.40)]");
+    expect(html).not.toContain("border-danger");
+    expect(html).not.toContain("focus-visible:ring-danger");
   });
 
   it("retains blue focus shadow class regardless of error state", () => {
     const htmlValid = renderToStaticMarkup(createElement(GridCellInput, null));
     const htmlError = renderToStaticMarkup(createElement(GridCellInput, { error: true }));
 
-    expect(htmlValid).toContain("focus:shadow-[inset_0_0_0_1px_var(--erp-focus-ring)]");
-    expect(htmlError).toContain("focus:shadow-[inset_0_0_0_1px_var(--erp-focus-ring)]");
+    expect(htmlValid).toContain("focus-visible:ring-primary");
+    expect(htmlError).toContain("focus-visible:ring-danger");
+    expect(htmlError).not.toContain("focus-visible:ring-primary");
   });
 });

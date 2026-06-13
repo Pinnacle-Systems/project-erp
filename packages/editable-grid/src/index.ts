@@ -58,6 +58,19 @@ export type GridEditState = {
   keyboardCommand?: GridKeyboardCommand;
 };
 
+export type GridKeyboardMode = "navigate" | "edit";
+
+export interface GridActiveCell {
+  rowId: string;
+  columnId: string;
+}
+
+export interface GridFocusState {
+  activeCell: GridActiveCell | null;
+  mode: GridKeyboardMode;
+}
+
+
 export type GridValidationState = {
   messages: readonly ValidationMessage[];
   rowMessages: Record<string, readonly ValidationMessage[]>;
@@ -271,3 +284,6 @@ export const getNextEditableCell = <
     columnId: nextColumn.id,
   };
 };
+
+export * from "./components/grid-table";
+export * from "./hooks/use-grid-focus-state";

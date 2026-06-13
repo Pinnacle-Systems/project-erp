@@ -155,14 +155,14 @@ export const WorkspaceTabsWithActiveBreadcrumb: Story = {
     const activeTab = activeBreadcrumbTabs.find((tab) => tab.id === activeTabId) ?? activeBreadcrumbTabs[0];
 
     return (
-      <div className="overflow-hidden rounded-md border border-[var(--erp-color-border)] bg-[var(--erp-color-background)]">
+      <div className="overflow-hidden rounded-md border border-border bg-background">
         <WorkspaceTabs
           tabs={activeBreadcrumbTabs}
           activeTabId={activeTabId}
           onTabChange={setActiveTabId}
           onTabClose={() => undefined}
         />
-        <div className="bg-[var(--erp-color-surface)]">
+        <div className="bg-surface">
           <PageHeader
             title={activeTab.title}
             subtitle={activeTab.subtitle}
@@ -176,8 +176,8 @@ export const WorkspaceTabsWithActiveBreadcrumb: Story = {
             }
           />
           <div className="grid gap-3 p-4 text-sm text-[var(--erp-color-muted-foreground)]">
-            <div className="rounded-md border border-[var(--erp-color-border)] bg-[var(--erp-color-background)] p-4">
-              <p className="font-medium text-[var(--erp-color-foreground)]">{activeTab.title}</p>
+            <div className="rounded-md border border-border bg-background p-4">
+              <p className="font-medium text-foreground">{activeTab.title}</p>
               <p className="mt-1">
                 Active document content for {activeTab.documentType}. Switching workspace tabs updates this
                 header and breadcrumb trail to the active item only.
@@ -239,7 +239,7 @@ const WorkspaceDemo = ({ toolbar }: { toolbar?: React.ReactNode }) => {
   const activeTab = tabs.find((tab) => tab.id === activeTabId) ?? tabs[0];
 
   return (
-    <div className="h-[28rem] overflow-hidden rounded-md border border-[var(--erp-color-border)] bg-[var(--erp-color-background)]">
+    <div className="h-[28rem] overflow-hidden rounded-md border border-border bg-background">
       <MultiDocumentWorkspace
         tabs={tabs}
         activeTabId={activeTabId}
@@ -261,7 +261,7 @@ const WorkspaceDemo = ({ toolbar }: { toolbar?: React.ReactNode }) => {
         }
       >
         {activeTab && (
-          <div className="min-h-full bg-[var(--erp-color-surface)]">
+          <div className="min-h-full bg-surface">
             <PageHeader
               title={activeTab.title}
               subtitle={activeTab.subtitle}

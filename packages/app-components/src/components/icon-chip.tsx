@@ -17,12 +17,12 @@ const chipToneClass: Record<IconChipTone, string> = {
   warning: "bg-[var(--erp-status-warning-bg)] text-[var(--erp-status-warning-fg)]",
   danger: "bg-[var(--erp-status-danger-bg)] text-[var(--erp-status-danger-fg)]",
   info: "bg-[var(--erp-status-info-bg)] text-[var(--erp-status-info-fg)]",
-  neutral: "bg-[var(--erp-surface-muted)] text-[var(--erp-text-muted)]",
+  neutral: "bg-[var(--erp-surface-muted)] text-muted-foreground",
 };
 
 const chipSizeClass: Record<IconChipSize, string> = {
-  sm: "h-7 w-7 rounded-[var(--erp-radius-md)]",
-  md: "h-10 w-10 rounded-[var(--erp-radius-card)]",
+  sm: "h-7 w-7 rounded-control",
+  md: "h-10 w-10 rounded-card",
 };
 
 export const IconChip = ({
