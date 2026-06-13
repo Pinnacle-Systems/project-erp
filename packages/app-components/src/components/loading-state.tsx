@@ -55,7 +55,7 @@ export const LoadingState = ({
   if (variant === "inline") {
     return (
       <div
-        className={cn("flex items-center gap-2 text-[var(--erp-text-muted)]", className)}
+        className={cn("flex items-center gap-2 text-muted-foreground", className)}
         role="status"
         aria-label={label}
       >
@@ -89,7 +89,7 @@ export const LoadingState = ({
       aria-label={label}
     >
       <Spinner className="h-8 w-8 text-[var(--erp-text-link)]" />
-      <p className="text-sm text-[var(--erp-text-muted)]">{label}</p>
+      <p className="text-sm text-muted-foreground">{label}</p>
     </div>
   );
 };

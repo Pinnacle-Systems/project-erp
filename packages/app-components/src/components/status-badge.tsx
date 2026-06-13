@@ -34,7 +34,7 @@ const documentStatusClasses: Partial<Record<StatusBadgeTone, string>> = {
 };
 
 const badgeTone = (tone: StatusBadgeTone): BadgeVariant =>
-  tone in documentStatusClasses ? "default" : tone;
+  tone in documentStatusClasses ? "default" : (tone as BadgeVariant);
 
 export const StatusBadge = ({ label, tone = "default", status, className }: StatusBadgeProps) => {
   const resolvedTone = (status as DocumentStatusTone | undefined) ?? tone;

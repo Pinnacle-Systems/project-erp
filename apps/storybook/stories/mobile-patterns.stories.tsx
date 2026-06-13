@@ -73,15 +73,15 @@ const RuleCard = ({
   body,
   token,
 }: (typeof RULES)[number]) => (
-  <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] p-4 shadow-[var(--erp-shadow-xs)]">
+  <div className="rounded-card border border-border bg-[var(--erp-surface-card)] p-4 shadow-[var(--erp-shadow-xs)]">
     <div className="mb-2 flex items-baseline gap-2">
-      <span className="text-[10px] font-bold tabular-nums text-[var(--erp-text-muted)]">
+      <span className="text-[10px] font-bold tabular-nums text-muted-foreground">
         {number}
       </span>
-      <p className="text-sm font-semibold text-[var(--erp-text-primary)]">{title}</p>
+      <p className="text-sm font-semibold text-foreground">{title}</p>
     </div>
-    <p className="mb-3 text-xs leading-relaxed text-[var(--erp-text-secondary)]">{body}</p>
-    <code className="rounded bg-[var(--erp-surface-raised)] px-1.5 py-0.5 text-[10px] text-[var(--erp-text-muted)]">
+    <p className="mb-3 text-xs leading-relaxed text-muted-foreground">{body}</p>
+    <code className="rounded bg-[var(--erp-surface-raised)] px-1.5 py-0.5 text-[10px] text-muted-foreground">
       {token}
     </code>
   </div>
@@ -107,14 +107,14 @@ export const CompositionPrimer: Story = {
       className="mx-auto max-w-4xl space-y-6 p-6"
       style={{ background: "var(--erp-surface-page)" }}
     >
-      <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-muted)] bg-[var(--erp-surface-raised)] p-5 shadow-[var(--erp-shadow-card)]">
-        <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-muted)]">
+      <div className="rounded-card border border-border-subtle bg-[var(--erp-surface-raised)] p-5 shadow-card">
+        <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
           Patterns / Mobile
         </p>
-        <h1 className="mb-2 text-lg font-semibold text-[var(--erp-text-primary)]">
+        <h1 className="mb-2 text-lg font-semibold text-foreground">
           Mobile ERP Composition Grammar
         </h1>
-        <p className="text-sm leading-relaxed text-[var(--erp-text-secondary)]">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           ERP workflows on mobile are companion tasks: approve, review, capture, or comment — not
           full document authoring. Each screen should present one task clearly, with the decision
           action always reachable without scrolling. The rules below govern how the reusable mobile
@@ -128,8 +128,8 @@ export const CompositionPrimer: Story = {
         ))}
       </div>
 
-      <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-muted)] bg-[var(--erp-surface-card)] p-4">
-        <p className="mb-2 text-xs font-semibold text-[var(--erp-text-secondary)]">
+      <div className="rounded-card border border-border-subtle bg-[var(--erp-surface-card)] p-4">
+        <p className="mb-2 text-xs font-semibold text-muted-foreground">
           Canonical screen anatomy
         </p>
         <div className="mx-auto max-w-xs space-y-1.5">
@@ -142,7 +142,7 @@ export const CompositionPrimer: Story = {
           ].map(({ label, bg, border }) => (
             <div
               key={label}
-              className="rounded px-3 py-2 text-xs text-[var(--erp-text-secondary)]"
+              className="rounded px-3 py-2 text-xs text-muted-foreground"
               style={{ background: `var(${bg}, ${bg})`, border: `1px solid var(${border}, ${border})` }}
             >
               {label}
@@ -278,7 +278,7 @@ export const ReviewTask: Story = {
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
                     Items returned
                   </p>
-                  <p className="text-2xl font-bold tabular-nums text-[var(--erp-text-primary)]">2</p>
+                  <p className="text-2xl font-bold tabular-nums text-foreground">2</p>
                 </div>
                 <div className="text-right">
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
@@ -382,7 +382,7 @@ export const AllCompositions: Story = {
                     <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
                       Items returned
                     </p>
-                    <p className="text-2xl font-bold tabular-nums text-[var(--erp-text-primary)]">2</p>
+                    <p className="text-2xl font-bold tabular-nums text-foreground">2</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">

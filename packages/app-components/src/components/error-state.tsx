@@ -47,17 +47,17 @@ export const ErrorState = ({
       <AlertCircleIcon />
     </div>
     <div className="flex flex-col gap-1">
-      <p className="text-sm font-semibold text-[var(--erp-color-foreground)]">{title}</p>
+      <p className="text-sm font-semibold text-foreground">{title}</p>
       {description && (
-        <p className="text-sm text-[var(--erp-color-foreground-muted)] max-w-sm">{description}</p>
+        <p className="text-sm text-muted-foreground max-w-sm">{description}</p>
       )}
     </div>
     {errorDetails && (
       <details className="text-left max-w-sm w-full">
-        <summary className="text-xs text-[var(--erp-color-foreground-subtle)] cursor-pointer select-none hover:text-[var(--erp-color-foreground-muted)] transition-colors">
+        <summary className="text-xs text-[var(--erp-color-foreground-subtle)] cursor-pointer select-none hover:text-muted-foreground transition-colors">
           Error details
         </summary>
-        <pre className="mt-1.5 rounded-[var(--erp-radius-control)] bg-[var(--erp-color-surface-muted)] p-2.5 text-xs text-[var(--erp-color-foreground-muted)] overflow-auto whitespace-pre-wrap break-all leading-relaxed">
+        <pre className="mt-1.5 rounded-control bg-surface-muted p-2.5 text-xs text-muted-foreground overflow-auto whitespace-pre-wrap break-all leading-relaxed">
           {errorDetails}
         </pre>
       </details>

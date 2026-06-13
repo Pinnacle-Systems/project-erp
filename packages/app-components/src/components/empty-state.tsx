@@ -25,14 +25,14 @@ export const EmptyState = ({
     )}
   >
     {icon && (
-      <div className="flex h-12 w-12 items-center justify-center rounded-[var(--erp-radius-card)] bg-[var(--erp-color-primary-soft)] text-[var(--erp-color-primary)]">
+      <div className="flex h-12 w-12 items-center justify-center rounded-card bg-[var(--erp-color-primary-soft)] text-[var(--erp-color-primary)]">
         {icon}
       </div>
     )}
     <div className="flex flex-col gap-1">
-      <p className="text-sm font-semibold text-[var(--erp-color-foreground)]">{title}</p>
+      <p className="text-sm font-semibold text-foreground">{title}</p>
       {description && (
-        <p className="text-sm text-[var(--erp-color-foreground-muted)] max-w-sm">{description}</p>
+        <p className="text-sm text-muted-foreground max-w-sm">{description}</p>
       )}
     </div>
     {(primaryAction || secondaryAction) && (

@@ -12,6 +12,9 @@
   --radius-xl: var(--erp-radius-xl);
   --radius-card: var(--erp-radius-card);
   --radius-shell: var(--erp-radius-shell);
+  --radius-control: var(--erp-radius-control);
+  --radius-panel: var(--erp-radius-panel);
+  --radius-pill: 9999px;
 
   --shadow-none: var(--erp-shadow-none);
   --shadow-xs: var(--erp-shadow-xs);
@@ -21,11 +24,42 @@
   --shadow-floating: var(--erp-shadow-floating);
   --shadow-focus: var(--erp-shadow-focus);
   --shadow-focus-error: var(--erp-shadow-focus-error);
+  --shadow-control: var(--erp-shadow-sm);
+  --shadow-panel: var(--erp-shadow-md);
+  --shadow-popover: var(--erp-shadow-floating);
+
   --duration-fast: var(--erp-motion-fast);
   --duration-base: var(--erp-motion-base);
   --duration-slow: var(--erp-motion-slow);
   --ease-standard: var(--erp-ease-standard);
   --ease-emphasized: var(--erp-ease-emphasized);
+
+  --color-primary: var(--erp-color-primary);
+  --color-primary-hover: var(--erp-color-primary-hover);
+  --color-primary-foreground: var(--erp-color-primary-foreground);
+  --color-surface: var(--erp-color-surface);
+  --color-surface-muted: var(--erp-color-surface-muted);
+  --color-surface-raised: var(--erp-color-surface-raised);
+  --color-background: var(--erp-color-background);
+  --color-foreground: var(--erp-color-foreground);
+  --color-muted: var(--erp-color-muted);
+  --color-muted-foreground: var(--erp-color-muted-foreground);
+  --color-border: var(--erp-color-border);
+  --color-border-subtle: var(--erp-color-border-muted);
+  --color-danger: var(--erp-color-danger);
+  --color-danger-foreground: var(--erp-color-danger-foreground);
+  --color-warning: var(--erp-color-warning);
+  --color-warning-foreground: var(--erp-color-warning-foreground);
+  --color-success: var(--erp-color-success);
+  --color-success-foreground: var(--erp-color-success-foreground);
+  --color-info: var(--erp-color-info);
+  --color-info-foreground: var(--erp-color-info-foreground);
+
+  --text-control: var(--erp-control-font-size);
+  --text-label: var(--erp-font-size-sm);
+  --text-data: var(--erp-font-size-sm);
+
+  --spacing-control: var(--erp-control-height);
 }
 
 :root,

@@ -44,15 +44,15 @@ export const MobileTaskShell = ({
   <section
     data-component="MobileTaskShell"
     className={cn(
-      "mx-auto flex min-h-[44rem] w-full max-w-[27rem] flex-col overflow-hidden rounded-3xl border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] shadow-xl",
+      "mx-auto flex min-h-[44rem] w-full max-w-[27rem] flex-col overflow-hidden rounded-3xl border border-border bg-[var(--erp-surface-card)] shadow-xl",
       className,
     )}
   >
-    <div className="flex items-center justify-between bg-[var(--erp-surface-inverse)] px-6 py-2 text-xs font-medium text-[var(--erp-text-inverse)]">
+    <div className="flex items-center justify-between bg-[var(--erp-surface-inverse)] px-6 py-2 text-xs font-medium text-primary-foreground">
       <span>9:41</span>
       <span className="tracking-wide">LTE 100%</span>
     </div>
-    <header className="flex h-[var(--erp-shell-mobile-header-height)] shrink-0 items-center gap-3 border-b border-[var(--erp-border-muted)] bg-[var(--erp-surface-panel)] px-4 py-3">
+    <header className="flex h-[var(--erp-shell-mobile-header-height)] shrink-0 items-center gap-3 border-b border-border-subtle bg-[var(--erp-surface-panel)] px-4 py-3">
       {backLabel && (
         <button
           type="button"
@@ -63,10 +63,10 @@ export const MobileTaskShell = ({
         </button>
       )}
       <div className="min-w-0 flex-1">
-        <h1 className="truncate text-base font-semibold leading-tight text-[var(--erp-text-primary)]">
+        <h1 className="truncate text-base font-semibold leading-tight text-foreground">
           {title}
         </h1>
-        {subtitle && <p className="truncate text-xs text-[var(--erp-text-muted)]">{subtitle}</p>}
+        {subtitle && <p className="truncate text-xs text-muted-foreground">{subtitle}</p>}
       </div>
       {status && <div className="shrink-0">{status}</div>}
     </header>
@@ -128,13 +128,13 @@ export const MobileDocumentSummary = ({
             field.tone === "info" &&
               "border-[var(--erp-validation-info-border)] bg-[var(--erp-validation-info-bg)]",
             (!field.tone || field.tone === "default") &&
-              "border-[var(--erp-border-muted)] bg-[var(--erp-surface-page)]",
+              "border-border-subtle bg-[var(--erp-surface-page)]",
           )}
         >
           <p className="text-[10px] font-medium uppercase tracking-wide text-[var(--erp-text-subtle)]">
             {field.label}
           </p>
-          <div className="mt-0.5 text-sm font-medium text-[var(--erp-text-primary)]">{field.value}</div>
+          <div className="mt-0.5 text-sm font-medium text-foreground">{field.value}</div>
         </div>
       ))}
     </div>
@@ -142,7 +142,7 @@ export const MobileDocumentSummary = ({
     {lines.length > 0 && (
       <section>
         <div className="mb-2 flex items-center justify-between">
-          <p className="text-sm font-semibold text-[var(--erp-text-secondary)]">Lines</p>
+          <p className="text-sm font-semibold text-muted-foreground">Lines</p>
           <Badge variant="muted">{readOnlyLabel}</Badge>
         </div>
         <div className="space-y-2">
@@ -157,16 +157,16 @@ export const MobileDocumentSummary = ({
                   "border-[var(--erp-validation-error-border)] bg-[var(--erp-validation-error-bg)]",
                 line.tone === "success" &&
                   "border-[var(--erp-border-success)] bg-[var(--erp-state-new)]",
-                (!line.tone || line.tone === "default") && "border-[var(--erp-border-default)]",
+                (!line.tone || line.tone === "default") && "border-border",
               )}
             >
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-[var(--erp-text-primary)]">{line.title}</p>
+                <p className="truncate text-sm font-semibold text-foreground">{line.title}</p>
                 {line.description && (
-                  <p className="truncate text-xs text-[var(--erp-text-muted)]">{line.description}</p>
+                  <p className="truncate text-xs text-muted-foreground">{line.description}</p>
                 )}
               </div>
-              <div className="shrink-0 text-right text-xs text-[var(--erp-text-muted)]">
+              <div className="shrink-0 text-right text-xs text-muted-foreground">
                 {line.meta}
                 {line.status && <div className="mt-1 flex justify-end">{line.status}</div>}
               </div>
@@ -176,7 +176,7 @@ export const MobileDocumentSummary = ({
       </section>
     )}
     {desktopEditMessage && (
-      <div className="rounded-xl border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] px-3 py-3 text-xs text-[var(--erp-text-muted)]">
+      <div className="rounded-xl border border-border bg-[var(--erp-surface-card)] px-3 py-3 text-xs text-muted-foreground">
         {desktopEditMessage}
       </div>
     )}
@@ -198,9 +198,9 @@ export const MobileBottomActionBar = ({
 }: MobileBottomActionBarProps) => (
   <footer
     data-component="MobileBottomActionBar"
-    className={cn("shrink-0 border-t border-[var(--erp-border-default)] bg-[var(--erp-surface-panel)] px-4 py-3", className)}
+    className={cn("shrink-0 border-t border-border bg-[var(--erp-surface-panel)] px-4 py-3", className)}
   >
-    {helperText && <div className="mb-2 text-xs text-[var(--erp-text-muted)]">{helperText}</div>}
+    {helperText && <div className="mb-2 text-xs text-muted-foreground">{helperText}</div>}
     <div className="flex gap-2">
       {actions.map((action) => (
         <Button
@@ -247,7 +247,7 @@ export const MobileApprovalFlow = ({
   className,
 }: MobileApprovalFlowProps) => (
   <div data-component="MobileApprovalFlow" className={cn("bg-[var(--erp-surface-card)]", className)}>
-    <div className="border-b border-[var(--erp-border-muted)] px-4 py-3">
+    <div className="border-b border-border-subtle px-4 py-3">
       <StatusBadge label={statusLabel ?? status} tone={statusTone} />
     </div>
     <ApprovalPanel
@@ -306,7 +306,7 @@ export const ScannerCapturePlaceholder = ({
   className,
 }: ScannerCapturePlaceholderProps) => (
   <div data-component="ScannerCapturePlaceholder" className={cn("flex h-full flex-col", className)}>
-    <div className="relative flex h-80 shrink-0 items-center justify-center bg-[var(--erp-surface-inverse)] text-[var(--erp-text-inverse)]">
+    <div className="relative flex h-80 shrink-0 items-center justify-center bg-[var(--erp-surface-inverse)] text-primary-foreground">
       {state === "ready" && (
         <>
           <FrameCorner className="left-10 top-8 rounded-tl border-l-2 border-t-2" />
@@ -320,7 +320,7 @@ export const ScannerCapturePlaceholder = ({
         <div className="flex flex-col items-center gap-3 text-sm font-medium">
           <span className="h-8 w-8 motion-safe:animate-spin rounded-full border-2 border-[color-mix(in_srgb,var(--erp-text-inverse)_30%,transparent)] border-t-[var(--erp-text-inverse)]" />
           Scanning
-          <div className="absolute left-12 right-12 top-1/2 h-0.5 bg-[var(--erp-color-primary)] shadow-[0_0_12px_var(--erp-color-primary-soft)]" />
+          <div className="absolute left-12 right-12 top-1/2 h-0.5 bg-primary shadow-[0_0_12px_var(--erp-color-primary-soft)]" />
         </div>
       )}
       {state === "captured" && (
@@ -332,9 +332,9 @@ export const ScannerCapturePlaceholder = ({
         </div>
       )}
       {state === "error" && (
-        <div className="mx-6 rounded-xl bg-[var(--erp-surface-card)] p-4 text-center text-[var(--erp-text-secondary)]">
+        <div className="mx-6 rounded-xl bg-[var(--erp-surface-card)] p-4 text-center text-muted-foreground">
           <p className="text-sm font-semibold">Camera unavailable</p>
-          <p className="mt-1 text-xs text-[var(--erp-text-muted)]">
+          <p className="mt-1 text-xs text-muted-foreground">
             Camera access can be connected by the host app later.
           </p>
         </div>
@@ -342,10 +342,10 @@ export const ScannerCapturePlaceholder = ({
     </div>
     <div className="flex-1 space-y-3 bg-[var(--erp-surface-page)] p-4">
       <div>
-        <p className="text-sm font-semibold text-[var(--erp-text-primary)]">{title}</p>
-        {reference && <p className="text-xs text-[var(--erp-text-muted)]">Reference: {reference}</p>}
+        <p className="text-sm font-semibold text-foreground">{title}</p>
+        {reference && <p className="text-xs text-muted-foreground">Reference: {reference}</p>}
       </div>
-      <div className="rounded-xl border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] p-3 text-xs text-[var(--erp-text-muted)]">
+      <div className="rounded-xl border border-border bg-[var(--erp-surface-card)] p-3 text-xs text-muted-foreground">
         Companion capture only. Document authoring and dense line edits stay in the
         desktop workspace.
       </div>
@@ -402,7 +402,7 @@ export const MobileApprovalSummaryCard = ({
   <div
     data-component="MobileApprovalSummaryCard"
     className={cn(
-      "rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] p-4 shadow-[var(--erp-shadow-card)]",
+      "rounded-card border border-border bg-[var(--erp-surface-raised)] p-4 shadow-card",
       className,
     )}
   >
@@ -412,14 +412,14 @@ export const MobileApprovalSummaryCard = ({
         {docType}
       </p>
     </div>
-    <p className="mb-0.5 text-sm font-medium text-[var(--erp-text-secondary)]">{docNumber}</p>
-    <p className="mb-4 text-2xl font-bold tabular-nums text-[var(--erp-text-primary)]">{amount}</p>
-    <p className="text-xs text-[var(--erp-text-muted)]">
+    <p className="mb-0.5 text-sm font-medium text-muted-foreground">{docNumber}</p>
+    <p className="mb-4 text-2xl font-bold tabular-nums text-foreground">{amount}</p>
+    <p className="text-xs text-muted-foreground">
       Requester:{" "}
-      <span className="font-medium text-[var(--erp-text-secondary)]">{requester}</span>
+      <span className="font-medium text-muted-foreground">{requester}</span>
     </p>
     {helperText && (
-      <p className="mt-3 border-t border-[var(--erp-border-muted)] pt-2 text-xs text-[var(--erp-text-muted)]">
+      <p className="mt-3 border-t border-border-subtle pt-2 text-xs text-muted-foreground">
         {helperText}
       </p>
     )}
@@ -449,8 +449,8 @@ const timelineDotClass = (status: ApprovalStatus): string => {
 
 const timelineLabelClass = (status: ApprovalStatus): string =>
   status === "not_started" || status === "cancelled"
-    ? "text-[var(--erp-text-muted)]"
-    : "text-[var(--erp-text-primary)]";
+    ? "text-muted-foreground"
+    : "text-foreground";
 
 const timelineStateLabel = (
   status: ApprovalStatus,
@@ -464,8 +464,8 @@ const timelineStateLabel = (
   if (status === "changes_requested")
     return { text: "Changes requested", className: "text-[var(--erp-status-warning-fg)]" };
   if (status === "cancelled")
-    return { text: "Cancelled", className: "text-[var(--erp-text-muted)]" };
-  return { text: "Not started", className: "text-[var(--erp-text-muted)]" };
+    return { text: "Cancelled", className: "text-muted-foreground" };
+  return { text: "Not started", className: "text-muted-foreground" };
 };
 
 export const MobileApprovalTimeline = ({
@@ -475,11 +475,11 @@ export const MobileApprovalTimeline = ({
   <div
     data-component="MobileApprovalTimeline"
     className={cn(
-      "rounded-[var(--erp-radius-card)] border border-[var(--erp-border-muted)] bg-[var(--erp-surface-card)] px-4 py-3 shadow-[var(--erp-shadow-xs)]",
+      "rounded-card border border-border-subtle bg-[var(--erp-surface-card)] px-4 py-3 shadow-[var(--erp-shadow-xs)]",
       className,
     )}
   >
-    <p className="mb-3 text-xs font-semibold text-[var(--erp-text-secondary)]">Approval progress</p>
+    <p className="mb-3 text-xs font-semibold text-muted-foreground">Approval progress</p>
     <ol className="space-y-0">
       {steps.map((step, i) => {
         const isLast = i === steps.length - 1;
@@ -502,7 +502,7 @@ export const MobileApprovalTimeline = ({
               <div className="flex items-center gap-2">
                 <span className={cn("text-xs", stateLabel.className)}>{stateLabel.text}</span>
                 {step.actor && (
-                  <span className="text-xs text-[var(--erp-text-muted)]">
+                  <span className="text-xs text-muted-foreground">
                     · {step.actor.displayName}
                   </span>
                 )}
@@ -533,17 +533,17 @@ export const MobileApprovalCommentList = ({
   if (comments.length === 0) return null;
   return (
     <div data-component="MobileApprovalCommentList" className={cn("space-y-2", className)}>
-      <p className="text-xs font-semibold text-[var(--erp-text-secondary)]">Notes</p>
+      <p className="text-xs font-semibold text-muted-foreground">Notes</p>
       {comments.map((comment) => (
         <div
           key={comment.id}
-          className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-muted)] bg-[var(--erp-surface-card)] px-3 py-3"
+          className="rounded-card border border-border-subtle bg-[var(--erp-surface-card)] px-3 py-3"
         >
-          <p className="mb-0.5 text-xs font-semibold text-[var(--erp-text-primary)]">
+          <p className="mb-0.5 text-xs font-semibold text-foreground">
             {comment.actor.displayName}
           </p>
-          <p className="text-sm text-[var(--erp-text-secondary)]">{comment.message}</p>
-          <p className="mt-1 text-[10px] text-[var(--erp-text-muted)]">
+          <p className="text-sm text-muted-foreground">{comment.message}</p>
+          <p className="mt-1 text-[10px] text-muted-foreground">
             {new Date(comment.createdAt).toLocaleDateString(undefined, {
               month: "short",
               day: "numeric",

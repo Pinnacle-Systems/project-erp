@@ -7,8 +7,10 @@ import {
   isRowEditable,
   markRowDeleted,
   markRowDirty,
+  useGridFocusState,
   type GridColumnDefinition,
 } from "./index";
+import { renderHook, act } from "@testing-library/react";
 
 type LineData = {
   itemId?: string;
@@ -95,3 +97,49 @@ describe("@erp-ui-platform/editable-grid", () => {
     ).toEqual({ rowId: "row-3", columnId: "item" });
   });
 });
+
+describe("useGridFocusState", () => {
+  it("defaults to null active cell and navigate mode", () => {
+    const { result } = renderHook(() => useGridFocusState());
+
+    expect(result.current.activeCell).toBeNull();
+    expect(result.current.mode).toBe("navigate");
+  });
+
+  it("setting active cell stores rowId and columnId", () => {
+    const { result } = renderHook(() => useGridFocusState());
+
+    act(() => {
+      result.current.setActiveCell("row-1", "col-1");
+    });
+
+    expect(result.current.activeCell).toEqual({ rowId: "row-1", columnId: "col-1" });
+  });
+
+  it("switching mode preserves active cell", () => {
+    const { result } = renderHook(() =>
+      useGridFocusState({ activeCell: { rowId: "row-1", columnId: "col-1" } }),
+    );
+
+    act(() => {
+      result.current.setMode("edit");
+    });
+
+    expect(result.current.activeCell).toEqual({ rowId: "row-1", columnId: "col-1" });
+    expect(result.current.mode).toBe("edit");
+  });
+
+  it("clearing active cell resets to navigate mode", () => {
+    const { result } = renderHook(() =>
+      useGridFocusState({ activeCell: { rowId: "row-1", columnId: "col-1" }, mode: "edit" }),
+    );
+
+    act(() => {
+      result.current.clearActiveCell();
+    });
+
+    expect(result.current.activeCell).toBeNull();
+    expect(result.current.mode).toBe("navigate");
+  });
+});
+

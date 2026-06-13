@@ -1,0 +1,16 @@
+{
+  "name": "@erp-ui-platform/data-display",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@erp-ui-platform/primitives": "workspace:*",
+    "@erp-ui-platform/layout": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0"
+  }
+}

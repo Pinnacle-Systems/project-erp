@@ -123,7 +123,7 @@ type TrendTone = "positive" | "negative" | "neutral";
 const trendTextClass: Record<TrendTone, string> = {
   positive: "text-[var(--erp-kpi-trend-positive-fg)]",
   negative: "text-[var(--erp-kpi-trend-negative-fg)]",
-  neutral: "text-[var(--erp-text-muted)]",
+  neutral: "text-muted-foreground",
 };
 
 const KPICard = ({
@@ -144,7 +144,7 @@ const KPICard = ({
   iconTone?: IconChipTone;
 }) => (
   <div
-    className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] p-4 shadow-[var(--erp-shadow-card)]"
+    className="rounded-card border border-border bg-[var(--erp-surface-raised)] p-4 shadow-card"
     style={{ minHeight: "var(--erp-kpi-card-min-height)" }}
   >
     <div className="mb-3 flex items-start justify-between gap-2">
@@ -153,7 +153,7 @@ const KPICard = ({
       </p>
       {icon && <IconChip icon={icon} tone={iconTone} size="sm" />}
     </div>
-    <p className="mb-1 text-2xl font-bold tabular-nums text-[var(--erp-text-primary)]">{value}</p>
+    <p className="mb-1 text-2xl font-bold tabular-nums text-foreground">{value}</p>
     {trend && (
       <div className={cn("flex items-center gap-1", trendTextClass[trendTone])}>
         {trendTone === "positive" && <TrendUpIcon />}
@@ -161,7 +161,7 @@ const KPICard = ({
         <span className="text-xs font-medium">{trend}</span>
       </div>
     )}
-    {helper && <p className="mt-1 text-xs text-[var(--erp-text-muted)]">{helper}</p>}
+    {helper && <p className="mt-1 text-xs text-muted-foreground">{helper}</p>}
   </div>
 );
 
@@ -196,15 +196,15 @@ const DocSummaryCard = ({
   icon?: ReactNode;
   iconTone?: IconChipTone;
 }) => (
-  <div className="overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] shadow-[var(--erp-shadow-card)]">
-    <div className="flex items-center justify-between gap-3 border-b border-[var(--erp-border-muted)] bg-[var(--erp-surface-card)] px-4 py-3">
+  <div className="overflow-hidden rounded-card border border-border bg-[var(--erp-surface-raised)] shadow-card">
+    <div className="flex items-center justify-between gap-3 border-b border-border-subtle bg-[var(--erp-surface-card)] px-4 py-3">
       <div className="flex min-w-0 items-center gap-2.5">
         {icon && <IconChip icon={icon} tone={iconTone} size="sm" />}
         <div className="min-w-0">
           <p className="text-(length:--erp-font-size-xs) font-semibold uppercase tracking-(--erp-tracking-caps) text-[var(--erp-text-subtle)]">
             {docType}
           </p>
-          <p className="truncate text-xs font-medium text-[var(--erp-text-secondary)]">{docNumber}</p>
+          <p className="truncate text-xs font-medium text-muted-foreground">{docNumber}</p>
         </div>
       </div>
       <div className="shrink-0">
@@ -216,21 +216,21 @@ const DocSummaryCard = ({
       <p
         className={cn(
           "mb-3 text-2xl font-bold tabular-nums",
-          heroTone ? heroToneClass[heroTone] : "text-[var(--erp-text-primary)]",
+          heroTone ? heroToneClass[heroTone] : "text-foreground",
         )}
       >
         {heroValue}
       </p>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-t border-[var(--erp-border-muted)] pt-3">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-t border-border-subtle pt-3">
         {fields.map(({ label, value }) => (
           <div key={label} className="min-w-0">
             <p className="text-(length:--erp-font-size-xs) text-[var(--erp-text-subtle)]">{label}</p>
-            <p className="truncate text-xs font-medium text-[var(--erp-text-secondary)]">{value}</p>
+            <p className="truncate text-xs font-medium text-muted-foreground">{value}</p>
           </div>
         ))}
       </div>
       {helperText && (
-        <p className="mt-3 border-t border-[var(--erp-border-muted)] pt-2.5 text-xs text-[var(--erp-text-muted)]">
+        <p className="mt-3 border-t border-border-subtle pt-2.5 text-xs text-muted-foreground">
           {helperText}
         </p>
       )}
@@ -249,16 +249,16 @@ const SectionHeader = ({
   description?: string;
   action?: ReactNode;
 }) => (
-  <div className="flex items-start justify-between gap-4 border-b border-[var(--erp-border-muted)] pb-3">
+  <div className="flex items-start justify-between gap-4 border-b border-border-subtle pb-3">
     <div>
       {label && (
         <p className="mb-0.5 text-(length:--erp-font-size-xs) font-semibold uppercase tracking-(--erp-tracking-caps) text-[var(--erp-text-subtle)]">
           {label}
         </p>
       )}
-      <h2 className="text-sm font-semibold text-[var(--erp-text-primary)]">{title}</h2>
+      <h2 className="text-sm font-semibold text-foreground">{title}</h2>
       {description && (
-        <p className="mt-0.5 text-xs text-[var(--erp-text-muted)]">{description}</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
       )}
     </div>
     {action && <div className="shrink-0">{action}</div>}
@@ -348,7 +348,7 @@ export const IconChips: Story = {
             <div key={tone} className="flex flex-col items-center gap-2">
               <IconChip icon={icon} tone={tone} size="md" />
               {/* text-[10px] intentional: decorative catalog label under icon chip, not data text */}
-              <span className="text-[10px] text-[var(--erp-text-muted)]">{label}</span>
+              <span className="text-[10px] text-muted-foreground">{label}</span>
             </div>
           ))}
         </div>
@@ -362,7 +362,7 @@ export const IconChips: Story = {
             <div key={tone} className="flex flex-col items-center gap-2">
               <IconChip icon={icon} tone={tone} size="sm" />
               {/* text-[10px] intentional: decorative catalog label under icon chip, not data text */}
-              <span className="text-[10px] text-[var(--erp-text-muted)]">{label}</span>
+              <span className="text-[10px] text-muted-foreground">{label}</span>
             </div>
           ))}
         </div>
@@ -497,7 +497,7 @@ export const DocumentSummaryCards: Story = {
 export const SectionHeaderPattern: Story = {
   render: () => (
     <div className="p-6" style={{ background: "var(--erp-surface-page)" }}>
-      <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] p-5 shadow-[var(--erp-shadow-card)]">
+      <div className="rounded-card border border-border bg-[var(--erp-surface-raised)] p-5 shadow-card">
         <div className="space-y-6">
           {/* Minimal: title only */}
           <SectionHeader title="Approval queue" />
@@ -526,9 +526,9 @@ export const SectionHeaderPattern: Story = {
 export const DenseTableCard: Story = {
   render: () => (
     <div className="p-6" style={{ background: "var(--erp-surface-page)" }}>
-      <div className="overflow-hidden rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] shadow-[var(--erp-shadow-card)]">
-        <div className="flex items-center justify-between border-b border-[var(--erp-border-muted)] px-(--erp-table-cell-padding-x) py-(--erp-table-header-padding-y)">
-          <p className="text-sm font-semibold text-[var(--erp-text-primary)]">Recent documents</p>
+      <div className="overflow-hidden rounded-card border border-border bg-[var(--erp-surface-raised)] shadow-card">
+        <div className="flex items-center justify-between border-b border-border-subtle px-(--erp-table-cell-padding-x) py-(--erp-table-header-padding-y)">
+          <p className="text-sm font-semibold text-foreground">Recent documents</p>
           <Button variant="ghost" density="compact" width="hug">
             View all
           </Button>
@@ -547,7 +547,7 @@ export const DenseTableCard: Story = {
             {TABLE_ROWS.map((row) => (
               <tr
                 key={row.ref}
-                className="border-t border-[var(--erp-border-muted)] transition-colors duration-150 ease-out hover:bg-[var(--erp-surface-hover)]"
+                className="border-t border-border-subtle transition-colors duration-150 ease-out hover:bg-[var(--erp-surface-hover)]"
               >
                 <DenseTableCell className="font-mono text-(--erp-text-primary)">{row.ref}</DenseTableCell>
                 <DenseTableCell className="text-(--erp-text-secondary)">{row.party}</DenseTableCell>
@@ -565,7 +565,7 @@ export const DenseTableCard: Story = {
             ))}
           </tbody>
           <tfoot>
-            <tr className="border-t border-[var(--erp-border-default)] bg-[var(--erp-surface-muted)]">
+            <tr className="border-t border-border bg-[var(--erp-surface-muted)]">
               <DenseTableCell colSpan={3} className="text-(--erp-text-muted)">
                 5 documents
               </DenseTableCell>
@@ -588,7 +588,7 @@ export const EmptyLoadingErrorStates: Story = {
       style={{ background: "var(--erp-surface-page)" }}
     >
       {/* Empty */}
-      <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] shadow-[var(--erp-shadow-card)]">
+      <div className="rounded-card border border-border bg-[var(--erp-surface-raised)] shadow-card">
         <EmptyState
           icon={<InboxIcon />}
           title="No pending items"
@@ -601,7 +601,7 @@ export const EmptyLoadingErrorStates: Story = {
         />
       </div>
       {/* No results */}
-      <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] shadow-[var(--erp-shadow-card)]">
+      <div className="rounded-card border border-border bg-[var(--erp-surface-raised)] shadow-card">
         <EmptyState
           icon={<SearchIcon />}
           title="No results found"
@@ -614,7 +614,7 @@ export const EmptyLoadingErrorStates: Story = {
         />
       </div>
       {/* Error */}
-      <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] shadow-[var(--erp-shadow-card)]">
+      <div className="rounded-card border border-border bg-[var(--erp-surface-raised)] shadow-card">
         <ErrorState
           title="Failed to load"
           description="The document list could not be fetched. Check your connection."
@@ -622,7 +622,7 @@ export const EmptyLoadingErrorStates: Story = {
         />
       </div>
       {/* Loading skeleton */}
-      <div className="rounded-[var(--erp-radius-card)] border border-[var(--erp-border-default)] bg-[var(--erp-surface-raised)] py-4 shadow-[var(--erp-shadow-card)]">
+      <div className="rounded-card border border-border bg-[var(--erp-surface-raised)] py-4 shadow-card">
         <LoadingState variant="skeleton" rows={5} label="Loading documents..." />
       </div>
     </div>

@@ -19,7 +19,7 @@ export default meta;
 type Story = StoryObj;
 
 const SectionTitle = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="text-sm font-semibold text-[var(--erp-text-primary)]">{children}</h2>
+  <h2 className="text-sm font-semibold text-foreground">{children}</h2>
 );
 
 const TokenRow = ({
@@ -31,9 +31,9 @@ const TokenRow = ({
   value: string;
   variable: string;
 }) => (
-  <div className="grid grid-cols-[7rem_minmax(8rem,1fr)_minmax(8rem,auto)] items-center gap-3 border-b border-[var(--erp-border-default)] px-3 py-2 text-xs last:border-0">
-    <span className="font-medium text-[var(--erp-text-primary)]">{label}</span>
-    <code className="text-[var(--erp-text-muted)]">{variable}</code>
+  <div className="grid grid-cols-[7rem_minmax(8rem,1fr)_minmax(8rem,auto)] items-center gap-3 border-b border-border px-3 py-2 text-xs last:border-0">
+    <span className="font-medium text-foreground">{label}</span>
+    <code className="text-muted-foreground">{variable}</code>
     <div className="flex justify-end">
       <span
         className="block h-5 rounded bg-[var(--erp-surface-selected)] ring-1 ring-[var(--erp-border-selected)]"
@@ -44,7 +44,7 @@ const TokenRow = ({
 );
 
 const Panel = ({ children }: { children: React.ReactNode }) => (
-  <section className="rounded-md border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] p-4">
+  <section className="rounded-md border border-border bg-[var(--erp-surface-card)] p-4">
     {children}
   </section>
 );
@@ -74,7 +74,7 @@ const Chip = ({
 };
 
 const CodeBlock = ({ children }: { children: string }) => (
-  <pre className="overflow-x-auto rounded border border-[var(--erp-border-default)] bg-[var(--erp-surface-page)] px-3 py-2.5 text-xs font-mono text-[var(--erp-text-secondary)] whitespace-pre">
+  <pre className="overflow-x-auto rounded border border-border bg-[var(--erp-surface-page)] px-3 py-2.5 text-xs font-mono text-muted-foreground whitespace-pre">
     {children.trim()}
   </pre>
 );
@@ -93,7 +93,7 @@ const ExBlock = ({
   <div className="grid gap-1.5">
     <Chip tone={tone}>{label}</Chip>
     {children && (
-      <div className="rounded border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] p-3">
+      <div className="rounded border border-border bg-[var(--erp-surface-card)] p-3">
         {children}
       </div>
     )}
@@ -112,13 +112,13 @@ const Rule = ({
   summary: string;
   children: React.ReactNode;
 }) => (
-  <section className="grid gap-3 rounded-md border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] p-4">
+  <section className="grid gap-3 rounded-md border border-border bg-[var(--erp-surface-card)] p-4">
     <div>
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-muted)]">
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
         Rule {n}
       </p>
-      <h2 className="text-sm font-semibold text-[var(--erp-text-primary)]">{title}</h2>
-      <p className="mt-0.5 text-xs text-[var(--erp-text-muted)]">{summary}</p>
+      <h2 className="text-sm font-semibold text-foreground">{title}</h2>
+      <p className="mt-0.5 text-xs text-muted-foreground">{summary}</p>
     </div>
     <div className="grid gap-3">{children}</div>
   </section>
@@ -126,10 +126,10 @@ const Rule = ({
 
 export const Overview: Story = {
   render: () => (
-    <div className="grid gap-4 text-[var(--erp-text-primary)]">
+    <div className="grid gap-4 text-foreground">
       <div className="grid gap-1">
         <h1 className="text-base font-semibold">Sizing Intent</h1>
-        <p className="max-w-3xl text-sm text-[var(--erp-text-muted)]">
+        <p className="max-w-3xl text-sm text-muted-foreground">
           Atomic actions should hug by default, and form controls should use named
           control widths unless the layout explicitly asks them to fill. Layout
           primitives should decide when children fill available space. Mobile action
@@ -139,7 +139,7 @@ export const Overview: Story = {
 
       <Panel>
         <SectionTitle>Sizing Intent Tokens</SectionTitle>
-        <div className="mt-3 rounded-md border border-[var(--erp-border-default)]">
+        <div className="mt-3 rounded-md border border-border">
           {Object.entries(sizingTokens.intent).map(([key, value]) => (
             <TokenRow
               key={key}
@@ -153,7 +153,7 @@ export const Overview: Story = {
 
       <Panel>
         <SectionTitle>Control Width Tokens</SectionTitle>
-        <div className="mt-3 rounded-md border border-[var(--erp-border-default)]">
+        <div className="mt-3 rounded-md border border-border">
           {Object.entries(sizingTokens.control).map(([key, value]) => (
             <TokenRow
               key={key}
@@ -168,8 +168,8 @@ export const Overview: Story = {
       <Panel>
         <SectionTitle>Component Examples</SectionTitle>
         <div className="mt-3 grid gap-4">
-          <div className="grid gap-2 rounded-md border border-[var(--erp-border-default)] p-3">
-            <p className="text-xs font-semibold text-[var(--erp-text-muted)]">
+          <div className="grid gap-2 rounded-md border border-border p-3">
+            <p className="text-xs font-semibold text-muted-foreground">
               Button: hug vs fill
             </p>
             <div className="flex flex-col gap-2">
@@ -178,16 +178,16 @@ export const Overview: Story = {
             </div>
           </div>
 
-          <div className="grid gap-2 rounded-md border border-[var(--erp-border-default)] p-3">
-            <p className="text-xs font-semibold text-[var(--erp-text-muted)]">
+          <div className="grid gap-2 rounded-md border border-border p-3">
+            <p className="text-xs font-semibold text-muted-foreground">
               TextField: fixed token width vs fill
             </p>
             <TextField width="md" label="Medium" placeholder="12rem" />
             <TextField width="fill" label="Fill" placeholder="100%" />
           </div>
 
-          <div className="grid gap-2 rounded-md border border-[var(--erp-border-default)] p-3">
-            <p className="text-xs font-semibold text-[var(--erp-text-muted)]">
+          <div className="grid gap-2 rounded-md border border-border p-3">
+            <p className="text-xs font-semibold text-muted-foreground">
               SelectField: fixed token width vs fill
             </p>
             <SelectField width="sm" label="Small" placeholder="Choose">
@@ -205,14 +205,14 @@ export const Overview: Story = {
       <Panel>
         <SectionTitle>Layout Governance</SectionTitle>
         <div className="mt-3 grid gap-4">
-          <div className="overflow-hidden rounded-md border border-[var(--erp-border-default)]">
+          <div className="overflow-hidden rounded-md border border-border">
             <DesktopActionBar
               left="Desktop action regions own expansion."
               secondary={<Button width="hug">Import</Button>}
               primary={<Button width="hug" variant="default">New</Button>}
             />
           </div>
-          <div className="max-w-md overflow-hidden rounded-3xl border border-[var(--erp-border-default)]">
+          <div className="max-w-md overflow-hidden rounded-3xl border border-border">
             <MobileBottomActionBar
               actions={[
                 { id: "save", label: "Save", variant: "default" },
@@ -230,10 +230,10 @@ export const Overview: Story = {
 export const Governance: Story = {
   name: "Governance Rules",
   render: () => (
-    <div className="grid max-w-3xl gap-6 text-[var(--erp-text-primary)]">
+    <div className="grid max-w-3xl gap-6 text-foreground">
       <div className="grid gap-1">
         <h1 className="text-base font-semibold">Sizing Governance</h1>
-        <p className="text-sm text-[var(--erp-text-muted)]">
+        <p className="text-sm text-muted-foreground">
           Rules for expressing sizing intent through the design system API instead of
           arbitrary wrapper classes or global CSS. Follow these rules to prevent
           regressions where controls get wrapped in one-off width containers.
@@ -279,7 +279,7 @@ export const Governance: Story = {
           label="Good — desktop: buttons hug, bar owns expansion"
           code={`<DesktopActionBar\n  left="3 selected"\n  secondary={<Button width="hug">Import</Button>}\n  primary={<Button width="hug">New</Button>}\n/>`}
         >
-          <div className="overflow-hidden rounded border border-[var(--erp-border-default)]">
+          <div className="overflow-hidden rounded border border-border">
             <DesktopActionBar
               left="3 selected"
               secondary={<Button width="hug">Import</Button>}
@@ -292,7 +292,7 @@ export const Governance: Story = {
           label="Good — mobile: fill + flex-1 for equal-width touch targets"
           code={`<MobileBottomActionBar\n  actions={[\n    { id: "cancel", label: "Cancel", variant: "secondary" },\n    { id: "save",   label: "Save",   variant: "default"   },\n  ]}\n/>`}
         >
-          <div className="max-w-sm overflow-hidden rounded-3xl border border-[var(--erp-border-default)]">
+          <div className="max-w-sm overflow-hidden rounded-3xl border border-border">
             <MobileBottomActionBar
               actions={[
                 { id: "cancel", label: "Cancel", variant: "secondary" },
@@ -374,7 +374,7 @@ export const Governance: Story = {
           label="Good — bottom bar with fill buttons"
           code={`<MobileBottomActionBar\n  actions={[\n    { id: "cancel", label: "Cancel", variant: "secondary" },\n    { id: "save",   label: "Save",   variant: "default"   },\n  ]}\n/>\n\n// When rendering buttons manually inside a mobile bottom bar:\n<Button width="fill" className="flex-1">Cancel</Button>\n<Button width="fill" className="flex-1">Save</Button>`}
         >
-          <div className="max-w-sm overflow-hidden rounded-3xl border border-[var(--erp-border-default)]">
+          <div className="max-w-sm overflow-hidden rounded-3xl border border-border">
             <MobileBottomActionBar
               actions={[
                 { id: "cancel", label: "Cancel", variant: "secondary" },
@@ -446,8 +446,8 @@ export const Governance: Story = {
       </Rule>
 
       {/* ── Quick reference ─────────────────────────────────────────────────── */}
-      <section className="rounded-md border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] p-4">
-        <h2 className="text-sm font-semibold text-[var(--erp-text-primary)]">
+      <section className="rounded-md border border-border bg-[var(--erp-surface-card)] p-4">
+        <h2 className="text-sm font-semibold text-foreground">
           Quick Reference
         </h2>
 

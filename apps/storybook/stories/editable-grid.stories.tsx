@@ -4,6 +4,8 @@ import {
   applyCellChange,
   createEmptyRow,
   markRowDeleted,
+  GridTable,
+  GridHeaderCell,
   type GridColumnDefinition,
   type GridRow,
 } from "@erp-ui-platform/editable-grid";
@@ -39,229 +41,6 @@ const NUMERIC_COLS = new Set(["quantity", "rate"]);
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
-const GridHeaderCell = ({
-  align = "left",
-  className,
-  children,
-}: {
-  align?: "left" | "right";
-  className?: string;
-  children?: ReactNode;
-}) => (
-  <th
-    className={cn(
-      "h-(--erp-grid-header-height) px-(--erp-grid-cell-padding-x) text-(length:--erp-font-size-xs) leading-(--erp-line-height-dense) font-semibold uppercase tracking-(--erp-tracking-caps) text-(--erp-grid-header-text) border-r border-(--erp-grid-header-border) last:border-r-0",
-      align === "right" ? "text-right" : "text-left",
-      className,
-    )}
-  >
-    {children}
-  </th>
-);
-
-const GridDataCell = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children?: ReactNode;
-}) => (
-  <td className={cn("align-middle px-(--erp-grid-cell-padding-x) py-(--erp-grid-cell-padding-y) border-r border-(--erp-grid-row-border) last:border-r-0", className)}>
-    {children}
-  </td>
-);
-
-const RowStateMarker = ({ row }: { row: GridRow<Line> }) => {
-  if (row.isPhantom) {
-    return <Badge variant="muted">phantom</Badge>;
-  }
-  if (row.state === "deleted") {
-    return <Badge variant="danger">deleted</Badge>;
-  }
-  if (row.state === "dirty") {
-    return <Badge variant="warning">dirty</Badge>;
-  }
-  return <Badge variant="success">clean</Badge>;
-};
-
-const CellMarkers = ({ row }: { row: GridRow<Line> }) => {
-  const cells = Object.values(row.cells);
-  // Error is listed first so it visually outranks secondary state markers
-  const markers = [
-    cells.some((c) => c.validationMessages.length > 0) && "error",
-    cells.some((c) => c.isManualOverride) && "manual",
-    cells.some((c) => c.isStale) && "stale",
-  ].filter(Boolean) as string[];
-
-  if (!markers.length) return null;
-  return (
-    <div className="flex flex-wrap gap-0.5">
-      {markers.map((m) => (
-        <Badge
-          key={m}
-          variant={m === "error" ? "danger" : m === "stale" ? "warning" : "info"}
-        >
-          {m}
-        </Badge>
-      ))}
-    </div>
-  );
-};
-
-// Cell text shown when a cell is not editable or the row is phantom/deleted
-const CellText = ({
-  value,
-  numeric = false,
-  phantom = false,
-  deleted = false,
-}: {
-  value: string;
-  numeric?: boolean;
-  phantom?: boolean;
-  deleted?: boolean;
-}) => (
-  <span
-    className={[
-      "flex items-center h-(--erp-grid-cell-height) w-full px-(--erp-grid-cell-padding-x) text-(length:--erp-font-size-xs) leading-(--erp-line-height-dense)",
-      numeric ? "text-right tabular-nums" : "",
-      phantom ? "italic text-(--erp-text-disabled)" : "text-(--erp-text-secondary)",
-      deleted ? "line-through text-(--erp-text-disabled)" : "",
-    ]
-      .filter(Boolean)
-      .join(" ")}
-  >
-    {phantom ? "—" : value}
-  </span>
-);
-
-const GridTable = ({ rows, forceHoverId }: { rows: GridRow<Line>[]; forceHoverId?: string }) => {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-
-  return (
-  <div className="max-w-full overflow-x-auto">
-    <div className="w-fit overflow-hidden rounded-(--erp-radius-card) border border-(--erp-grid-row-border)">
-      <table className="border-collapse text-(length:--erp-font-size-xs)">
-        <thead>
-          <tr className="border-b border-(--erp-grid-header-border) bg-(--erp-grid-header-bg)">
-            {/* State */}
-            <GridHeaderCell className="w-18">State</GridHeaderCell>
-            {/* Data columns */}
-            {columns.map((c) => (
-              <GridHeaderCell
-                key={c.id}
-                align={NUMERIC_COLS.has(c.id) ? "right" : "left"}
-                className={cn(
-                  c.id === "quantity" && "w-14",
-                  c.id === "rate" && "w-16",
-                  c.id === "item" && "w-28",
-                )}
-              >
-                {c.header}
-              </GridHeaderCell>
-            ))}
-            {/* Markers */}
-            <GridHeaderCell className="w-18">Markers</GridHeaderCell>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, idx) => {
-            const isDeleted = row.state === "deleted";
-            const isDirty = row.state === "dirty";
-            const isPhantom = row.isPhantom;
-            const isHovered = row.id === forceHoverId || row.id === hoveredId;
-            const isAltRow = idx % 2 === 1;
-            const hasRowErrors = Object.values(row.cells).some(
-              (c) => c.validationMessages.length > 0,
-            );
-
-            const rowBg = isDeleted
-              ? "bg-(--erp-grid-row-deleted-bg)"
-              : isDirty
-                ? "bg-(--erp-grid-row-dirty-bg)"
-                : isPhantom
-                  ? "bg-(--erp-grid-row-readonly-bg)"
-                  : isHovered
-                    ? "bg-(--erp-grid-row-hover-bg)"
-                    : isAltRow
-                      ? "bg-(--erp-grid-row-alt-bg)"
-                      : "bg-(--erp-grid-row-bg)";
-
-            return (
-              <tr
-                key={row.id}
-                onMouseEnter={() => setHoveredId(row.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                className={[
-                  "group border-b border-(--erp-grid-row-border) last:border-b-0",
-                  rowBg,
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-              >
-                {/* State badge cell — left accent stripe when row has errors */}
-                <GridDataCell
-                  className={cn(
-                    isDirty && hasRowErrors
-                      ? "border-l-2 border-(--erp-grid-row-error-accent)"
-                      : "group-hover:shadow-[inset_3px_0_0_var(--erp-grid-row-hover-accent)]",
-                  )}
-                >
-                  <RowStateMarker row={row} />
-                </GridDataCell>
-
-                {/* Data cells */}
-                {columns.map((col) => {
-                  const cell = row.cells[col.id];
-                  const val = row.data[col.field];
-                  const hasError = (cell?.validationMessages.length ?? 0) > 0;
-                  const numeric = NUMERIC_COLS.has(col.id);
-                  const isEditable = col.editable !== false && !isPhantom && !isDeleted;
-                  const hasManualOverride = Boolean(cell?.isManualOverride);
-                  const hasStale = Boolean(cell?.isStale);
-
-                  return (
-                    <td key={col.id} className="px-0 py-(--erp-grid-cell-padding-y) border-r border-(--erp-grid-row-border) last:border-r-0">
-                      {isEditable ? (
-                        <GridCellInput
-                          value={String(val ?? "")}
-                          aria-label={`${col.header} for row ${row.id}`}
-                          error={hasError}
-                          numeric={numeric}
-                          readOnly
-                          className={
-                            hasManualOverride
-                              ? "border-(--erp-grid-cell-manual-border) bg-(--erp-grid-cell-manual-bg)"
-                              : hasStale
-                                ? "bg-(--erp-grid-cell-stale-bg)"
-                                : undefined
-                          }
-                        />
-                      ) : (
-                        <CellText
-                          value={String(val ?? "")}
-                          numeric={numeric}
-                          phantom={isPhantom}
-                          deleted={isDeleted}
-                        />
-                      )}
-                    </td>
-                  );
-                })}
-
-                {/* Marker badge cell */}
-                <GridDataCell>
-                  <CellMarkers row={row} />
-                </GridDataCell>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  );
-};
-
 // ── stories ───────────────────────────────────────────────────────────────────
 
 export const EmptyGrid: Story = {
@@ -269,7 +48,7 @@ export const EmptyGrid: Story = {
     const phantom = createEmptyRow<Line>({ id: "new", columns });
     return (
       <div className="flex flex-col gap-3">
-        <GridTable rows={[phantom]} />
+        <GridTable rows={[phantom]} columns={columns} numericCols={NUMERIC_COLS} />
         <EmptyState
           title="No lines added"
           description="Add a line item to begin. Use the item lookup to auto-fill description and rate."
@@ -310,7 +89,7 @@ export const WithLines: Story = {
 
     const phantom = createEmptyRow<Line>({ id: "new-line", columns });
 
-    return <GridTable rows={[clean, dirty, phantom]} />;
+    return <GridTable rows={[clean, dirty, phantom]} columns={columns} numericCols={NUMERIC_COLS} />;
   },
 };
 
@@ -334,7 +113,7 @@ export const DirtyRow: Story = {
         <p className="text-xs text-(--erp-text-muted)">
           Qty changed from 12 → 15. Row transitions to dirty state.
         </p>
-        <GridTable rows={[dirty]} />
+        <GridTable rows={[dirty]} columns={columns} numericCols={NUMERIC_COLS} />
       </div>
     );
   },
@@ -356,7 +135,7 @@ export const DeletedRow: Story = {
           Deleted rows are retained until save to support undo. Visual strikethrough signals
           pending removal.
         </p>
-        <GridTable rows={[deleted]} />
+        <GridTable rows={[deleted]} columns={columns} numericCols={NUMERIC_COLS} />
       </div>
     );
   },
@@ -394,7 +173,7 @@ export const ValidationErrors: Story = {
           error-first badge order make error outrank dirty — three independent signals:
           color, structure, text.
         </p>
-        <GridTable rows={[withError]} />
+        <GridTable rows={[withError]} columns={columns} numericCols={NUMERIC_COLS} />
         <p className="text-xs text-(--erp-validation-error-text)">
           Line 1 · {errMsg.message}
         </p>
@@ -427,7 +206,7 @@ export const LookupAutofillResult: Story = {
           Selecting an item via lookup auto-fills description and rate. The item cell is dirty;
           autofill fields are read-only until manually overridden.
         </p>
-        <GridTable rows={[withAutofill]} />
+        <GridTable rows={[withAutofill]} columns={columns} numericCols={NUMERIC_COLS} />
       </div>
     );
   },
@@ -459,7 +238,7 @@ export const StaleCells: Story = {
           change. They are distinct from active editing (blue) and from dirty rows (amber).
           Stale badges confirm the marker without relying on color alone.
         </p>
-        <GridTable rows={[withStale]} />
+        <GridTable rows={[withStale]} columns={columns} numericCols={NUMERIC_COLS} />
       </div>
     );
   },
@@ -643,6 +422,7 @@ export const AllRowStates: Story = {
         </div>
         <GridTable
           rows={[row1, row2, row3, row4, row5, row6, row7, row8, row9, row10]}
+          columns={columns} numericCols={NUMERIC_COLS}
         />
         <p className="text-xs text-(--erp-validation-error-text)">
           Row 4 (BTN-112) · {errMsg.message}
@@ -685,7 +465,7 @@ export const HoverAffordance: Story = {
             The focused/editing cell overrides everything with the strongest blue.
           </p>
         </div>
-        <GridTable rows={[row1, row2, row3, row4]} forceHoverId="h2" />
+        <GridTable rows={[row1, row2, row3, row4]} columns={columns} numericCols={NUMERIC_COLS} forceHoverId="h2" />
       </div>
     );
   },
@@ -713,7 +493,7 @@ export const StaleManualOverride: Story = {
           A manual override (soft blue border) prevents future autofill from overwriting the
           user-set value. Click into the cell to see the stronger active-editing state.
         </p>
-        <GridTable rows={[change.nextRow]} />
+        <GridTable rows={[change.nextRow]} columns={columns} numericCols={NUMERIC_COLS} />
         <p className="text-xs text-(--erp-text-link)">
           Qty manually set to 14. Autofill will not overwrite this field.
         </p>

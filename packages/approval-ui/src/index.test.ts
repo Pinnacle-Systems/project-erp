@@ -73,7 +73,7 @@ describe("@erp-ui-platform/approval-ui", () => {
 
   it("does not let action wrappers block flex item sizing", () => {
     const element = ApprovalPanel(baseProps);
-    const actions = element.props.children.find(
+    const actions = (element as any).props.children.find(
       (child: { props?: Record<string, unknown> } | null) =>
         child?.props?.["data-slot"] === "approval-actions",
     );

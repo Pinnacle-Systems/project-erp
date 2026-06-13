@@ -18,7 +18,7 @@ export const DropdownMenuContent = forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 min-w-[180px] overflow-hidden rounded-md border border-[var(--erp-border-default)] bg-[var(--erp-surface-card)] shadow-md",
+        "z-50 min-w-[180px] overflow-hidden rounded-md border border-border bg-[var(--erp-surface-card)] shadow-md",
         "dark:bg-slate-900 dark:shadow-none dark:border-t dark:border-t-white/10 dark:border-l dark:border-l-white/10",
         "p-1 outline-none",
         className,
@@ -42,8 +42,8 @@ export const DropdownMenuItem = forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm",
-      "text-[var(--erp-text-secondary)] outline-none transition-colors",
-      "focus:bg-[var(--erp-surface-hover)] focus:text-[var(--erp-text-primary)]",
+      "text-muted-foreground outline-none transition-colors",
+      "focus:bg-[var(--erp-surface-hover)] focus:text-foreground",
       "data-disabled:pointer-events-none data-disabled:opacity-[var(--erp-disabled-opacity)]",
       destructive &&
         "text-[var(--erp-text-danger)] focus:bg-[var(--erp-validation-error-bg)] focus:text-[var(--erp-validation-error-text)]",
@@ -61,7 +61,7 @@ export const DropdownMenuLabel = forwardRef<
   <DropdownMenuPrimitive.Label
     ref={ref}
     className={cn(
-      "px-2 py-1 text-xs font-semibold text-[var(--erp-text-muted)] select-none",
+      "px-2 py-1 text-xs font-semibold text-muted-foreground select-none",
       className,
     )}
     {...props}

@@ -276,11 +276,11 @@ const ZIndexStackPreview = () => {
         <div className="mb-4 flex items-center justify-between gap-3">
           <div>
             <h3 className="text-sm font-semibold text-[var(--erp-fg)]">Exploded Layer Stack</h3>
-            <p className="text-xs text-[var(--erp-text-muted)]">
+            <p className="text-xs text-muted-foreground">
               Every card is pulled apart so the front-to-back order is visible.
             </p>
           </div>
-          <div className="rounded-full bg-[var(--erp-surface-inverse)] px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-inverse)]">
+          <div className="rounded-full bg-[var(--erp-surface-inverse)] px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-primary-foreground">
             Front
           </div>
         </div>
@@ -289,7 +289,7 @@ const ZIndexStackPreview = () => {
           <div className="absolute left-3 top-4 rounded bg-[var(--erp-surface-card)] px-1 text-[10px] font-semibold text-[var(--erp-fg)]">
             front
           </div>
-          <div className="absolute bottom-4 left-3 rounded bg-[var(--erp-surface-card)] px-1 text-[10px] font-semibold text-[var(--erp-text-muted)]">
+          <div className="absolute bottom-4 left-3 rounded bg-[var(--erp-surface-card)] px-1 text-[10px] font-semibold text-muted-foreground">
             back
           </div>
           {frontToBack.map(([layer, value], index) => {
@@ -314,7 +314,7 @@ const ZIndexStackPreview = () => {
                     {value}
                   </code>
                 </div>
-                <p className="mt-1 text-xs text-[var(--erp-text-muted)]">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {zIndexExamples[layer]}
                 </p>
               </div>
@@ -326,7 +326,7 @@ const ZIndexStackPreview = () => {
       <div className="grid gap-4">
         <div className="rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface)] p-4">
           <h3 className="text-sm font-semibold text-[var(--erp-fg)]">Collision Example</h3>
-          <p className="mt-1 text-xs text-[var(--erp-text-muted)]">
+          <p className="mt-1 text-xs text-muted-foreground">
             When surfaces overlap, the higher token wins.
           </p>
           <div className="relative mt-4 h-64 overflow-hidden rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface-muted)]">
@@ -337,7 +337,7 @@ const ZIndexStackPreview = () => {
               header · 200
             </div>
             <div
-              className="absolute left-5 top-20 h-32 w-48 rounded border border-[var(--erp-border)] bg-[var(--erp-surface-card)] p-3 text-xs text-[var(--erp-text-muted)]"
+              className="absolute left-5 top-20 h-32 w-48 rounded border border-[var(--erp-border)] bg-[var(--erp-surface-card)] p-3 text-xs text-muted-foreground"
               style={{ zIndex: zIndexTokens.base }}
             >
               base · 0
@@ -357,7 +357,7 @@ const ZIndexStackPreview = () => {
               style={{ zIndex: zIndexTokens.modal }}
             >
               <strong className="block text-sm text-[var(--erp-fg)]">modal · 700</strong>
-              <p className="mt-1 text-xs text-[var(--erp-text-muted)]">Above overlay and popover.</p>
+              <p className="mt-1 text-xs text-muted-foreground">Above overlay and popover.</p>
             </div>
             <div
               className="absolute right-5 top-20 rounded-md border border-[var(--erp-border)] bg-[var(--erp-surface-card)] px-3 py-2 text-xs font-medium text-[var(--erp-fg)] shadow-md"
@@ -366,7 +366,7 @@ const ZIndexStackPreview = () => {
               toast · 600
             </div>
             <div
-              className="absolute left-[calc(44%-4rem)] top-[calc(58%-3.25rem)] rounded bg-[var(--erp-surface-inverse)] px-2 py-1 text-[10px] font-semibold text-[var(--erp-text-inverse)]"
+              className="absolute left-[calc(44%-4rem)] top-[calc(58%-3.25rem)] rounded bg-[var(--erp-surface-inverse)] px-2 py-1 text-[10px] font-semibold text-primary-foreground"
               style={{ zIndex: zIndexTokens.tooltip }}
             >
               tooltip · 800
@@ -387,7 +387,7 @@ const ZIndexStackPreview = () => {
             >
               <strong className="text-[var(--erp-fg)]">z.{layer}</strong>
               <code className="text-[var(--erp-muted)]">{value}</code>
-              <span className="truncate text-[var(--erp-text-muted)]">{zIndexExamples[layer]}</span>
+              <span className="truncate text-muted-foreground">{zIndexExamples[layer]}</span>
             </div>
           ))}
           </div>
@@ -504,7 +504,7 @@ export const Overview: Story = {
         </div>
         <div className="mt-4">
           <SectionTitle>Z-Index Stacking Order</SectionTitle>
-          <p className="mt-1 text-xs text-[var(--erp-text-muted)]">
+          <p className="mt-1 text-xs text-muted-foreground">
             Higher layers render in front of lower layers. Use the named layer
             that matches the component role instead of inventing one-off values.
           </p>

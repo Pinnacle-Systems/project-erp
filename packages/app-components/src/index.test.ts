@@ -7,6 +7,10 @@ import {
   FilterBar,
   type BreadcrumbItem,
   type BreadcrumbsProps,
+  AuditTrail,
+  AttachmentList,
+  ApprovalActionBar,
+  TotalsPanel,
 } from "./index";
 
 describe("@erp-ui-platform/app-components FilterBar sizing", () => {
@@ -65,5 +69,33 @@ describe("@erp-ui-platform/app-components breadcrumbs", () => {
 
   it("renders nothing for an empty breadcrumb trail", () => {
     expect(Breadcrumbs({ items: [] })).toBeNull();
+  });
+});
+
+describe("@erp-ui-platform/app-components workflow components", () => {
+  it("AuditTrail renders empty state", () => {
+    const html = renderToStaticMarkup(createElement(AuditTrail, { items: [], emptyState: "No items" }));
+    expect(html).toContain("No items");
+  });
+
+  it("AuditTrail renders items", () => {
+    const html = renderToStaticMarkup(createElement(AuditTrail, { items: [{ id: "1", title: "Test Event" }] }));
+    expect(html).toContain("Test Event");
+  });
+
+  it("AttachmentList renders file names", () => {
+    const html = renderToStaticMarkup(createElement(AttachmentList, { items: [{ id: "1", name: "test-file.pdf" }] }));
+    expect(html).toContain("test-file.pdf");
+  });
+
+  it("ApprovalActionBar renders actions", () => {
+    const html = renderToStaticMarkup(createElement(ApprovalActionBar, { actions: [{ key: "app", label: "Approve" }] }));
+    expect(html).toContain("Approve");
+  });
+
+  it("TotalsPanel renders labels and values", () => {
+    const html = renderToStaticMarkup(createElement(TotalsPanel, { items: [{ label: "Tax", value: "100" }] }));
+    expect(html).toContain("Tax");
+    expect(html).toContain("100");
   });
 });

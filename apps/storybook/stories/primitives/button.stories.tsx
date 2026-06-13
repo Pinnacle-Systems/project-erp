@@ -56,7 +56,7 @@ export const Touch: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-col gap-6 rounded-[var(--erp-radius-card)] bg-[var(--erp-color-page-bg)] p-6">
+    <div className="flex flex-col gap-6 rounded-card bg-[var(--erp-color-page-bg)] p-6">
       <div>
         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
           Variants
@@ -109,12 +109,12 @@ export const AllVariants: Story = {
 
 export const ThemeProviderDensity: Story = {
   render: () => (
-    <div className="grid gap-4 rounded-[var(--erp-radius-card)] bg-[var(--erp-color-page-bg)] p-6 lg:grid-cols-3">
+    <div className="grid gap-4 rounded-card bg-[var(--erp-color-page-bg)] p-6 lg:grid-cols-3">
       {(["compact", "comfortable", "touch"] as const).map((density) => (
         <ThemeProvider
           key={density}
           density={density}
-          className="rounded-[var(--erp-radius-card)] border border-[var(--erp-color-border)] bg-[var(--erp-color-surface)] p-4 shadow-[var(--erp-shadow-card)]"
+          className="rounded-card border border-border bg-surface p-4 shadow-card"
         >
           <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
             Provider: {density}
@@ -124,7 +124,7 @@ export const ThemeProviderDensity: Story = {
             <Button variant="secondary">Inherits</Button>
             <Button variant="ghost">Inherits</Button>
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[var(--erp-color-border-muted)] pt-4">
+          <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border-subtle pt-4">
             <Button variant="default" density="compact">
               Compact override
             </Button>
