@@ -59,29 +59,29 @@ const MobileFrame = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className="flex justify-center py-6 bg-neutral-100 min-h-screen">
+  <div className="flex justify-center py-6 bg-background min-h-screen">
     <div
       className={[
-        "relative bg-white rounded-3xl overflow-hidden border border-neutral-300",
+        "relative bg-surface rounded-3xl overflow-hidden border border-border-strong",
         "shadow-xl flex flex-col",
         className,
       ].join(" ")}
       style={{ width: 390, minHeight: 780, maxHeight: 844 }}
     >
       {/* Status bar strip */}
-      <div className="bg-neutral-900 flex items-center justify-between px-6 py-2 shrink-0">
+      <div className="bg-foreground flex items-center justify-between px-6 py-2 shrink-0">
         <span className="text-white text-xs font-medium">9:41</span>
         <div className="flex items-center gap-1.5">
           <div className="w-4 h-2.5 rounded-sm border border-white/60 relative">
-            <div className="absolute inset-0.5 left-0.5 right-1 bg-white/70 rounded-sm" />
+            <div className="absolute inset-0.5 left-0.5 right-1 bg-surface/70 rounded-sm" />
           </div>
           <div className="flex gap-0.5 items-end">
             {[3, 4, 5, 6].map((h) => (
-              <div key={h} className="w-1 bg-white/80 rounded-sm" style={{ height: h }} />
+              <div key={h} className="w-1 bg-surface/80 rounded-sm" style={{ height: h }} />
             ))}
           </div>
           <div className="w-3.5 h-3.5 rounded-full border border-white/60 flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-white/70" />
+            <div className="w-2 h-2 rounded-full bg-surface/70" />
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@ const MobileFrame = ({
       </div>
 
       {/* Home indicator */}
-      <div className="bg-white flex justify-center py-2 shrink-0">
+      <div className="bg-surface flex justify-center py-2 shrink-0">
         <div className="w-24 h-1 bg-neutral-300 rounded-full" />
       </div>
     </div>
@@ -112,14 +112,14 @@ const MobileNavBar = ({
   back?: boolean;
   right?: React.ReactNode;
 }) => (
-  <div className="bg-white border-b border-neutral-100 px-4 pt-3 pb-3 flex items-center gap-3 shrink-0">
+  <div className="bg-surface border-b border-border-subtle px-4 pt-3 pb-3 flex items-center gap-3 shrink-0">
     {back && (
       <button className="text-blue-600 text-sm mr-1">‹ Back</button>
     )}
     <div className="flex-1 min-w-0">
-      <p className="text-base font-semibold text-neutral-900 leading-tight truncate">{title}</p>
+      <p className="text-base font-semibold text-foreground leading-tight truncate">{title}</p>
       {subtitle && (
-        <p className="text-xs text-neutral-500 leading-tight">{subtitle}</p>
+        <p className="text-xs text-muted-foreground leading-tight">{subtitle}</p>
       )}
     </div>
     {right}
@@ -129,7 +129,7 @@ const MobileNavBar = ({
 // ── Fixed bottom action bar ───────────────────────────────────────────────────
 
 const BottomBar = ({ children }: { children: React.ReactNode }) => (
-  <div className="border-t border-neutral-200 bg-white px-4 pt-3 pb-4 flex gap-2 shrink-0">
+  <div className="border-t border-border bg-surface px-4 pt-3 pb-4 flex gap-2 shrink-0">
     {children}
   </div>
 );
@@ -193,12 +193,12 @@ export const MobileDocumentViewWithoutWorkspaceTabs: Story = {
       }
     >
       <div className="space-y-3 p-4">
-        <div className="flex items-center justify-between rounded-xl border border-neutral-200 bg-white px-3 py-3">
+        <div className="flex items-center justify-between rounded-xl border border-border bg-surface px-3 py-3">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-neutral-500">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
               Sales Return
             </p>
-            <p className="text-sm font-semibold text-neutral-950">SR-108</p>
+            <p className="text-sm font-semibold text-foreground">SR-108</p>
           </div>
           <Button variant="ghost" density="compact">
             Add note
@@ -242,10 +242,10 @@ export const MobileTaskHome: Story = {
   render: () => (
     <MobileFrame>
       {/* App nav */}
-      <div className="bg-white px-4 pt-4 pb-3 flex items-center justify-between shrink-0">
+      <div className="bg-surface px-4 pt-4 pb-3 flex items-center justify-between shrink-0">
         <div>
-          <p className="text-xs text-neutral-400">Good morning,</p>
-          <p className="text-lg font-bold text-neutral-900">F. Chen</p>
+          <p className="text-xs text-muted-foreground">Good morning,</p>
+          <p className="text-lg font-bold text-foreground">F. Chen</p>
         </div>
         <div className="relative">
           <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center">
@@ -259,7 +259,7 @@ export const MobileTaskHome: Story = {
 
       {/* Section header */}
       <div className="px-4 pb-2 flex items-center justify-between shrink-0">
-        <p className="text-sm font-semibold text-neutral-700">Pending your action</p>
+        <p className="text-sm font-semibold text-foreground">Pending your action</p>
         <Badge variant="warning">3</Badge>
       </div>
 
@@ -268,32 +268,32 @@ export const MobileTaskHome: Story = {
         {PENDING_TASKS.map((task) => (
           <div
             key={task.id}
-            className="bg-white rounded-xl border border-neutral-200 shadow-xs overflow-hidden"
+            className="bg-surface rounded-xl border border-border shadow-xs overflow-hidden"
           >
             <div className="px-4 pt-3.5 pb-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide">
+                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide">
                     {task.type}
                   </p>
-                  <p className="text-sm font-semibold text-neutral-900 leading-snug">
+                  <p className="text-sm font-semibold text-foreground leading-snug">
                     {task.number}
                   </p>
-                  <p className="text-xs text-neutral-500 mt-0.5">
+                  <p className="text-xs text-muted-foreground mt-0.5">
                     {task.requester} · {task.age}
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
                   <StatusBadge label="Pending" tone="warning" />
-                  <p className="text-sm font-semibold text-neutral-800">{task.amount}</p>
+                  <p className="text-sm font-semibold text-foreground">{task.amount}</p>
                 </div>
               </div>
             </div>
-            <div className="flex border-t border-neutral-100">
-              <button className="flex-1 py-2.5 text-sm font-medium text-neutral-500 hover:bg-neutral-50 border-r border-neutral-100 active:bg-neutral-100">
+            <div className="flex border-t border-border-subtle">
+              <button className="flex-1 py-2.5 text-sm font-medium text-muted-foreground hover:bg-surface-muted border-r border-border-subtle active:bg-background">
                 View
               </button>
-              <button className="flex-1 py-2.5 text-sm font-medium text-red-500 hover:bg-red-50 border-r border-neutral-100 active:bg-red-100">
+              <button className="flex-1 py-2.5 text-sm font-medium text-red-500 hover:bg-red-50 border-r border-border-subtle active:bg-red-100">
                 Reject
               </button>
               <button className="flex-1 py-2.5 text-sm font-medium text-green-600 hover:bg-green-50 active:bg-green-100">
@@ -306,7 +306,7 @@ export const MobileTaskHome: Story = {
         <EmptyState
           title="That's everything"
           description="No more items waiting for your action."
-          className="py-6 border-dashed border border-neutral-200 rounded-xl mt-2"
+          className="py-6 border-dashed border border-border rounded-xl mt-2"
         />
       </div>
     </MobileFrame>
@@ -334,11 +334,11 @@ export const MobileDocumentSummary: Story = {
             { label: "Warehouse", value: "Main Warehouse" },
             { label: "Route", value: "Truck-17" },
           ].map((f) => (
-            <div key={f.label} className="bg-neutral-50 rounded-xl px-3 py-2.5">
-              <p className="text-[10px] text-neutral-400 font-medium uppercase tracking-wide">
+            <div key={f.label} className="bg-surface-muted rounded-xl px-3 py-2.5">
+              <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">
                 {f.label}
               </p>
-              <p className="text-sm text-neutral-800 font-medium mt-0.5">{f.value}</p>
+              <p className="text-sm text-foreground font-medium mt-0.5">{f.value}</p>
             </div>
           ))}
         </div>
@@ -368,7 +368,7 @@ export const MobileDocumentSummary: Story = {
         {/* Line cards — read-only on mobile */}
         <div className="px-4 pt-2 pb-1">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-sm font-semibold text-neutral-700">Lines</p>
+            <p className="text-sm font-semibold text-foreground">Lines</p>
             <Badge variant="muted">Read-only</Badge>
           </div>
           <div className="flex flex-col gap-2">
@@ -378,19 +378,19 @@ export const MobileDocumentSummary: Story = {
                 className={[
                   "rounded-xl border px-3 py-3 flex items-center justify-between",
                   line.ok
-                    ? "border-neutral-200 bg-white"
+                    ? "border-border bg-surface"
                     : "border-amber-200 bg-amber-50",
                 ].join(" ")}
               >
                 <div>
-                  <p className="text-xs font-mono font-semibold text-neutral-800">
+                  <p className="text-xs font-mono font-semibold text-foreground">
                     {line.item}
                   </p>
-                  <p className="text-xs text-neutral-500">{line.desc}</p>
+                  <p className="text-xs text-muted-foreground">{line.desc}</p>
                 </div>
                 <div className="text-right flex flex-col items-end gap-1">
-                  <p className="text-xs text-neutral-500">
-                    <span className="font-medium text-neutral-800">{line.pick}</span>
+                  <p className="text-xs text-muted-foreground">
+                    <span className="font-medium text-foreground">{line.pick}</span>
                     {" / "}
                     {line.ord} picked
                   </p>
@@ -404,16 +404,16 @@ export const MobileDocumentSummary: Story = {
         </div>
 
         {/* Desktop nudge */}
-        <div className="mx-4 mt-3 mb-1 rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-3 flex items-start gap-2.5">
-          <div className="w-6 h-6 rounded bg-neutral-200 flex items-center justify-center shrink-0 mt-0.5">
-            <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 text-neutral-500" fill="currentColor">
+        <div className="mx-4 mt-3 mb-1 rounded-xl border border-border bg-surface-muted px-3 py-3 flex items-start gap-2.5">
+          <div className="w-6 h-6 rounded bg-surface-muted flex items-center justify-center shrink-0 mt-0.5">
+            <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 text-muted-foreground" fill="currentColor">
               <rect x="1" y="2" width="14" height="9" rx="1.5" />
               <path d="M5 13h6M8 11v2" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
             </svg>
           </div>
           <div>
-            <p className="text-xs font-semibold text-neutral-700">Line editing on desktop</p>
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs font-semibold text-foreground">Line editing on desktop</p>
+            <p className="text-xs text-muted-foreground">
               Edit quantities, add or remove lines from your desktop browser.
             </p>
           </div>
@@ -487,17 +487,17 @@ export const MobileApprovalFlow: Story = {
             shell="mobile"
             renderAction={renderAction}
             summary={
-              <div className="flex flex-col gap-1 text-sm text-neutral-700">
+              <div className="flex flex-col gap-1 text-sm text-foreground">
                 <div className="flex justify-between">
-                  <span className="text-neutral-400">Requester</span>
+                  <span className="text-muted-foreground">Requester</span>
                   <span>A. Sharma</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-neutral-400">Department</span>
+                  <span className="text-muted-foreground">Department</span>
                   <span>Procurement</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-neutral-400">Amount</span>
+                  <span className="text-muted-foreground">Amount</span>
                   <span className="font-semibold">₹1,24,500.00</span>
                 </div>
               </div>
@@ -598,7 +598,7 @@ export const MobileBottomActionBar: Story = {
             />
 
             <div className="flex-1 px-4 py-4 flex flex-col gap-3">
-              <div className="bg-neutral-50 rounded-xl p-4 text-center text-xs text-neutral-400 border border-dashed border-neutral-200">
+              <div className="bg-surface-muted rounded-xl p-4 text-center text-xs text-muted-foreground border border-dashed border-border">
                 Document summary
               </div>
             </div>
@@ -619,22 +619,22 @@ export const MobileBottomActionBar: Story = {
           </MobileFrame>
 
           {/* Capability audit table — shown outside the frame for clarity */}
-          <div className="bg-white rounded-xl border border-neutral-200 overflow-hidden text-xs">
-            <div className="px-3 py-2 bg-neutral-50 border-b border-neutral-200 font-semibold text-neutral-600 uppercase tracking-wide text-[10px]">
+          <div className="bg-surface rounded-xl border border-border overflow-hidden text-xs">
+            <div className="px-3 py-2 bg-surface-muted border-b border-border font-semibold text-muted-foreground uppercase tracking-wide text-[10px]">
               Mobile capability resolution
             </div>
             <table className="w-full">
               <thead>
-                <tr className="border-b border-neutral-100">
-                  <th className="text-left px-3 py-2 text-neutral-400 font-medium">Action</th>
-                  <th className="text-left px-3 py-2 text-neutral-400 font-medium">Mobile result</th>
-                  <th className="text-left px-3 py-2 text-neutral-400 font-medium">Reason</th>
+                <tr className="border-b border-border-subtle">
+                  <th className="text-left px-3 py-2 text-muted-foreground font-medium">Action</th>
+                  <th className="text-left px-3 py-2 text-muted-foreground font-medium">Mobile result</th>
+                  <th className="text-left px-3 py-2 text-muted-foreground font-medium">Reason</th>
                 </tr>
               </thead>
               <tbody>
                 {resolved.map((a) => (
                   <tr key={a.id} className="border-b border-neutral-50 last:border-0">
-                    <td className="px-3 py-2 text-neutral-700">{a.label}</td>
+                    <td className="px-3 py-2 text-foreground">{a.label}</td>
                     <td className="px-3 py-2">
                       {a.hidden ? (
                         <Badge variant="muted">hidden</Badge>
@@ -644,7 +644,7 @@ export const MobileBottomActionBar: Story = {
                         <Badge variant="success">shown</Badge>
                       )}
                     </td>
-                    <td className="px-3 py-2 text-neutral-400">
+                    <td className="px-3 py-2 text-muted-foreground">
                       {a.reason?.message ?? "—"}
                     </td>
                   </tr>
@@ -692,7 +692,7 @@ export const ScannerCapturePlaceholder: Story = {
         <div className="flex-1 flex flex-col">
           {/* Viewfinder */}
           <div
-            className="relative bg-neutral-900 flex items-center justify-center shrink-0"
+            className="relative bg-foreground flex items-center justify-center shrink-0"
             style={{ height: 340 }}
           >
             {mode === "ready" && (
@@ -742,13 +742,13 @@ export const ScannerCapturePlaceholder: Story = {
             )}
 
             {mode === "error" && (
-              <div className="absolute inset-0 bg-neutral-800/80 flex items-center justify-center px-6">
+              <div className="absolute inset-0 bg-foreground/80 flex items-center justify-center px-6">
                 <ErrorState
                   title="Camera unavailable"
                   description="Allow camera access in Settings to scan documents."
                   onRetry={() => setMode("ready")}
                   retryLabel="Try again"
-                  className="bg-white rounded-xl py-4 px-4 w-full"
+                  className="bg-surface rounded-xl py-4 px-4 w-full"
                 />
               </div>
             )}
@@ -757,19 +757,19 @@ export const ScannerCapturePlaceholder: Story = {
           {/* Document reference form */}
           <div className="px-4 pt-4 flex flex-col gap-3 flex-1">
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-neutral-600">Reference to document</label>
+              <label className="text-xs font-medium text-muted-foreground">Reference to document</label>
               <div className="flex gap-2">
-                <div className="flex-1 rounded-lg border border-neutral-200 px-3 py-2.5 text-sm text-neutral-800 bg-neutral-50">
+                <div className="flex-1 rounded-lg border border-border px-3 py-2.5 text-sm text-foreground bg-surface-muted">
                   SD-8821
                 </div>
-                <button className="px-3 py-2.5 rounded-lg border border-neutral-200 text-xs text-neutral-500 bg-white">
+                <button className="px-3 py-2.5 rounded-lg border border-border text-xs text-muted-foreground bg-surface">
                   Change
                 </button>
               </div>
             </div>
 
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-neutral-600">Capture type</label>
+              <label className="text-xs font-medium text-muted-foreground">Capture type</label>
               <div className="grid grid-cols-3 gap-2">
                 {["Delivery note", "Invoice", "Barcode"].map((opt) => (
                   <button
@@ -778,7 +778,7 @@ export const ScannerCapturePlaceholder: Story = {
                       "rounded-lg border py-2 text-xs font-medium text-center transition-colors",
                       opt === "Delivery note"
                         ? "border-blue-400 bg-blue-50 text-blue-700"
-                        : "border-neutral-200 text-neutral-600",
+                        : "border-border text-muted-foreground",
                     ].join(" ")}
                   >
                     {opt}
@@ -907,16 +907,16 @@ export const MobileValidationSheet: Story = {
                       ? "border-red-200 bg-red-50"
                       : f.warn
                         ? "border-amber-200 bg-amber-50"
-                        : "border-neutral-200 bg-neutral-50",
+                        : "border-border bg-surface-muted",
                   ].join(" ")}
                 >
-                  <p className="text-[10px] text-neutral-400 font-medium uppercase tracking-wide">
+                  <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">
                     {f.label}
                   </p>
                   <p
                     className={[
                       "text-sm font-medium mt-0.5",
-                      f.error ? "text-red-600 italic" : "text-neutral-800",
+                      f.error ? "text-red-600 italic" : "text-foreground",
                     ].join(" ")}
                   >
                     {f.value}
@@ -969,7 +969,7 @@ export const MobileValidationSheet: Story = {
               style={{ position: "fixed", margin: 0 }}
             >
               <div className="w-10 h-1 bg-neutral-300 rounded-full mx-auto mt-3 mb-1" />
-              <DialogHeader className="px-4 pt-1 pb-3 border-b border-neutral-100">
+              <DialogHeader className="px-4 pt-1 pb-3 border-b border-border-subtle">
                 <DialogTitle className="text-base">
                   Issues · SI-1002
                 </DialogTitle>
@@ -996,13 +996,13 @@ export const MobileValidationSheet: Story = {
                           <Badge variant={cfg.badgeVariant} className="capitalize">
                             {cfg.label}
                           </Badge>
-                          <span className="text-[10px] text-neutral-400 uppercase tracking-wide">
+                          <span className="text-[10px] text-muted-foreground uppercase tracking-wide">
                             {m.scope}
                           </span>
                         </div>
-                        <p className="text-sm text-neutral-800">{m.message}</p>
+                        <p className="text-sm text-foreground">{m.message}</p>
                         {m.fieldPath && (
-                          <p className="text-[10px] font-mono text-neutral-400 mt-0.5">
+                          <p className="text-[10px] font-mono text-muted-foreground mt-0.5">
                             {m.fieldPath}
                           </p>
                         )}
@@ -1012,7 +1012,7 @@ export const MobileValidationSheet: Story = {
                 })}
               </div>
 
-              <div className="px-4 pb-6 pt-2 border-t border-neutral-100 flex gap-2">
+              <div className="px-4 pb-6 pt-2 border-t border-border-subtle flex gap-2">
                 <Button
                   variant="secondary"
                   density="touch"
@@ -1055,7 +1055,7 @@ export const MobileCompanionShellPattern: Story = {
     const [scanState, setScanState] = useState<"ready" | "scanning" | "captured" | "error">("ready");
 
     return (
-      <div className="grid gap-6 bg-neutral-100 p-6 lg:grid-cols-3">
+      <div className="grid gap-6 bg-background p-6 lg:grid-cols-3">
         <MobileTaskShell
           title="Sales Delivery"
           subtitle="SD-8821 · companion summary"
@@ -1122,13 +1122,13 @@ export const MobileCompanionShellPattern: Story = {
               { id: "reject", decision: "reject", label: "Reject", requiresComment: true },
             ]}
             summary={
-              <div className="grid gap-1 text-sm text-neutral-700">
+              <div className="grid gap-1 text-sm text-foreground">
                 <div className="flex justify-between">
-                  <span className="text-neutral-400">Requester</span>
+                  <span className="text-muted-foreground">Requester</span>
                   <span>A. Sharma</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-neutral-400">Department</span>
+                  <span className="text-muted-foreground">Department</span>
                   <span>Procurement</span>
                 </div>
               </div>

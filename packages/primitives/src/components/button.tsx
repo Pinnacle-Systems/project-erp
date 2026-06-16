@@ -18,7 +18,7 @@ const buttonVariants = cva(
         default:
           "border border-[var(--erp-color-primary)] bg-primary text-primary-foreground shadow-control hover:border-[var(--erp-color-primary-hover)] hover:bg-primary-hover hover:shadow-[var(--erp-shadow-button-hover)] active:bg-[var(--erp-accent-active)] active:border-[var(--erp-accent-active)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px",
         secondary:
-          "border shadow-[var(--erp-shadow-xs)] hover:shadow-[var(--erp-shadow-button-hover)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px bg-white border-slate-200 text-slate-900 hover:bg-slate-50 dark:bg-transparent dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800",
+          "border shadow-[var(--erp-shadow-xs)] hover:shadow-[var(--erp-shadow-button-hover)] active:shadow-[var(--erp-shadow-xs)] active:translate-y-px bg-surface border-border text-foreground hover:bg-surface-muted",
         ghost:
           "text-muted-foreground hover:bg-surface-muted hover:text-foreground active:bg-[var(--erp-color-primary-soft)] active:translate-y-px",
         destructive:

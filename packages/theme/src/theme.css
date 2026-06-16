@@ -657,11 +657,63 @@
   color: var(--erp-validation-info-icon);
 }
 
-@layer base {
-  .dark {
-    --erp-text-danger: var(--color-rose-400);
-    --erp-text-success: var(--color-emerald-400);
-    --erp-text-info: var(--color-sky-400);
-    --erp-text-warning: var(--color-amber-400);
-  }
+.dark,
+.dark [data-theme="default"],
+.dark [data-theme="clientA"],
+.dark [data-theme="clientB"] {
+  color-scheme: dark;
+  
+  --erp-color-background: #020617;
+  --erp-color-app-bg: #020617;
+  --erp-color-page-bg: #020617;
+  --erp-color-foreground: #f8fafc;
+  --erp-color-foreground-muted: #cbd5e1;
+  --erp-color-foreground-subtle: #94a3b8;
+  --erp-color-foreground-inverse: #020617;
+
+  --erp-color-surface: #0f172a;
+  --erp-color-surface-muted: #1e293b;
+  --erp-color-surface-raised: #1e293b;
+  --erp-color-surface-accent: #1e293b;
+  --erp-surface-hover: #1e293b;
+
+
+  --erp-color-border: #334155;
+  --erp-color-border-muted: #1e293b;
+  --erp-color-border-strong: #475569;
+
+  --erp-color-secondary: #1e293b;
+  --erp-color-secondary-foreground: #f8fafc;
+
+  --erp-color-muted: #1e293b;
+  --erp-color-muted-foreground: #cbd5e1;
+
+  --erp-text-primary: #f8fafc;
+  --erp-text-secondary: #f1f5f9;
+  --erp-text-muted: #cbd5e1;
+  --erp-text-subtle: #94a3b8;
+  --erp-text-disabled: #94a3b8;
+  --erp-text-inverse: #020617;
+
+  --erp-grid-header-bg: #1e293b;
+  --erp-grid-header-text: #cbd5e1;
+  --erp-grid-header-border: #334155;
+  --erp-grid-row-bg: #0f172a;
+  --erp-grid-row-alt-bg: #020617;
+  --erp-grid-cell-bg: #0f172a;
+  --erp-grid-row-border: #334155;
+  --erp-grid-row-hover-bg: #1e293b;
+
+  --erp-grid-row-deleted-bg: rgb(153 27 27 / 0.2);
+  --erp-grid-row-warning-bg: rgb(146 64 14 / 0.2);
+  --erp-grid-row-dirty-bg: rgb(146 64 14 / 0.2);
+  --erp-grid-row-new-bg: rgb(22 101 52 / 0.2);
+  --erp-grid-row-selected-bg: rgb(30 58 138 / 0.3);
+
+  --erp-text-danger: var(--color-rose-400);
+  --erp-text-success: var(--color-emerald-400);
+  --erp-text-info: var(--color-sky-400);
+  --erp-text-warning: var(--color-amber-400);
+  
+  --erp-color-danger: var(--color-rose-900);
 }

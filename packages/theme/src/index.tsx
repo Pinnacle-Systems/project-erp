@@ -950,10 +950,15 @@ export const ThemeProvider = ({
   const resolvedColorMode = colorMode ?? parentTheme.colorMode;
   const themeTokens = getTheme(themeName);
   const densityToken = getDensity(densityName);
-  const themeStyle = useMemo(
-    () => ({ ...createThemeStyle(themeTokens, densityName, resolvedColorMode), ...style }),
-    [themeTokens, densityName, resolvedColorMode, style],
-  );
+  const themeStyle = useMemo(() => {
+    const isCustomTheme = typeof theme === "object" && theme !== null;
+    if (isCustomTheme) {
+      return { ...createThemeStyle(themeTokens, densityName, resolvedColorMode), ...style };
+    }
+    // For predefined themes, rely on CSS variables defined in theme.css (data-theme and data-density)
+    // This allows CSS rules like .dark to successfully override the variables.
+    return { ...style };
+  }, [themeTokens, densityName, resolvedColorMode, style, theme]);
 
   const value = useMemo<ThemeContextValue>(
     () => ({

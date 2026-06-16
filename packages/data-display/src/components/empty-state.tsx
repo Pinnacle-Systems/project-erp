@@ -15,7 +15,7 @@ const emptyStateVariants = cva(
         default: "text-muted-foreground",
         search: "text-muted-foreground",
         error: "text-danger",
-        permission: "text-amber-600 dark:text-amber-500",
+        permission: "text-warning",
       },
     },
     defaultVariants: {

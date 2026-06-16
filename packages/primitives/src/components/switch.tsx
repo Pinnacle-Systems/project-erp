@@ -21,7 +21,7 @@ const switchVariants = cva(
 );
 
 const thumbVariants = cva(
-  "pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform data-[state=unchecked]:translate-x-0",
+  "pointer-events-none block rounded-full bg-surface-raised shadow-lg ring-0 transition-transform data-[state=unchecked]:translate-x-0",
   {
     variants: {
       density: {
