@@ -155,7 +155,7 @@ export const DenseTransactionPage: Story = {
                 lines={
                   <table className="w-full text-xs mt-1">
                     <thead>
-                      <tr className="border-b border-neutral-200">
+                      <tr className="border-b border-border">
                         {[
                           "Item",
                           "Description",
@@ -166,7 +166,7 @@ export const DenseTransactionPage: Story = {
                         ].map((h) => (
                           <th
                             key={h}
-                            className="text-left py-1.5 px-2 text-neutral-500 font-medium"
+                            className="text-left py-1.5 px-2 text-muted-foreground font-medium"
                           >
                             {h}
                           </th>
@@ -182,15 +182,15 @@ export const DenseTransactionPage: Story = {
                         <tr
                           key={row.item}
                           className={[
-                            "border-b border-neutral-100",
-                            !row.ok ? "bg-amber-50" : "",
+                            "border-b border-border-subtle",
+                            !row.ok ? "bg-[var(--erp-grid-row-warning-bg)]" : "",
                           ].join(" ")}
                         >
-                          <td className="py-1.5 px-2 font-mono text-neutral-800">{row.item}</td>
-                          <td className="py-1.5 px-2 text-neutral-700">{row.desc}</td>
-                          <td className="py-1.5 px-2 text-right text-neutral-800">{row.ord}</td>
-                          <td className="py-1.5 px-2 text-right text-neutral-800">{row.pick}</td>
-                          <td className="py-1.5 px-2 text-right text-neutral-800">{row.del}</td>
+                          <td className="py-1.5 px-2 font-mono text-foreground">{row.item}</td>
+                          <td className="py-1.5 px-2 text-muted-foreground">{row.desc}</td>
+                          <td className="py-1.5 px-2 text-right text-foreground">{row.ord}</td>
+                          <td className="py-1.5 px-2 text-right text-foreground">{row.pick}</td>
+                          <td className="py-1.5 px-2 text-right text-foreground">{row.del}</td>
                           <td className="py-1.5 px-2">
                             <Badge variant={row.ok ? "success" : "warning"}>
                               {row.ok ? "Ready" : "Variance"}
@@ -202,9 +202,9 @@ export const DenseTransactionPage: Story = {
                   </table>
                 }
                 totals={
-                  <div className="flex justify-between items-center text-xs text-neutral-600 pt-1">
+                  <div className="flex justify-between items-center text-xs text-muted-foreground pt-1">
                     <span>3 lines · 38 units total</span>
-                    <div className="flex items-center gap-2 text-neutral-400">
+                    <div className="flex items-center gap-2 text-muted-foreground opacity-70">
                       <span>2 ready · 1 variance</span>
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export const DenseTransactionPage: Story = {
                       <ActionButton key={a.id} action={a} />
                     ))}
                     {secondary.length > 0 && (
-                      <div className="w-px h-4 bg-neutral-200" />
+                      <div className="w-px h-4 bg-border" />
                     )}
                     {secondary.map((a) => (
                       <ActionButton key={a.id} action={a} />
@@ -268,8 +268,8 @@ export const DesktopWorkspacePattern: Story = {
           </>
         }
         rightRail={
-          <div className="p-4 text-xs text-neutral-600">
-            <p className="font-semibold text-neutral-800">Review notes</p>
+          <div className="p-4 text-xs text-muted-foreground">
+            <p className="font-semibold text-foreground">Review notes</p>
             <p className="mt-2">Line 2 has a picked quantity variance. Resolve before posting.</p>
           </div>
         }
@@ -294,9 +294,9 @@ export const DesktopWorkspacePattern: Story = {
           </FormGrid>
           <table className="w-full text-xs">
             <thead>
-              <tr className="border-y border-neutral-200 bg-neutral-50">
+              <tr className="border-y border-border bg-surface-muted">
                 {["Item", "Description", "Ordered", "Picked", "Delivered", "Status"].map((h) => (
-                  <th key={h} className="px-3 py-2 text-left font-medium text-neutral-500">{h}</th>
+                  <th key={h} className="px-3 py-2 text-left font-medium text-muted-foreground">{h}</th>
                 ))}
               </tr>
             </thead>
@@ -306,9 +306,9 @@ export const DesktopWorkspacePattern: Story = {
                 { item: "ACC-220", desc: "Accessory pack", ord: 8, pick: 6, del: 6, ok: false },
                 { item: "BOX-010", desc: "Shipping box", ord: 20, pick: 20, del: 20, ok: true },
               ].map((row) => (
-                <tr key={row.item} className={row.ok ? "border-b border-neutral-100" : "border-b border-neutral-100 bg-amber-50"}>
-                  <td className="px-3 py-2 font-mono text-neutral-800">{row.item}</td>
-                  <td className="px-3 py-2 text-neutral-700">{row.desc}</td>
+                <tr key={row.item} className={row.ok ? "border-b border-border-subtle" : "border-b border-border-subtle bg-[var(--erp-grid-row-warning-bg)]"}>
+                  <td className="px-3 py-2 font-mono text-foreground">{row.item}</td>
+                  <td className="px-3 py-2 text-muted-foreground">{row.desc}</td>
                   <td className="px-3 py-2 text-right">{row.ord}</td>
                   <td className="px-3 py-2 text-right">{row.pick}</td>
                   <td className="px-3 py-2 text-right">{row.del}</td>
@@ -325,19 +325,19 @@ export const DesktopWorkspacePattern: Story = {
   ),
 };
 
-export const DesktopSplitPaneReviewPattern: Story = {
-  render: () => (
-    <div className="bg-neutral-50 min-h-screen p-4">
-      <DesktopSplitPaneReview
-        list={
-          <div className="divide-y divide-neutral-100">
-            {["PO-2024-0841", "SI-1002", "SD-8821"].map((doc, index) => (
-              <button key={doc} className="block w-full px-3 py-3 text-left hover:bg-neutral-50">
-                <p className="text-sm font-medium text-neutral-900">{doc}</p>
-                <p className="text-xs text-neutral-500">{index === 0 ? "Pending approval" : "Needs review"}</p>
-              </button>
-            ))}
-          </div>
+  export const DesktopSplitPaneReviewPattern: Story = {
+    render: () => (
+      <div className="bg-background min-h-screen p-4">
+        <DesktopSplitPaneReview
+          list={
+            <div className="divide-y divide-border-subtle">
+              {["PO-2024-0841", "SI-1002", "SD-8821"].map((doc, index) => (
+                <button key={doc} className="block w-full px-3 py-3 text-left hover:bg-surface-muted">
+                  <p className="text-sm font-medium text-foreground">{doc}</p>
+                  <p className="text-xs text-muted-foreground">{index === 0 ? "Pending approval" : "Needs review"}</p>
+                </button>
+              ))}
+            </div>
         }
         detail={
           <div className="p-4">
@@ -355,8 +355,8 @@ export const DesktopSplitPaneReviewPattern: Story = {
           </div>
         }
         review={
-          <div className="p-4 text-xs text-neutral-600">
-            <p className="font-semibold text-neutral-800">Approval context</p>
+          <div className="p-4 text-xs text-muted-foreground">
+            <p className="font-semibold text-foreground">Approval context</p>
             <p className="mt-2">Budget confirmed for Q2. Finance review is waiting on final approval.</p>
           </div>
         }

@@ -7,9 +7,9 @@ const validationMessageVariants = cva("text-sm", {
     tone: {
       default: "text-muted-foreground",
       error: "text-danger",
-      warning: "text-amber-600 dark:text-amber-500",
-      success: "text-green-600 dark:text-green-500",
-      info: "text-blue-600 dark:text-blue-500",
+      warning: "text-warning",
+      success: "text-success",
+      info: "text-info",
     },
   },
   defaultVariants: {

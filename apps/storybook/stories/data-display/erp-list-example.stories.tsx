@@ -68,7 +68,7 @@ const StatefulList = () => {
   );
 
   return (
-    <div className="bg-neutral-50 min-h-screen p-4 sm:p-6">
+    <div className="bg-background min-h-screen p-4 sm:p-6">
       <Card padding="none" className="max-w-6xl mx-auto overflow-hidden">
         <FilterBar
           searchValue={search}

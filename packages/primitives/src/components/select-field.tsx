@@ -120,8 +120,7 @@ export const SelectContent = forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 overflow-hidden rounded-card border border-border bg-surface-raised shadow-popover",
-        "dark:bg-slate-900 dark:shadow-none dark:border-t dark:border-t-white/10 dark:border-l dark:border-l-white/10",
+        "z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-md bg-surface shadow-popover border border-border",
         position === "popper" &&
           "w-[--radix-select-trigger-width] max-h-[--radix-select-content-available-height]",
         className,

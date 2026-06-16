@@ -23,13 +23,13 @@ export const Basic: Story = {
   render: () => {
     const [search, setSearch] = useState("");
     return (
-      <div className="bg-neutral-50 min-h-40 rounded">
+      <div className="bg-surface-muted min-h-40 rounded">
         <FilterBar
           searchValue={search}
           onSearchChange={setSearch}
           searchPlaceholder="Search records..."
         />
-        <p className="text-xs text-neutral-500 px-4 pt-3">
+        <p className="text-xs text-muted-foreground px-4 pt-3">
           Search value: "{search}"
         </p>
       </div>
@@ -46,7 +46,7 @@ export const WithStatusAndDate: Story = {
     const hasFilters = Boolean(search || status || from || to);
 
     return (
-      <div className="bg-neutral-50 min-h-40 rounded">
+      <div className="bg-surface-muted min-h-40 rounded">
         <FilterBar
           searchValue={search}
           onSearchChange={setSearch}
@@ -71,7 +71,7 @@ export const WithStatusAndDate: Story = {
             </Button>
           }
         />
-        <p className="text-xs text-neutral-500 px-4 pt-3">
+        <p className="text-xs text-muted-foreground px-4 pt-3">
           Active filters: {hasFilters ? "yes" : "none"}
         </p>
       </div>

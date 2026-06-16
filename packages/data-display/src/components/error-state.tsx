@@ -13,7 +13,7 @@ export const ErrorState = forwardRef<HTMLDivElement, ErrorStateProps>(
       <div
         ref={ref}
         role="alert"
-        className={cn("flex flex-col items-center justify-center p-8 gap-4 text-center rounded-[var(--erp-radius-lg)] border border-[var(--erp-color-danger)] bg-red-50 dark:bg-red-950/20", className)}
+        className={cn("flex flex-col items-center justify-center p-8 gap-4 text-center rounded-[var(--erp-radius-lg)] border border-[var(--erp-color-danger)] bg-[var(--erp-danger-soft)]", className)}
         {...props}
       >
         <div className="flex flex-col gap-1.5 items-center">

@@ -7,10 +7,8 @@ import {
   isRowEditable,
   markRowDeleted,
   markRowDirty,
-  useGridFocusState,
   type GridColumnDefinition,
 } from "./index";
-import { renderHook, act } from "@testing-library/react";
 
 type LineData = {
   itemId?: string;
@@ -98,48 +96,37 @@ describe("@erp-ui-platform/editable-grid", () => {
   });
 });
 
-describe("useGridFocusState", () => {
-  it("defaults to null active cell and navigate mode", () => {
-    const { result } = renderHook(() => useGridFocusState());
+import { gridFocusReducer, initialGridFocusState } from "./hooks/use-grid-focus-state";
 
-    expect(result.current.activeCell).toBeNull();
-    expect(result.current.mode).toBe("navigate");
+describe("gridFocusReducer", () => {
+  it("defaults to null active cell and navigate mode", () => {
+    expect(initialGridFocusState.activeCell).toBeNull();
+    expect(initialGridFocusState.mode).toBe("navigate");
   });
 
   it("setting active cell stores rowId and columnId", () => {
-    const { result } = renderHook(() => useGridFocusState());
-
-    act(() => {
-      result.current.setActiveCell("row-1", "col-1");
+    const nextState = gridFocusReducer(initialGridFocusState, {
+      type: "SET_ACTIVE_CELL",
+      payload: { rowId: "row-1", columnId: "col-1" },
     });
 
-    expect(result.current.activeCell).toEqual({ rowId: "row-1", columnId: "col-1" });
+    expect(nextState.activeCell).toEqual({ rowId: "row-1", columnId: "col-1" });
   });
 
   it("switching mode preserves active cell", () => {
-    const { result } = renderHook(() =>
-      useGridFocusState({ activeCell: { rowId: "row-1", columnId: "col-1" } }),
-    );
+    const state = { ...initialGridFocusState, activeCell: { rowId: "row-1", columnId: "col-1" } };
+    const nextState = gridFocusReducer(state, { type: "SET_MODE", payload: "edit" });
 
-    act(() => {
-      result.current.setMode("edit");
-    });
-
-    expect(result.current.activeCell).toEqual({ rowId: "row-1", columnId: "col-1" });
-    expect(result.current.mode).toBe("edit");
+    expect(nextState.activeCell).toEqual({ rowId: "row-1", columnId: "col-1" });
+    expect(nextState.mode).toBe("edit");
   });
 
   it("clearing active cell resets to navigate mode", () => {
-    const { result } = renderHook(() =>
-      useGridFocusState({ activeCell: { rowId: "row-1", columnId: "col-1" }, mode: "edit" }),
-    );
+    const state = { activeCell: { rowId: "row-1", columnId: "col-1" }, mode: "edit" as const };
+    const nextState = gridFocusReducer(state, { type: "CLEAR_ACTIVE_CELL" });
 
-    act(() => {
-      result.current.clearActiveCell();
-    });
-
-    expect(result.current.activeCell).toBeNull();
-    expect(result.current.mode).toBe("navigate");
+    expect(nextState.activeCell).toBeNull();
+    expect(nextState.mode).toBe("navigate");
   });
 });
 

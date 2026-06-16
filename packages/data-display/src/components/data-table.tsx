@@ -129,8 +129,8 @@ const DataTableInner = <T extends Record<string, unknown>>(
                 className={cn(
                   "transition-colors",
                   isClickable && "cursor-pointer hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-[length:var(--erp-focus-ring-width)] focus-visible:ring-[var(--erp-focus-ring)] focus-visible:ring-inset",
-                  variant === "striped" && "even:bg-neutral-50 dark:even:bg-neutral-900/50",
-                  isSelected && "bg-neutral-100 dark:bg-neutral-800"
+                  variant === "striped" && "even:bg-surface-muted",
+                  isSelected && "bg-surface-raised"
                 )}
               >
                 {columns.map((col) => (

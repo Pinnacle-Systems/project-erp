@@ -44,20 +44,20 @@ export const MobileTaskShell = ({
   <section
     data-component="MobileTaskShell"
     className={cn(
-      "mx-auto flex min-h-[44rem] w-full max-w-[27rem] flex-col overflow-hidden rounded-3xl border border-border bg-[var(--erp-surface-card)] shadow-xl",
+      "mx-auto flex min-h-[44rem] w-full max-w-[27rem] flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-xl",
       className,
     )}
   >
-    <div className="flex items-center justify-between bg-[var(--erp-surface-inverse)] px-6 py-2 text-xs font-medium text-primary-foreground">
+    <div className="flex items-center justify-between bg-surface-inverse px-6 py-2 text-xs font-medium text-foreground-inverse">
       <span>9:41</span>
       <span className="tracking-wide">LTE 100%</span>
     </div>
-    <header className="flex h-[var(--erp-shell-mobile-header-height)] shrink-0 items-center gap-3 border-b border-border-subtle bg-[var(--erp-surface-panel)] px-4 py-3">
+    <header className="flex h-[var(--erp-shell-mobile-header-height)] shrink-0 items-center gap-3 border-b border-border-subtle bg-surface px-4 py-3">
       {backLabel && (
         <button
           type="button"
           onClick={onBack}
-          className="shrink-0 text-sm font-medium text-[var(--erp-text-link)]"
+          className="shrink-0 text-sm font-medium text-primary"
         >
           {backLabel}
         </button>
@@ -70,11 +70,11 @@ export const MobileTaskShell = ({
       </div>
       {status && <div className="shrink-0">{status}</div>}
     </header>
-    <div className={cn("min-h-0 flex-1 overflow-y-auto bg-[var(--erp-surface-page)]", contentClassName)}>
+    <div className={cn("min-h-0 flex-1 overflow-y-auto bg-background", contentClassName)}>
       {children}
     </div>
     {bottomBar}
-    <div className="flex shrink-0 justify-center bg-[var(--erp-surface-card)] py-2">
+    <div className="flex shrink-0 justify-center bg-surface py-2">
       <div className="h-1 w-24 rounded-full bg-[var(--erp-border-strong)]" />
     </div>
   </section>
@@ -122,23 +122,23 @@ export const MobileDocumentSummary = ({
           className={cn(
             "rounded-xl border px-3 py-2.5",
             field.tone === "warning" &&
-              "border-[var(--erp-validation-warning-border)] bg-[var(--erp-validation-warning-bg)]",
+              "border-amber-500/20 bg-amber-500/10",
             field.tone === "danger" &&
-              "border-[var(--erp-validation-error-border)] bg-[var(--erp-validation-error-bg)]",
+              "border-red-500/20 bg-red-500/10",
             field.tone === "info" &&
-              "border-[var(--erp-validation-info-border)] bg-[var(--erp-validation-info-bg)]",
+              "border-blue-500/20 bg-blue-500/10",
             (!field.tone || field.tone === "default") &&
-              "border-border-subtle bg-[var(--erp-surface-page)]",
+              "border-border-subtle bg-background",
           )}
         >
-          <p className="text-[10px] font-medium uppercase tracking-wide text-[var(--erp-text-subtle)]">
+          <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
             {field.label}
           </p>
           <div className="mt-0.5 text-sm font-medium text-foreground">{field.value}</div>
         </div>
       ))}
     </div>
-    {totals && <div className="rounded-xl border border-[var(--erp-border-selected)] bg-[var(--erp-surface-selected)] p-3">{totals}</div>}
+    {totals && <div className="rounded-xl border border-blue-500/20 bg-blue-500/10 p-3">{totals}</div>}
     {lines.length > 0 && (
       <section>
         <div className="mb-2 flex items-center justify-between">
@@ -150,13 +150,13 @@ export const MobileDocumentSummary = ({
             <div
               key={line.id}
               className={cn(
-                "flex items-center justify-between gap-3 rounded-xl border bg-[var(--erp-surface-card)] px-3 py-3",
+                "flex items-center justify-between gap-3 rounded-xl border bg-surface px-3 py-3",
                 line.tone === "warning" &&
-                  "border-[var(--erp-validation-warning-border)] bg-[var(--erp-validation-warning-bg)]",
+                  "border-amber-500/20 bg-amber-500/10",
                 line.tone === "danger" &&
-                  "border-[var(--erp-validation-error-border)] bg-[var(--erp-validation-error-bg)]",
+                  "border-red-500/20 bg-red-500/10",
                 line.tone === "success" &&
-                  "border-[var(--erp-border-success)] bg-[var(--erp-state-new)]",
+                  "border-emerald-500/20 bg-emerald-500/10",
                 (!line.tone || line.tone === "default") && "border-border",
               )}
             >
@@ -176,7 +176,7 @@ export const MobileDocumentSummary = ({
       </section>
     )}
     {desktopEditMessage && (
-      <div className="rounded-xl border border-border bg-[var(--erp-surface-card)] px-3 py-3 text-xs text-muted-foreground">
+      <div className="rounded-xl border border-border bg-surface px-3 py-3 text-xs text-muted-foreground">
         {desktopEditMessage}
       </div>
     )}
@@ -198,7 +198,7 @@ export const MobileBottomActionBar = ({
 }: MobileBottomActionBarProps) => (
   <footer
     data-component="MobileBottomActionBar"
-    className={cn("shrink-0 border-t border-border bg-[var(--erp-surface-panel)] px-4 py-3", className)}
+    className={cn("shrink-0 border-t border-border bg-surface px-4 py-3", className)}
   >
     {helperText && <div className="mb-2 text-xs text-muted-foreground">{helperText}</div>}
     <div className="flex gap-2">
@@ -246,7 +246,7 @@ export const MobileApprovalFlow = ({
   onDecision,
   className,
 }: MobileApprovalFlowProps) => (
-  <div data-component="MobileApprovalFlow" className={cn("bg-[var(--erp-surface-card)]", className)}>
+  <div data-component="MobileApprovalFlow" className={cn("bg-surface", className)}>
     <div className="border-b border-border-subtle px-4 py-3">
       <StatusBadge label={statusLabel ?? status} tone={statusTone} />
     </div>
@@ -306,33 +306,33 @@ export const ScannerCapturePlaceholder = ({
   className,
 }: ScannerCapturePlaceholderProps) => (
   <div data-component="ScannerCapturePlaceholder" className={cn("flex h-full flex-col", className)}>
-    <div className="relative flex h-80 shrink-0 items-center justify-center bg-[var(--erp-surface-inverse)] text-primary-foreground">
+    <div className="relative flex h-80 shrink-0 items-center justify-center bg-surface-inverse text-foreground-inverse">
       {state === "ready" && (
         <>
           <FrameCorner className="left-10 top-8 rounded-tl border-l-2 border-t-2" />
           <FrameCorner className="right-10 top-8 rounded-tr border-r-2 border-t-2" />
           <FrameCorner className="bottom-8 left-10 rounded-bl border-b-2 border-l-2" />
           <FrameCorner className="bottom-8 right-10 rounded-br border-b-2 border-r-2" />
-          <p className="px-10 text-center text-xs text-[color-mix(in_srgb,var(--erp-text-inverse)_65%,transparent)]">{description}</p>
+          <p className="px-10 text-center text-xs text-foreground-inverse/65">{description}</p>
         </>
       )}
       {state === "scanning" && (
         <div className="flex flex-col items-center gap-3 text-sm font-medium">
-          <span className="h-8 w-8 motion-safe:animate-spin rounded-full border-2 border-[color-mix(in_srgb,var(--erp-text-inverse)_30%,transparent)] border-t-[var(--erp-text-inverse)]" />
+          <span className="h-8 w-8 motion-safe:animate-spin rounded-full border-2 border-foreground-inverse/30 border-t-foreground-inverse" />
           Scanning
           <div className="absolute left-12 right-12 top-1/2 h-0.5 bg-primary shadow-[0_0_12px_var(--erp-color-primary-soft)]" />
         </div>
       )}
       {state === "captured" && (
         <div className="flex flex-col items-center gap-2">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--erp-status-success-fg)] text-2xl">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-2xl">
             ✓
           </div>
           <p className="text-sm font-medium">{capturedLabel}</p>
         </div>
       )}
       {state === "error" && (
-        <div className="mx-6 rounded-xl bg-[var(--erp-surface-card)] p-4 text-center text-muted-foreground">
+        <div className="mx-6 rounded-xl bg-surface p-4 text-center text-muted-foreground">
           <p className="text-sm font-semibold">Camera unavailable</p>
           <p className="mt-1 text-xs text-muted-foreground">
             Camera access can be connected by the host app later.
@@ -340,12 +340,12 @@ export const ScannerCapturePlaceholder = ({
         </div>
       )}
     </div>
-    <div className="flex-1 space-y-3 bg-[var(--erp-surface-page)] p-4">
+    <div className="flex-1 space-y-3 bg-background p-4">
       <div>
         <p className="text-sm font-semibold text-foreground">{title}</p>
         {reference && <p className="text-xs text-muted-foreground">Reference: {reference}</p>}
       </div>
-      <div className="rounded-xl border border-border bg-[var(--erp-surface-card)] p-3 text-xs text-muted-foreground">
+      <div className="rounded-xl border border-border bg-surface p-3 text-xs text-muted-foreground">
         Companion capture only. Document authoring and dense line edits stay in the
         desktop workspace.
       </div>
@@ -371,7 +371,7 @@ export const ScannerCapturePlaceholder = ({
 ScannerCapturePlaceholder.displayName = "ScannerCapturePlaceholder";
 
 const FrameCorner = ({ className }: { className: string }) => (
-  <div className={cn("absolute h-8 w-8 border-[var(--erp-text-inverse)]", className)} />
+  <div className={cn("absolute h-8 w-8 border-foreground-inverse", className)} />
 );
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -408,7 +408,7 @@ export const MobileApprovalSummaryCard = ({
   >
     <div className="mb-3 flex items-center justify-between gap-2">
       <StatusBadge label={statusLabel} tone={statusTone} />
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--erp-text-subtle)]">
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
         {docType}
       </p>
     </div>
@@ -439,12 +439,12 @@ export interface MobileApprovalTimelineProps {
 
 const timelineDotClass = (status: ApprovalStatus): string => {
   if (status === "approved")
-    return "h-2.5 w-2.5 rounded-full bg-[var(--erp-status-success-fg)] ring-2 ring-[var(--erp-status-success-bg)]";
+    return "h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-emerald-500/20";
   if (status === "pending")
-    return "h-3 w-3 rounded-full bg-[var(--erp-status-info-fg)] ring-2 ring-[var(--erp-status-info-bg)]";
+    return "h-3 w-3 rounded-full bg-blue-500 ring-2 ring-blue-500/20";
   if (status === "rejected")
-    return "h-2.5 w-2.5 rounded-full bg-[var(--erp-status-danger-fg)]";
-  return "h-2.5 w-2.5 rounded-full border-2 border-[var(--erp-border-strong)] bg-[var(--erp-surface-card)]";
+    return "h-2.5 w-2.5 rounded-full bg-red-500";
+  return "h-2.5 w-2.5 rounded-full border-2 border-border-strong bg-surface";
 };
 
 const timelineLabelClass = (status: ApprovalStatus): string =>
@@ -456,13 +456,13 @@ const timelineStateLabel = (
   status: ApprovalStatus,
 ): { text: string; className: string } => {
   if (status === "approved")
-    return { text: "Completed", className: "text-[var(--erp-status-success-fg)]" };
+    return { text: "Completed", className: "text-emerald-500" };
   if (status === "pending")
-    return { text: "In review", className: "text-[var(--erp-status-info-fg)]" };
+    return { text: "In review", className: "text-blue-500" };
   if (status === "rejected")
-    return { text: "Rejected", className: "text-[var(--erp-status-danger-fg)]" };
+    return { text: "Rejected", className: "text-red-500" };
   if (status === "changes_requested")
-    return { text: "Changes requested", className: "text-[var(--erp-status-warning-fg)]" };
+    return { text: "Changes requested", className: "text-amber-500" };
   if (status === "cancelled")
     return { text: "Cancelled", className: "text-muted-foreground" };
   return { text: "Not started", className: "text-muted-foreground" };
@@ -475,7 +475,7 @@ export const MobileApprovalTimeline = ({
   <div
     data-component="MobileApprovalTimeline"
     className={cn(
-      "rounded-card border border-border-subtle bg-[var(--erp-surface-card)] px-4 py-3 shadow-[var(--erp-shadow-xs)]",
+      "rounded-card border border-border-subtle bg-surface px-4 py-3 shadow-[var(--erp-shadow-xs)]",
       className,
     )}
   >
@@ -537,7 +537,7 @@ export const MobileApprovalCommentList = ({
       {comments.map((comment) => (
         <div
           key={comment.id}
-          className="rounded-card border border-border-subtle bg-[var(--erp-surface-card)] px-3 py-3"
+          className="rounded-card border border-border-subtle bg-surface px-3 py-3"
         >
           <p className="mb-0.5 text-xs font-semibold text-foreground">
             {comment.actor.displayName}

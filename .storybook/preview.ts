@@ -69,7 +69,7 @@ const preview: Preview = {
           theme: context.globals.clientTheme as ThemeName,
           density: context.globals.density as Density,
           colorMode: context.globals.colorMode as ColorMode,
-          className: "erp-storybook-shell bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50",
+          className: "erp-storybook-shell bg-background text-foreground",
         },
         createElement(Story),
       );

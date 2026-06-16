@@ -98,10 +98,10 @@ export const DesktopActionBar: Story = {
 
     return (
       <TooltipProvider>
-        <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden">
-          <div className="px-4 py-2.5 bg-neutral-50 border-b border-neutral-200 flex items-center justify-between">
+        <div className="bg-surface rounded-lg border border-border overflow-hidden">
+          <div className="px-4 py-2.5 bg-surface-muted border-b border-border flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-neutral-800">
+              <span className="text-sm font-semibold text-foreground">
                 Sales Invoice SI-1001
               </span>
               <StatusBadge label="Submitted" tone="info" />
@@ -110,7 +110,7 @@ export const DesktopActionBar: Story = {
               {overflow.map((a) => (
                 <ActionButton key={a.id} action={a} />
               ))}
-              <div className="w-px h-4 bg-neutral-200" />
+              <div className="w-px h-4 bg-border" />
               {secondary.map((a) => (
                 <ActionButton key={a.id} action={a} />
               ))}
@@ -119,7 +119,7 @@ export const DesktopActionBar: Story = {
               ))}
             </div>
           </div>
-          <div className="px-4 py-10 text-center text-xs text-neutral-600">
+          <div className="px-4 py-10 text-center text-xs text-muted-foreground">
             Document body area
           </div>
         </div>
@@ -163,19 +163,19 @@ export const MobileBottomBar: Story = {
 
     return (
       <div
-        className="max-w-sm mx-auto bg-neutral-50 rounded-xl overflow-hidden border border-neutral-200 relative"
+        className="max-w-sm mx-auto bg-surface-muted rounded-xl overflow-hidden border border-border relative"
         style={{ minHeight: 360 }}
       >
-        <div className="px-4 py-3 border-b border-neutral-200 bg-white flex items-center gap-2">
-          <span className="text-sm font-semibold text-neutral-800">
+        <div className="px-4 py-3 border-b border-border bg-surface flex items-center gap-2">
+          <span className="text-sm font-semibold text-foreground">
             Purchase Order PO-0841
           </span>
           <StatusBadge label="Pending" tone="warning" />
         </div>
-        <div className="px-4 py-4 text-xs text-neutral-600">
+        <div className="px-4 py-4 text-xs text-muted-foreground">
           Document summary
         </div>
-        <div className="absolute bottom-0 left-0 right-0 flex gap-2 p-3 bg-white border-t border-neutral-200">
+        <div className="absolute bottom-0 left-0 right-0 flex gap-2 p-3 bg-surface border-t border-border">
           {resolved.map((a) => (
             <Button
               key={a.id}
@@ -201,7 +201,7 @@ export const DisabledWithReason: Story = {
       <TooltipProvider>
         <div className="flex flex-col gap-4">
           <div>
-            <p className="text-xs font-semibold text-neutral-600 uppercase tracking-wide mb-2">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
               Hover over disabled buttons to see reason
             </p>
             <div className="flex flex-wrap gap-2">
@@ -211,27 +211,27 @@ export const DisabledWithReason: Story = {
             </div>
           </div>
           <div>
-            <p className="text-xs font-semibold text-neutral-600 uppercase tracking-wide mb-2">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
               Resolved states
             </p>
-            <table className="w-full text-xs border border-neutral-200 rounded-md overflow-hidden">
+            <table className="w-full text-xs border border-border rounded-md overflow-hidden">
               <thead>
-                <tr className="bg-neutral-50 border-b border-neutral-200">
-                  <th className="text-left px-3 py-2 font-medium text-neutral-500">Action</th>
-                  <th className="text-left px-3 py-2 font-medium text-neutral-500">State</th>
-                  <th className="text-left px-3 py-2 font-medium text-neutral-500">Reason</th>
+                <tr className="bg-surface-muted border-b border-border">
+                  <th className="text-left px-3 py-2 font-medium text-muted-foreground">Action</th>
+                  <th className="text-left px-3 py-2 font-medium text-muted-foreground">State</th>
+                  <th className="text-left px-3 py-2 font-medium text-muted-foreground">Reason</th>
                 </tr>
               </thead>
               <tbody>
                 {resolved.map((a) => (
-                  <tr key={a.id} className="border-b border-neutral-50">
-                    <td className="px-3 py-2 text-neutral-700">{a.label}</td>
+                  <tr key={a.id} className="border-b border-border-subtle">
+                    <td className="px-3 py-2 text-foreground">{a.label}</td>
                     <td className="px-3 py-2">
                       <Badge variant={a.disabled ? "danger" : "success"}>
                         {a.disabled ? "disabled" : "allowed"}
                       </Badge>
                     </td>
-                    <td className="px-3 py-2 text-neutral-600">
+                    <td className="px-3 py-2 text-muted-foreground">
                       {a.reason?.message ?? "—"}
                     </td>
                   </tr>
@@ -254,7 +254,7 @@ export const HighRiskConfirmation: Story = {
     return (
       <TooltipProvider>
         <div className="flex flex-col gap-3">
-          <p className="text-xs text-neutral-600">
+          <p className="text-xs text-muted-foreground">
             High-risk actions (riskLevel: &quot;high&quot;,{" "}
             requiresConfirmation: true) show a confirmation dialog before
             executing.
@@ -310,7 +310,7 @@ export const PostBlockedByCapability: Story = {
     return (
       <TooltipProvider>
         <div className="flex flex-col gap-3">
-          <p className="text-xs text-neutral-600">
+          <p className="text-xs text-muted-foreground">
             The Post action is blocked by the capability system — validation
             must be resolved first.
           </p>
@@ -358,31 +358,31 @@ export const CapabilityStates: Story = {
 
     return (
       <div className="max-w-xl">
-        <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden">
-          <div className="px-4 py-2.5 border-b border-neutral-200 bg-neutral-50">
-            <span className="text-xs font-semibold text-neutral-600 uppercase tracking-wide">
+        <div className="bg-surface rounded-lg border border-border overflow-hidden">
+          <div className="px-4 py-2.5 border-b border-border bg-surface-muted">
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
               Capability decisions
             </span>
           </div>
           <table className="w-full text-xs">
             <thead>
-              <tr className="border-b border-neutral-100">
-                <th className="text-left px-4 py-2 text-neutral-500 font-medium">Action</th>
-                <th className="text-left px-4 py-2 text-neutral-500 font-medium">Decision</th>
-                <th className="text-left px-4 py-2 text-neutral-500 font-medium">Reason</th>
+              <tr className="border-b border-border-subtle">
+                <th className="text-left px-4 py-2 text-muted-foreground font-medium">Action</th>
+                <th className="text-left px-4 py-2 text-muted-foreground font-medium">Decision</th>
+                <th className="text-left px-4 py-2 text-muted-foreground font-medium">Reason</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={row.action} className="border-b border-neutral-50">
-                  <td className="px-4 py-2.5 text-neutral-700">{row.action}</td>
+                <tr key={row.action} className="border-b border-border-subtle">
+                  <td className="px-4 py-2.5 text-foreground">{row.action}</td>
                   <td className="px-4 py-2.5">
                     <StatusBadge
                       label={row.decision}
                       tone={toneMap[row.decision]}
                     />
                   </td>
-                  <td className="px-4 py-2.5 text-neutral-600">
+                  <td className="px-4 py-2.5 text-muted-foreground">
                     {row.reason ?? "—"}
                   </td>
                 </tr>

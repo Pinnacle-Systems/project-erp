@@ -102,10 +102,10 @@ const ApprovalCard = ({
       shell={shell}
       renderAction={renderAction}
       summary={
-        <div className="text-xs text-neutral-600">
+        <div className="text-xs text-muted-foreground">
           <span className="font-medium">{docNumber}</span>
           {" · "}
-          <span className="text-neutral-500">₹1,24,500.00</span>
+          <span className="text-muted-foreground">₹1,24,500.00</span>
         </div>
       }
       attachments={attachments}

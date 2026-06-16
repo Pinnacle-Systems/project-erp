@@ -83,11 +83,11 @@ const HeaderForm = ({ readOnly = false }: { readOnly?: boolean }) => (
 const LinesTable = ({ highlightLine }: { highlightLine?: number } = {}) => (
   <table className="w-full text-xs mt-1">
     <thead>
-      <tr className="border-b border-neutral-200">
+      <tr className="border-b border-border">
         {["#", "Item", "Description", "Qty", "Rate", "Amount"].map((h) => (
           <th
             key={h}
-            className="text-left py-1.5 px-2 text-neutral-500 font-medium first:pl-0"
+            className="text-left py-1.5 px-2 text-muted-foreground font-medium first:pl-0"
           >
             {h}
           </th>
@@ -99,16 +99,16 @@ const LinesTable = ({ highlightLine }: { highlightLine?: number } = {}) => (
         <tr
           key={row.n}
           className={[
-            "border-b border-neutral-100",
-            highlightLine === row.n ? "bg-amber-50" : "",
+            "border-b border-border-subtle",
+            highlightLine === row.n ? "bg-[var(--erp-grid-row-warning-bg)]" : "",
           ].join(" ")}
         >
-          <td className="py-1.5 px-2 pl-0 text-neutral-400">{row.n}</td>
-          <td className="py-1.5 px-2 font-mono text-neutral-800">{row.item}</td>
-          <td className="py-1.5 px-2 text-neutral-700">{row.desc}</td>
-          <td className="py-1.5 px-2 text-right text-neutral-800">{row.qty}</td>
-          <td className="py-1.5 px-2 text-right text-neutral-800">{row.rate}</td>
-          <td className="py-1.5 px-2 text-right font-medium text-neutral-900">{row.amt}</td>
+          <td className="py-1.5 px-2 pl-0 text-muted-foreground">{row.n}</td>
+          <td className="py-1.5 px-2 font-mono text-foreground">{row.item}</td>
+          <td className="py-1.5 px-2 text-muted-foreground">{row.desc}</td>
+          <td className="py-1.5 px-2 text-right text-foreground">{row.qty}</td>
+          <td className="py-1.5 px-2 text-right text-foreground">{row.rate}</td>
+          <td className="py-1.5 px-2 text-right font-medium text-foreground">{row.amt}</td>
         </tr>
       ))}
     </tbody>
