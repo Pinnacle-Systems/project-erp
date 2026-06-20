@@ -9,6 +9,65 @@ import {
 import { StatusBadge, type StatusBadgeTone } from "@erp-ui-platform/app-components";
 import { Badge, Button, cn } from "@erp-ui-platform/primitives";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Tone helpers
+//
+// Status accents (success / info / danger / warning) are sourced from the
+// existing --erp-text-* tokens rather than raw Tailwind palette utilities.
+// Those tokens are redefined under `.dark` in theme.css, so anything built
+// from them adapts to dark mode automatically — no `dark:` variants needed.
+//
+// Every class below is a complete literal string. Tailwind's static scanner
+// only generates CSS for arbitrary-value classes it can find verbatim in
+// source — a template-built class (e.g. `` `bg-[var(${token})]` ``) never
+// appears as literal text, so it silently produces no CSS. These lookup
+// tables exist specifically so each class stays scannable.
+// ─────────────────────────────────────────────────────────────────────────────
+
+type StatusTone = "success" | "info" | "danger" | "warning";
+
+const TONE_TEXT_CLASS = {
+  success: "text-[var(--erp-text-success)]",
+  info: "text-[var(--erp-text-info)]",
+  danger: "text-[var(--erp-text-danger)]",
+  warning: "text-[var(--erp-text-warning)]",
+} as const satisfies Record<StatusTone, string>;
+
+const TONE_BG_CLASS = {
+  success: "bg-[var(--erp-text-success)]",
+  info: "bg-[var(--erp-text-info)]",
+  danger: "bg-[var(--erp-text-danger)]",
+  warning: "bg-[var(--erp-text-warning)]",
+} as const satisfies Record<StatusTone, string>;
+
+const TONE_SURFACE_CLASS = {
+  success:
+    "border-[color-mix(in_srgb,var(--erp-text-success)_20%,transparent)] bg-[color-mix(in_srgb,var(--erp-text-success)_10%,transparent)]",
+  info:
+    "border-[color-mix(in_srgb,var(--erp-text-info)_20%,transparent)] bg-[color-mix(in_srgb,var(--erp-text-info)_10%,transparent)]",
+  danger:
+    "border-[color-mix(in_srgb,var(--erp-text-danger)_20%,transparent)] bg-[color-mix(in_srgb,var(--erp-text-danger)_10%,transparent)]",
+  warning:
+    "border-[color-mix(in_srgb,var(--erp-text-warning)_20%,transparent)] bg-[color-mix(in_srgb,var(--erp-text-warning)_10%,transparent)]",
+} as const satisfies Record<StatusTone, string>;
+
+const TONE_RING_CLASS = {
+  success: "ring-[color-mix(in_srgb,var(--erp-text-success)_20%,transparent)]",
+  info: "ring-[color-mix(in_srgb,var(--erp-text-info)_20%,transparent)]",
+  danger: "ring-[color-mix(in_srgb,var(--erp-text-danger)_20%,transparent)]",
+  warning: "ring-[color-mix(in_srgb,var(--erp-text-warning)_20%,transparent)]",
+} as const satisfies Record<StatusTone, string>;
+
+/** Solid accent — text or fill color taken directly from the tone token. */
+const toneAccentClass = (tone: StatusTone, property: "text" | "bg" = "text"): string =>
+  property === "text" ? TONE_TEXT_CLASS[tone] : TONE_BG_CLASS[tone];
+
+/** Soft tinted surface (border + background) for status cards/rows. */
+const toneSurfaceClass = (tone: StatusTone): string => TONE_SURFACE_CLASS[tone];
+
+/** Soft tinted ring, e.g. around a status dot. */
+const toneRingClass = (tone: StatusTone): string => TONE_RING_CLASS[tone];
+
 export type MobileActionItem = {
   id: string;
   label: string;
@@ -121,12 +180,9 @@ export const MobileDocumentSummary = ({
           key={field.label}
           className={cn(
             "rounded-xl border px-3 py-2.5",
-            field.tone === "warning" &&
-              "border-amber-500/20 bg-amber-500/10",
-            field.tone === "danger" &&
-              "border-red-500/20 bg-red-500/10",
-            field.tone === "info" &&
-              "border-blue-500/20 bg-blue-500/10",
+            field.tone === "warning" && toneSurfaceClass("warning"),
+            field.tone === "danger" && toneSurfaceClass("danger"),
+            field.tone === "info" && toneSurfaceClass("info"),
             (!field.tone || field.tone === "default") &&
               "border-border-subtle bg-background",
           )}
@@ -138,7 +194,9 @@ export const MobileDocumentSummary = ({
         </div>
       ))}
     </div>
-    {totals && <div className="rounded-xl border border-blue-500/20 bg-blue-500/10 p-3">{totals}</div>}
+    {totals && (
+      <div className={cn("rounded-xl border p-3", toneSurfaceClass("info"))}>{totals}</div>
+    )}
     {lines.length > 0 && (
       <section>
         <div className="mb-2 flex items-center justify-between">
@@ -151,12 +209,9 @@ export const MobileDocumentSummary = ({
               key={line.id}
               className={cn(
                 "flex items-center justify-between gap-3 rounded-xl border bg-surface px-3 py-3",
-                line.tone === "warning" &&
-                  "border-amber-500/20 bg-amber-500/10",
-                line.tone === "danger" &&
-                  "border-red-500/20 bg-red-500/10",
-                line.tone === "success" &&
-                  "border-emerald-500/20 bg-emerald-500/10",
+                line.tone === "warning" && toneSurfaceClass("warning"),
+                line.tone === "danger" && toneSurfaceClass("danger"),
+                line.tone === "success" && toneSurfaceClass("success"),
                 (!line.tone || line.tone === "default") && "border-border",
               )}
             >
@@ -325,7 +380,12 @@ export const ScannerCapturePlaceholder = ({
       )}
       {state === "captured" && (
         <div className="flex flex-col items-center gap-2">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-2xl">
+          <div
+            className={cn(
+              "flex h-12 w-12 items-center justify-center rounded-full text-2xl",
+              toneAccentClass("success", "bg"),
+            )}
+          >
             ✓
           </div>
           <p className="text-sm font-medium">{capturedLabel}</p>
@@ -439,11 +499,18 @@ export interface MobileApprovalTimelineProps {
 
 const timelineDotClass = (status: ApprovalStatus): string => {
   if (status === "approved")
-    return "h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-emerald-500/20";
+    return cn(
+      "h-2.5 w-2.5 rounded-full ring-2",
+      toneAccentClass("success", "bg"),
+      toneRingClass("success"),
+    );
   if (status === "pending")
-    return "h-3 w-3 rounded-full bg-blue-500 ring-2 ring-blue-500/20";
-  if (status === "rejected")
-    return "h-2.5 w-2.5 rounded-full bg-red-500";
+    return cn(
+      "h-3 w-3 rounded-full ring-2",
+      toneAccentClass("info", "bg"),
+      toneRingClass("info"),
+    );
+  if (status === "rejected") return cn("h-2.5 w-2.5 rounded-full", toneAccentClass("danger", "bg"));
   return "h-2.5 w-2.5 rounded-full border-2 border-border-strong bg-surface";
 };
 
@@ -452,20 +519,30 @@ const timelineLabelClass = (status: ApprovalStatus): string =>
     ? "text-muted-foreground"
     : "text-foreground";
 
-const timelineStateLabel = (
+const TIMELINE_STATUS_TONE: Partial<Record<ApprovalStatus, StatusTone>> = {
+  approved: "success",
+  pending: "info",
+  rejected: "danger",
+  changes_requested: "warning",
+};
+
+const TIMELINE_STATUS_TEXT: Record<ApprovalStatus, string> = {
+  not_started: "Not started",
+  pending: "In review",
+  approved: "Completed",
+  rejected: "Rejected",
+  changes_requested: "Changes requested",
+  cancelled: "Cancelled",
+};
+
+const timelineStateLabelClass = (
   status: ApprovalStatus,
 ): { text: string; className: string } => {
-  if (status === "approved")
-    return { text: "Completed", className: "text-emerald-500" };
-  if (status === "pending")
-    return { text: "In review", className: "text-blue-500" };
-  if (status === "rejected")
-    return { text: "Rejected", className: "text-red-500" };
-  if (status === "changes_requested")
-    return { text: "Changes requested", className: "text-amber-500" };
-  if (status === "cancelled")
-    return { text: "Cancelled", className: "text-muted-foreground" };
-  return { text: "Not started", className: "text-muted-foreground" };
+  const tone = TIMELINE_STATUS_TONE[status];
+  return {
+    text: TIMELINE_STATUS_TEXT[status],
+    className: tone ? toneAccentClass(tone, "text") : "text-muted-foreground",
+  };
 };
 
 export const MobileApprovalTimeline = ({
@@ -483,7 +560,7 @@ export const MobileApprovalTimeline = ({
     <ol className="space-y-0">
       {steps.map((step, i) => {
         const isLast = i === steps.length - 1;
-        const stateLabel = timelineStateLabel(step.status);
+        const stateLabel = timelineStateLabelClass(step.status);
         return (
           <li key={step.id} className="flex gap-3">
             <div className="flex flex-col items-center">
