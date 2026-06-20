@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 
 import {
   Button,
+  DatePicker,
   GridCellInput,
   SelectField,
   SelectItem,
@@ -180,6 +181,160 @@ describe("dropdown and select item states", () => {
     );
     expect(source).not.toContain("bg-white");
     expect(source).not.toContain("text-white");
+  });
+});
+
+describe("date picker calendar popover states", () => {
+  it("uses the same popover shell treatment as dropdown and select panels", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("rounded-md");
+    expect(source).toContain("border border-border");
+    expect(source).toContain("bg-surface");
+    expect(source).toContain("shadow-popover");
+  });
+
+  it("uses elevated surface tokens for date hover, selected, and selected interaction states", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("hover:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("focus-visible:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("data-[selected=true]:bg-[var(--erp-surface-selected)]");
+    expect(source).toContain("data-[selected=true]:hover:bg-[var(--erp-surface-selected-hover)]");
+    expect(source).toContain("data-[selected=true]:focus-visible:bg-[var(--erp-surface-selected-hover)]");
+  });
+
+  it("keeps today and calendar actions on semantic tokens", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("data-[today=true]:border-[var(--erp-border-selected)]");
+    expect(source).toContain("text-[var(--erp-text-link)]");
+    expect(source).toContain("text-muted-foreground");
+    expect(source).toContain("text-foreground");
+  });
+
+  it("does not hardcode calendar popover colors", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).not.toMatch(/#[0-9a-fA-F]{3,8}/);
+    expect(source).not.toContain("bg-white");
+    expect(source).not.toContain("text-white");
+    expect(source).not.toContain("bg-slate");
+    expect(source).not.toContain("bg-gray");
+    expect(source).not.toContain("border-slate");
+    expect(source).not.toContain("border-gray");
+    expect(source).not.toContain("bg-blue");
+  });
+
+  it("renders an editable visible field plus a hidden normalized form value", () => {
+    const html = renderToStaticMarkup(
+      createElement(DatePicker, { id: "posting-date", defaultValue: "2025-05-15" }),
+    );
+
+    expect(html).toContain('type="text"');
+    expect(html).toContain('value="15/05/2025"');
+    expect(html).toContain('type="hidden"');
+    expect(html).toContain('id="posting-date-value"');
+    expect(html).toContain('value="2025-05-15"');
+    expect(html).toContain('id="posting-date"');
+    expect(html).toContain('aria-label="Open date picker calendar"');
+    expect(html).toContain('aria-haspopup="dialog"');
+  });
+
+  it("renders controlled and uncontrolled hidden form values in YYYY-MM-DD format", () => {
+    const uncontrolledHtml = renderToStaticMarkup(
+      createElement(DatePicker, { id: "uncontrolled-date", name: "uncontrolledDate", defaultValue: "2025-05-15" }),
+    );
+    const controlledHtml = renderToStaticMarkup(
+      createElement(DatePicker, { id: "controlled-date", name: "controlledDate", value: "2025-06-20" }),
+    );
+
+    expect(uncontrolledHtml).toContain('name="uncontrolledDate"');
+    expect(uncontrolledHtml).toContain('value="2025-05-15"');
+    expect(controlledHtml).toContain('name="controlledDate"');
+    expect(controlledHtml).toContain('value="2025-06-20"');
+  });
+
+  it("keeps keyboard and close behavior explicit for the custom calendar popover", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("event.key === \"Escape\"");
+    expect(source).toContain("triggerRef.current?.focus()");
+    expect(source).toContain("findFocusableDayIndex");
+    expect(source).toContain("tabIndex={index === focusableDayIndex ? 0 : -1}");
+    expect(source).toContain("case \"ArrowLeft\"");
+    expect(source).toContain("case \"ArrowRight\"");
+    expect(source).toContain("case \"ArrowUp\"");
+    expect(source).toContain("case \"ArrowDown\"");
+    expect(source).toContain("case \"Home\"");
+    expect(source).toContain("case \"End\"");
+    expect(source).toContain("case \"PageUp\"");
+    expect(source).toContain("case \"PageDown\"");
+    expect(source).toContain("event.shiftKey");
+    expect(source).toContain("openPopover(true)");
+  });
+
+  it("supports typed dates, draft validation, and normalized submit values", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("displayFormat?: DateDisplayFormat");
+    expect(source).toContain("parseTypedDate");
+    expect(source).toContain("\"dd/mm/yyyy\"");
+    expect(source).toContain("\"yyyy-mm-dd\"");
+    expect(source).toContain("inputMode=\"numeric\"");
+    expect(source).toContain("normalizedSubmitValue");
+    expect(source).toContain("draftError || isDraftDirty ? \"\" : selectedValue ?? \"\"");
+    expect(source).toContain("Enter a valid date in");
+    expect(source).toContain("Date is outside the allowed range.");
+  });
+
+  it("provides faster month and year navigation without leaving the token family", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("aria-label=\"Previous year\"");
+    expect(source).toContain("aria-label=\"Previous month\"");
+    expect(source).toContain("aria-label=\"Month\"");
+    expect(source).toContain("aria-label=\"Year\"");
+    expect(source).toContain("aria-label=\"Next month\"");
+    expect(source).toContain("aria-label=\"Next year\"");
+    expect(source).toContain("handleMonthChange");
+    expect(source).toContain("handleYearChange");
+    expect(source).toContain("canMoveToMonth");
+    expect(source).toContain("hover:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("border border-border bg-surface");
+  });
+
+  it("labels the dialog, day cells, action buttons, today, selected, and disabled dates for assistive tech", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("aria-labelledby={headingId}");
+    expect(source).toContain("role=\"grid\"");
+    expect(source).toContain("role=\"columnheader\"");
+    expect(source).toContain("role=\"gridcell\"");
+    expect(source).toContain("aria-label={dayLabel}");
+    expect(source).toContain("isToday ? \"today\"");
+    expect(source).toContain("isSelected ? \"selected\"");
+    expect(source).toContain("isDisabled ? \"unavailable\"");
+    expect(source).toContain("aria-label=\"Clear selected date\"");
+    expect(source).toContain("aria-label=\"Select today\"");
+    expect(source).toContain("aria-label=\"Open date picker calendar\"");
+  });
+
+  it("prevents out-of-range selection and disables Today when it falls outside min/max", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("if (isOutOfRange(date, props.min, props.max)) return;");
+    expect(source).toContain("disabled={todayDisabled}");
+    expect(source).toContain("const todayDisabled = today ? isOutOfRange(today, props.min, props.max) : true;");
+  });
+
+  it("uses fixed viewport positioning so overflow containers do not clip the popover shell", () => {
+    const source = readComponentSource("date-picker.tsx");
+
+    expect(source).toContain("\"fixed z-50");
+    expect(source).toContain("getBoundingClientRect()");
+    expect(source).toContain("window.addEventListener(\"scroll\", onPositionChange, true)");
+    expect(source).toContain("window.addEventListener(\"resize\", onPositionChange)");
   });
 });
 
