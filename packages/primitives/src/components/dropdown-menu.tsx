@@ -41,11 +41,17 @@ export const DropdownMenuItem = forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm",
-      "text-muted-foreground outline-none transition-colors",
+      "text-foreground outline-none transition-colors",
+      "hover:bg-[var(--erp-surface-hover)] hover:text-foreground",
       "focus:bg-[var(--erp-surface-hover)] focus:text-foreground",
-      "data-disabled:pointer-events-none data-disabled:opacity-[var(--erp-disabled-opacity)]",
+      "data-[highlighted]:bg-[var(--erp-surface-hover)] data-[highlighted]:text-foreground",
+      "data-[state=checked]:bg-[var(--erp-surface-selected)] data-[state=checked]:text-foreground",
+      "data-[state=checked]:hover:bg-[var(--erp-surface-selected-hover)]",
+      "data-[state=checked]:focus:bg-[var(--erp-surface-selected-hover)]",
+      "data-[state=checked]:data-[highlighted]:bg-[var(--erp-surface-selected-hover)]",
+      "data-disabled:pointer-events-none data-disabled:text-[var(--erp-text-disabled)] data-disabled:opacity-[var(--erp-disabled-opacity)]",
       destructive &&
-        "text-[var(--erp-text-danger)] focus:bg-[var(--erp-validation-error-bg)] focus:text-[var(--erp-validation-error-text)]",
+        "text-[var(--erp-text-danger)] hover:bg-[var(--erp-validation-error-bg)] hover:text-[var(--erp-validation-error-text)] focus:bg-[var(--erp-validation-error-bg)] focus:text-[var(--erp-validation-error-text)] data-[highlighted]:bg-[var(--erp-validation-error-bg)] data-[highlighted]:text-[var(--erp-validation-error-text)]",
       className,
     )}
     {...props}

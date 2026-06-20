@@ -145,8 +145,15 @@ export const SelectItem = forwardRef<
     className={cn(
       "relative flex w-full cursor-default select-none items-center rounded-sm",
       "py-1.5 pl-8 pr-2 text-sm text-foreground outline-none",
-      "focus:bg-[var(--erp-color-primary-soft)] focus:text-foreground",
-      "data-disabled:pointer-events-none data-disabled:opacity-[var(--erp-disabled-opacity)]",
+      "transition-colors duration-150 ease-out",
+      "hover:bg-[var(--erp-surface-hover)] hover:text-foreground",
+      "focus:bg-[var(--erp-surface-hover)] focus:text-foreground",
+      "data-[highlighted]:bg-[var(--erp-surface-hover)] data-[highlighted]:text-foreground",
+      "data-[state=checked]:bg-[var(--erp-surface-selected)] data-[state=checked]:text-foreground",
+      "data-[state=checked]:hover:bg-[var(--erp-surface-selected-hover)]",
+      "data-[state=checked]:focus:bg-[var(--erp-surface-selected-hover)]",
+      "data-[state=checked]:data-[highlighted]:bg-[var(--erp-surface-selected-hover)]",
+      "data-disabled:pointer-events-none data-disabled:text-[var(--erp-text-disabled)] data-disabled:opacity-[var(--erp-disabled-opacity)]",
       className,
     )}
     {...props}

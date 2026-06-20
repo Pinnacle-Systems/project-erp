@@ -1,4 +1,9 @@
 import { cn } from "@erp-ui-platform/primitives";
+import {
+  Skeleton,
+  SkeletonSubtle,
+  SkeletonCard,
+} from "@erp-ui-platform/primitives";
 
 export type LoadingVariant = "page" | "inline" | "skeleton";
 
@@ -33,18 +38,23 @@ const Spinner = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const SkeletonRow = ({ index }: { index: number }) => (
-  <div className="flex flex-col gap-1.5">
-    <div
-      className="h-3.5 rounded bg-[var(--erp-border-default)] motion-safe:animate-pulse"
-      style={{ width: `${75 - (index % 3) * 12}%` }}
-    />
-    <div
-      className="h-2.5 rounded bg-[var(--erp-surface-hover)] motion-safe:animate-pulse"
-      style={{ width: `${55 - (index % 4) * 8}%` }}
-    />
-  </div>
-);
+// A single skeleton entry: primary shimmer bar + subordinate subtle bar
+const SkeletonRow = ({ index }: { index: number }) => {
+  const primaryWidths = [75, 63, 82, 57, 70];
+  const subtleWidths  = [55, 47, 60, 38, 50];
+  return (
+    <div className="flex flex-col gap-1">
+      <Skeleton
+        className="h-3"
+        style={{ width: `${primaryWidths[index % primaryWidths.length]}%` }}
+      />
+      <SkeletonSubtle
+        className="h-2"
+        style={{ width: `${subtleWidths[index % subtleWidths.length]}%` }}
+      />
+    </div>
+  );
+};
 
 export const LoadingState = ({
   variant = "page",
@@ -68,7 +78,7 @@ export const LoadingState = ({
   if (variant === "skeleton") {
     return (
       <div
-        className={cn("flex flex-col gap-4 p-4", className)}
+        className={cn("flex flex-col gap-3.5 p-4", className)}
         role="status"
         aria-label={label}
       >
@@ -95,3 +105,6 @@ export const LoadingState = ({
 };
 
 LoadingState.displayName = "LoadingState";
+
+// Re-export SkeletonCard for consumers who want the composable block directly
+export { SkeletonCard };

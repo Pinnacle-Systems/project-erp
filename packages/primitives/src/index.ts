@@ -76,3 +76,16 @@ export type { SwitchProps } from "./components/switch";
 
 export { DatePicker } from "./components/date-picker";
 export type { DatePickerProps } from "./components/date-picker";
+
+export {
+  Skeleton,
+  SkeletonSubtle,
+  SkeletonTextRow,
+  SkeletonTableRow,
+  SkeletonCard,
+} from "./components/skeleton";
+export type {
+  SkeletonTextRowProps,
+  SkeletonTableRowProps,
+  SkeletonCardProps,
+} from "./components/skeleton";
