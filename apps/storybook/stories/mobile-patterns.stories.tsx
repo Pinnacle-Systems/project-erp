@@ -315,6 +315,73 @@ export const ReviewTask: Story = {
   ),
 };
 
+// ── tone & status regression coverage ───────────────────────────────────────
+// This story exists specifically to catch two classes of regression:
+//   1. Tailwind-scanner regressions — arbitrary-value tone classes built with
+//      template literals instead of static string literals silently produce
+//      no CSS (a class can look right in source and still render unstyled).
+//   2. Dark-mode tone regressions — a tone resolving to the wrong palette, or
+//      to no color at all, under the "Mode" toolbar's dark setting.
+// It deliberately exercises ApprovalStatus values (rejected, changes_requested)
+// and field/line tone combinations that no other story in this file reaches.
+// Toggle the Storybook "Mode" toolbar to dark when reviewing this story.
+
+const TONE_COVERAGE_STEPS: ApprovalStep[] = [
+  { id: "approved", label: "Approved step", status: "approved", actor: { id: "u1", displayName: "A. Rao" } },
+  { id: "pending", label: "Pending step", status: "pending", actor: { id: "u2", displayName: "B. Chen" } },
+  { id: "rejected", label: "Rejected step", status: "rejected", actor: { id: "u3", displayName: "C. Verma" } },
+  {
+    id: "changes_requested",
+    label: "Changes requested step",
+    status: "changes_requested",
+    actor: { id: "u4", displayName: "D. Nair" },
+  },
+  { id: "not_started", label: "Not started step", status: "not_started", actor: { id: "u5", displayName: "E. Sharma" } },
+  { id: "cancelled", label: "Cancelled step", status: "cancelled", actor: { id: "u6", displayName: "F. Iyer" } },
+];
+
+export const ToneAndStatusCoverage: Story = {
+  render: () => (
+    // bg-background (not the var(--erp-surface-page) used by sibling stories
+    // above) on purpose — --erp-surface-page isn't redefined under `.dark`,
+    // which would wash out the very tint contrast this story exists to check.
+    <div className="mx-auto max-w-sm space-y-4 bg-background p-4">
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+        Regression coverage — timeline statuses · field/line tones · scanner success
+      </p>
+
+      {/* All 6 ApprovalStatus values, including rejected / changes_requested. */}
+      <MobileApprovalTimeline steps={TONE_COVERAGE_STEPS} />
+
+      <MobileDocumentSummary
+        // MobileDocumentField only supports warning / danger / info tones —
+        // no "success" field tone exists, and one is not being added here.
+        fields={[
+          { label: "Default field", value: "—" },
+          { label: "Warning field", value: "Variance", tone: "warning" },
+          { label: "Danger field", value: "Blocked", tone: "danger" },
+          { label: "Info field", value: "Submitted", tone: "info" },
+        ]}
+        // MobileDocumentLine only supports warning / danger / success tones —
+        // no "info" line tone exists, and one is not being added here.
+        lines={[
+          { id: "l1", title: "Default line", meta: "—" },
+          { id: "l2", title: "Warning line", meta: "Variance", tone: "warning" },
+          { id: "l3", title: "Danger line", meta: "Blocked", tone: "danger" },
+          { id: "l4", title: "Success line", meta: "Matched", tone: "success" },
+        ]}
+      />
+
+      {/*
+       * Captured state must render as a solid filled success circle, not a
+       * bare checkmark with no fill — that silent-fill loss was exactly the
+       * regression the Tailwind-scanner bug introduced.
+       */}
+      <ScannerCapturePlaceholder state="captured" capturedLabel="Captured" title="Scan" />
+    </div>
+  ),
+};
+
 export const AllCompositions: Story = {
   render: () => {
     const [scanState, setScanState] = useState<"ready" | "scanning" | "captured" | "error">(

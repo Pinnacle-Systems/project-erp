@@ -1,8 +1,18 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 
-import { Button, GridCellInput, SelectField, SelectItem, TextField } from "./index";
+import {
+  Button,
+  GridCellInput,
+  SelectField,
+  SelectItem,
+  TextField,
+} from "./index";
+
+const readComponentSource = (fileName: string) =>
+  readFileSync(new URL(`./components/${fileName}`, import.meta.url), "utf8");
 
 describe("@erp-ui-platform/primitives sizing", () => {
   it("renders buttons with hug width by default", () => {
@@ -137,6 +147,39 @@ describe("GridCellInput sizing", () => {
 
     expect(html).toContain("hover:bg-surface-muted");
     expect(html).not.toContain("hover:bg-(--erp-color-surface-muted)");
+  });
+});
+
+describe("dropdown and select item states", () => {
+  it("uses elevated surface tokens for select hover and keyboard highlight states", () => {
+    const source = readComponentSource("select-field.tsx");
+
+    expect(source).toContain("hover:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("focus:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("data-[highlighted]:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("data-[state=checked]:bg-[var(--erp-surface-selected)]");
+    expect(source).toContain("data-[state=checked]:hover:bg-[var(--erp-surface-selected-hover)]");
+    expect(source).toContain("data-[state=checked]:focus:bg-[var(--erp-surface-selected-hover)]");
+    expect(source).toContain(
+      "data-[state=checked]:data-[highlighted]:bg-[var(--erp-surface-selected-hover)]",
+    );
+    expect(source).not.toContain("focus:bg-[var(--erp-color-primary-soft)]");
+  });
+
+  it("uses elevated surface tokens for dropdown hover and keyboard highlight states", () => {
+    const source = readComponentSource("dropdown-menu.tsx");
+
+    expect(source).toContain("hover:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("focus:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("data-[highlighted]:bg-[var(--erp-surface-hover)]");
+    expect(source).toContain("data-[state=checked]:bg-[var(--erp-surface-selected)]");
+    expect(source).toContain("data-[state=checked]:hover:bg-[var(--erp-surface-selected-hover)]");
+    expect(source).toContain("data-[state=checked]:focus:bg-[var(--erp-surface-selected-hover)]");
+    expect(source).toContain(
+      "data-[state=checked]:data-[highlighted]:bg-[var(--erp-surface-selected-hover)]",
+    );
+    expect(source).not.toContain("bg-white");
+    expect(source).not.toContain("text-white");
   });
 });
 
