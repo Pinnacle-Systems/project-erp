@@ -7,10 +7,13 @@
 }
 
 .erp-storybook-shell {
-  min-height: 100vh;
   padding: var(--erp-page-padding, 24px);
   background-color: var(--erp-color-background);
   color: var(--erp-color-foreground);
+}
+
+.erp-storybook-fullscreen {
+  min-height: 100vh;
 }
 
 .erp-demo-panel {

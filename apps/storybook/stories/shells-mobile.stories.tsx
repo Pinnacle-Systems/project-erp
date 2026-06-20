@@ -52,23 +52,57 @@ type Story = StoryObj;
 // Gives each story an explicit phone-sized container so the layout reads as
 // a mobile companion screen rather than a desktop canvas.
 
+const DEVICES = [
+  { id: "iphone-13-mini", name: "iPhone 13 mini", width: 375, height: 812 },
+  { id: "iphone-14", name: "iPhone 14", width: 390, height: 844 },
+  { id: "iphone-14-pro-max", name: "iPhone 14 Pro Max", width: 430, height: 932 },
+  { id: "pixel-7", name: "Pixel 7", width: 412, height: 915 },
+];
+
 const MobileFrame = ({
   children,
-  className = "",
+  className,
+  style,
 }: {
   children: React.ReactNode;
   className?: string;
-}) => (
-  <div className="flex justify-center py-6 bg-background min-h-screen">
-    <div
-      className={[
-        "relative bg-surface rounded-3xl overflow-hidden border border-border-strong",
-        "shadow-xl flex flex-col",
-        className,
-      ].join(" ")}
-      style={{ width: 390, minHeight: 780, maxHeight: 844 }}
-    >
-      {/* Status bar strip */}
+  style?: React.CSSProperties;
+}) => {
+  const [activeDevice, setActiveDevice] = useState(DEVICES[0]);
+
+  return (
+    <div className="flex flex-col items-center py-6 bg-background">
+      {/* Device Toolbar */}
+      <div className="flex items-center gap-1 mb-6 bg-surface px-2 py-1.5 rounded-full border border-border text-xs shadow-sm">
+        <span className="text-muted-foreground font-semibold uppercase tracking-wider mx-2">Device</span>
+        {DEVICES.map(device => (
+          <button
+            key={device.id}
+            onClick={() => setActiveDevice(device)}
+            className={`px-3 py-1.5 rounded-full transition-colors font-medium ${
+              activeDevice.id === device.id 
+                ? "bg-foreground text-background" 
+                : "text-muted-foreground hover:bg-surface-muted hover:text-foreground"
+            }`}
+          >
+            {device.name}
+          </button>
+        ))}
+        <div className="w-px h-4 bg-border mx-2" />
+        <span className="text-muted-foreground font-mono mr-2">
+          {activeDevice.width} × {activeDevice.height}
+        </span>
+      </div>
+
+      <div
+        className={[
+          "relative bg-surface rounded-3xl overflow-hidden border border-border-strong",
+          "shadow-xl flex flex-col transition-all duration-300 ease-in-out shrink-0",
+          className,
+        ].join(" ")}
+        style={{ width: activeDevice.width, height: activeDevice.height, ...style }}
+      >
+        {/* Status bar strip */}
       <div className="bg-foreground flex items-center justify-between px-6 py-2 shrink-0">
         <span className="text-white text-xs font-medium">9:41</span>
         <div className="flex items-center gap-1.5">
@@ -97,7 +131,8 @@ const MobileFrame = ({
       </div>
     </div>
   </div>
-);
+  );
+};
 
 // ── Mobile nav bar ────────────────────────────────────────────────────────────
 
@@ -129,7 +164,7 @@ const MobileNavBar = ({
 // ── Fixed bottom action bar ───────────────────────────────────────────────────
 
 const BottomBar = ({ children }: { children: React.ReactNode }) => (
-  <div className="border-t border-border bg-surface px-4 pt-3 pb-4 flex gap-2 shrink-0">
+  <div className="border-t border-border bg-surface px-4 pt-3 pb-4 flex gap-2 shrink-0 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
     {children}
   </div>
 );
@@ -586,7 +621,7 @@ export const MobileBottomActionBar: Story = {
 
     return (
       <TooltipProvider>
-        <div className="flex flex-col gap-6 max-w-sm mx-auto py-6">
+        <div className="flex flex-col gap-6 w-fit mx-auto py-6">
 
           {/* Phone preview */}
           <MobileFrame>
