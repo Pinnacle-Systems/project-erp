@@ -69,7 +69,9 @@ const preview: Preview = {
           theme: context.globals.clientTheme as ThemeName,
           density: context.globals.density as Density,
           colorMode: context.globals.colorMode as ColorMode,
-          className: "erp-storybook-shell bg-background text-foreground",
+          className: `erp-storybook-shell bg-background text-foreground ${
+            context.parameters.layout === "fullscreen" ? "erp-storybook-fullscreen" : ""
+          }`.trim(),
         },
         createElement(Story),
       );

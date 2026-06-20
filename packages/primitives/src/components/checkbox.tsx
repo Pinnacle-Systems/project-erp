@@ -62,14 +62,14 @@ export const Checkbox = forwardRef<React.ElementRef<typeof CheckboxPrimitive.Roo
     return (
       <div className="flex flex-col gap-1.5">
         <div className="flex items-start gap-2">
-          <div className="flex items-center h-5 pt-[0.125rem]">
+          <div className="mt-[0.125rem]">
             {checkbox}
           </div>
-          <div className="grid gap-1 leading-none">
+          <div className="grid gap-1.5">
             {label && (
               <label
                 htmlFor={id}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                className="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
               >
                 {label}
                 {required && <span className="ml-1 text-danger" aria-hidden="true">*</span>}
